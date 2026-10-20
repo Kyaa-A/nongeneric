@@ -6,6 +6,8 @@ User-facing changes are recorded here. See [GitHub history](https://github.com/K
 
 ### Added
 
+- Project banner for the README.
+
 - UX workflow covering tasks, flows, interaction states, and recovery.
 - Browser verification protocol with explicit evidence and unverified dimensions.
 - Audit regression tests for empty pages, empty scans, and JSON CLI behavior.

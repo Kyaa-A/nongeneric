@@ -1,3 +1,5 @@
+![NonGeneric — Design with intent. Move with purpose. Editorial typography and interface cards unfolding into expressive geometric forms.](docs/assets/nongeneric-banner.png)
+
 # NonGeneric (`nongeneric`)
 
 **The Anti-Generic AI Art Director, UI/UX Architect & GreenSock (GSAP) Motion Choreographer.**
