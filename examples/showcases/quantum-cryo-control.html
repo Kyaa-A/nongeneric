@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryogenic Qubit Dilution & Pulse Sequencer World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-ground-primary: oklch(0.15 0.02 240);
+      --color-ground-elevated: oklch(0.20 0.02 240);
+      --color-ink-primary: oklch(0.95 0.02 240);
+      --color-ink-secondary: oklch(0.70 0.02 240);
+      --color-accent-cyan: oklch(0.85 0.15 190);
+      --color-accent-magenta: oklch(0.70 0.20 330);
+      --color-border-hairline: oklch(0.30 0.02 240);
+
+      --font-display: "Chakra Petch", sans-serif;
+      --font-body: "Work Sans", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--color-ground-primary);
+      color: var(--color-ink-primary);
+      font-family: var(--font-body);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1rem, 5vw, 4rem);
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      margin: 0 0 1rem;
+      color: var(--color-ink-primary);
+    }
+
+    .telemetry-deck {
+      width: min(100%, 1200px);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 1rem;
+      position: relative;
+    }
+
+    .telemetry-card {
+      background-color: var(--color-ground-elevated);
+      border: 1px solid var(--color-border-hairline);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .telemetry-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background-color: var(--color-accent-cyan);
+    }
+
+    .telemetry-card:nth-child(even)::before {
+      background-color: var(--color-accent-magenta);
+    }
+
+    .telemetry-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    .card-label {
+      font-size: clamp(0.75rem, 2vw, 0.875rem);
+      color: var(--color-ink-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-value {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .card-unit {
+      font-family: var(--font-mono);
+      font-size: clamp(0.875rem, 2vw, 1.25rem);
+      color: var(--color-ink-secondary);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      font-family: var(--font-mono);
+      min-height: 44px;
+      min-width: 44px;
+      background-color: transparent;
+      border: 1px solid var(--color-border-hairline);
+      color: var(--color-ink-primary);
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background-color: var(--color-ground-elevated);
+    }
+
+    .cryo-element {
+       opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cryo-element {
+        opacity: 1;
+      }
+    }
+
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+  <div class="telemetry-deck">
+    <div class="telemetry-card cryo-element">
+      <div class="telemetry-card-inner">
+        <div class="card-label">Dilution Temp</div>
+        <div class="card-value">15.4 <span class="card-unit">mK</span></div>
+      </div>
+    </div>
+    <div class="telemetry-card cryo-element">
+      <div class="telemetry-card-inner">
+        <div class="card-label">Pulse Fidelity</div>
+        <div class="card-value">99.9 <span class="card-unit">%</span></div>
+      </div>
+    </div>
+    <div class="telemetry-card cryo-element">
+      <div class="telemetry-card-inner">
+        <div class="card-label">Coherence Time</div>
+        <div class="card-value">120 <span class="card-unit">µs</span></div>
+        <button type="button">Calibrate</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    gsap.registerPlugin();
+    let ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.to(".cryo-element", {
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power2.out"
+        });
+      });
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(".cryo-element", { opacity: 1 });
+      });
+    }, document.body);
+  </script>
+</body>
+</html>
