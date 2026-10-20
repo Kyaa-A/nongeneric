@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP quickTo 60fps Specular Surface Spotlight & Reticle</title>
+    <style>
+        :root {
+            --bg-color: oklch(0.15 0 0);
+            --surface-color: oklch(0.20 0 0);
+            --accent-color: oklch(0.85 0.15 120);
+            --text-color: oklch(0.95 0 0);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Atkinson Hyperlegible', sans-serif;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .spotlight-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            min-height: 600px;
+            background-color: var(--surface-color);
+            border: 1px solid oklch(0.3 0 0);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: none; /* Hide default cursor to show reticle */
+        }
+
+        .content {
+            z-index: 20;
+            text-align: center;
+            pointer-events: none; /* Let pointer events pass through to container */
+        }
+
+        h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        p {
+            font-size: 1.125rem;
+            max-width: 60ch;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .data-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            background-color: oklch(0.1 0 0);
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid oklch(0.25 0 0);
+            display: inline-block;
+        }
+
+        button {
+            pointer-events: auto; /* Re-enable pointer events for interactive elements */
+            cursor: pointer;
+            background-color: var(--accent-color);
+            color: oklch(0.1 0 0);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+            min-height: 44px; /* >=44px tap target */
+            min-width: 44px;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: oklch(0.9 0.15 120);
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--text-color);
+            outline-offset: 2px;
+        }
+
+        /* Spotlight and Reticle Styles */
+        .cursor-spotlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: clamp(200px, 40vw, 400px);
+            height: clamp(200px, 40vw, 400px);
+            border-radius: 50%;
+            background: radial-gradient(circle, oklch(1 0 0 / 0.08) 0%, oklch(1 0 0 / 0) 70%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+            will-change: transform;
+        }
+
+        .cursor-reticle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border: 1.5px solid var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 11;
+            will-change: transform;
+        }
+
+        .cursor-reticle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        /* Layout Grid */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+
+        .grid-item {
+            background-color: oklch(0.18 0 0);
+            border: 1px solid oklch(0.25 0 0);
+            padding: 1.5rem;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .grid-item h3 {
+             font-family: 'Rajdhani', sans-serif;
+             margin-top: 0;
+             margin-bottom: 0.5rem;
+        }
+
+        .grid-item p {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cursor-spotlight, .cursor-reticle {
+                display: none !important;
+            }
+            .spotlight-container {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spotlight-container" id="spotlightContainer">
+        <div class="cursor-spotlight" aria-hidden="true"></div>
+        <div class="cursor-reticle" aria-hidden="true"></div>
+
+        <div class="content">
+            <h1>Telemetry Surface</h1>
+            <p>Move your pointer to observe the 60fps specular highlight and precision tracking reticle. Built with GSAP quickTo() for zero-latency DOM updates.</p>
+
+            <div class="data-display tabular-nums">
+                STATUS: <span style="color: var(--accent-color);">ACTIVE</span>
+            </div>
+
+            <div class="grid-layout">
+                <div class="grid-item">
+                    <h3>Sector Alpha</h3>
+                    <p>Nominal operation parameters confirmed.</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Sector Beta</h3>
+                    <p>Awaiting manual override authorization.</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Sector Gamma</h3>
+                    <p>Sensors engaged. Calibrating.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <button type="button">Initialize Sequence</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const containerElement = document.getElementById('spotlightContainer');
+            const mm = gsap.matchMedia();
+
+            if (containerElement) {
+                mm.add("(prefers-reduced-motion: no-preference)", () => {
+                    const reticle = containerElement.querySelector('.cursor-reticle');
+                    const spotlight = containerElement.querySelector('.cursor-spotlight');
+
+                    if (!reticle || !spotlight) return;
+
+                    // Set initial states
+                    gsap.set(reticle, { xPercent: -50, yPercent: -50 });
+                    gsap.set(spotlight, { xPercent: -50, yPercent: -50 });
+
+                    // Create quickTo instances for 60fps raw pointer tracking
+                    const xReticle = gsap.quickTo(reticle, "x", { duration: 0.1, ease: "power3" });
+                    const yReticle = gsap.quickTo(reticle, "y", { duration: 0.1, ease: "power3" });
+
+                    const xSpotlight = gsap.quickTo(spotlight, "x", { duration: 0.4, ease: "power3" });
+                    const ySpotlight = gsap.quickTo(spotlight, "y", { duration: 0.4, ease: "power3" });
+
+                    const onPointerMove = (e) => {
+                        const rect = containerElement.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        xReticle(x);
+                        yReticle(y);
+                        xSpotlight(x);
+                        ySpotlight(y);
+                    };
+
+                    const onPointerEnter = () => {
+                        gsap.to([reticle, spotlight], { opacity: 1, duration: 0.3 });
+                    };
+
+                    const onPointerLeave = () => {
+                        gsap.to([reticle, spotlight], { opacity: 0, duration: 0.3 });
+                    };
+
+                    containerElement.addEventListener('pointermove', onPointerMove);
+                    containerElement.addEventListener('pointerenter', onPointerEnter);
+                    containerElement.addEventListener('pointerleave', onPointerLeave);
+
+                    return () => {
+                        containerElement.removeEventListener('pointermove', onPointerMove);
+                        containerElement.removeEventListener('pointerenter', onPointerEnter);
+                        containerElement.removeEventListener('pointerleave', onPointerLeave);
+                    };
+                });
+            }
+        });
+    </script>
+</body>
+</html>
