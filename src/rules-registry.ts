@@ -745,7 +745,7 @@ export const ANTIPATTERN_RULES: readonly AntipatternRule[] = [
     category: 'security',
     severity: 'error',
     scopes: ['security', 'quality'],
-    description: 'Using innerHTML, outerHTML, document.write(), or eval() introduces Cross-Site Scripting (XSS) vulnerabilities.',
+    description: 'Using innerHTML, outerHTML, document.write, or dynamic eval introduces Cross-Site Scripting (XSS) vulnerabilities.',
     fix: 'Use document.createElement(), textContent, setAttribute(), and replaceChildren() for all DOM construction.',
   },
 ] as const;
