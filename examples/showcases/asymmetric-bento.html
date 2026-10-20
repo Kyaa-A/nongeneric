@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asymmetric 7:5 Bento & Specimen Stage</title>
+  <style>
+    :root {
+      --bg-color: oklch(0.97 0.01 90);
+      --surface-color: oklch(0.99 0.005 90);
+      --border-color: oklch(0.85 0.02 90);
+      --text-color: oklch(0.15 0.02 250);
+      --accent-color: oklch(0.5 0.15 250);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Work Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 2rem;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      margin-top: 0;
+      font-weight: 500;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .bento-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      min-width: 0;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .bento-cell {
+      background-color: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 2rem;
+    }
+
+    .bento-span-7 { grid-column: span 7; }
+    .bento-span-5 { grid-column: span 5; }
+    .bento-span-12 { grid-column: span 12; }
+
+    .interactive-element {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 1.5rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      text-decoration: none;
+      cursor: pointer;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .interactive-element:hover {
+      opacity: 0.9;
+    }
+
+    .tabular-data {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 768px) {
+      .bento-span-7, .bento-span-5 {
+        grid-column: span 12;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bento-cell {
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bento-container">
+    <div class="bento-grid">
+      <div class="bento-cell bento-span-12">
+        <h1>Asymmetric 7:5 Bento Stage</h1>
+        <p>A specimen exploring proportional asymmetry and distinct typography.</p>
+      </div>
+      <div class="bento-cell bento-span-7">
+        <h2>Primary Specimen</h2>
+        <p>This cell occupies 7 columns of the 12-column grid, establishing dominance in the visual hierarchy.</p>
+        <button class="interactive-element">Action Button</button>
+      </div>
+      <div class="bento-cell bento-span-5">
+        <h2>Secondary Data</h2>
+        <p>Occupying 5 columns, providing supportive context.</p>
+        <p class="tabular-data">Metrics: 01234.56</p>
+        <button class="interactive-element">Interactive Element</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
