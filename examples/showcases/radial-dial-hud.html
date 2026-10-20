@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactile Radial Encoder & Precision Dial HUD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: oklch(0.15 0.02 250);
+            --surface: oklch(0.20 0.02 250);
+            --primary: oklch(0.70 0.15 250);
+            --text: oklch(0.95 0.02 250);
+            --muted: oklch(0.60 0.02 250);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Atkinson Hyperlegible', sans-serif;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radial-dial-hud {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .radial-dial {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            margin-bottom: 2rem;
+            min-width: 44px;
+            min-height: 44px;
+            touch-action: none;
+        }
+
+        .dial-indicator {
+            width: 8px;
+            height: 32px;
+            background-color: var(--primary);
+            position: absolute;
+            top: 0;
+            border-radius: 4px;
+            transform-origin: bottom center;
+        }
+
+        .dial-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.25rem;
+            color: var(--text);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .hud-button {
+            background-color: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--muted);
+            border-radius: 8px;
+            min-height: 44px;
+            min-width: 88px;
+            padding: 0 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .radial-dial {
+                cursor: default;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="radial-dial-hud" id="hud-container">
+        <div class="radial-dial" id="dial" aria-label="Rotatable dial" role="slider" aria-valuemin="0" aria-valuemax="360" tabindex="0">
+            <div class="dial-indicator"></div>
+        </div>
+        <div class="dial-value" id="value-display" aria-live="polite">000</div>
+
+        <div class="button-group">
+            <button class="hud-button" type="button">RESET</button>
+            <button class="hud-button" type="button">CONFIRM</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+    <script>
+        gsap.registerPlugin(Draggable);
+
+        const dial = document.getElementById('dial');
+        const valueDisplay = document.getElementById('value-display');
+
+        let rotationProxy = { rotation: 0 };
+
+        const updateValue = () => {
+            const normalized = Math.round(((rotationProxy.rotation % 360) + 360) % 360);
+            valueDisplay.textContent = String(normalized).padStart(3, '0');
+            dial.setAttribute('aria-valuenow', normalized);
+        };
+
+        const mm = gsap.matchMedia();
+
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            Draggable.create(dial, {
+                type: "rotation",
+                bounds: { minRotation: 0, maxRotation: 360 },
+                inertia: true,
+                onUpdate: function() {
+                    rotationProxy.rotation = this.rotation;
+                    updateValue();
+                }
+            });
+
+            return () => {
+                const dragInst = Draggable.get(dial);
+                if (dragInst) dragInst.kill();
+            };
+        });
+
+        mm.add("(prefers-reduced-motion: reduce)", () => {
+            // Accessible fallback logic without animation
+            return () => {};
+        });
+    </script>
+</body>
+</html>
