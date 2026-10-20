@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acoustic Impulse & Harmonics Lab World Showcase</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=JetBrains+Mono&family=Work+Sans:wght@400;600&display=swap');
+
+    :root {
+      --ng-ground-primary: oklch(0.12 0.01 250);
+      --ng-ground-elevated: oklch(0.18 0.01 250);
+      --ng-ink-primary: oklch(0.98 0 0);
+      --ng-ink-muted: oklch(0.65 0 0);
+      --ng-accent-primary: oklch(0.6 0.2 25);
+      --ng-border-hairline: oklch(0.25 0.01 250);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-ground-primary);
+      color: var(--ng-ink-primary);
+      font-family: 'Work Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 24px;
+      border-bottom: 1px solid var(--ng-border-hairline);
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .main-content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 24px;
+    }
+
+    .panel {
+      background-color: var(--ng-ground-elevated);
+      border: 1px solid var(--ng-border-hairline);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .telemetry {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ng-accent-primary);
+      font-variant-numeric: tabular-nums;
+      margin-top: auto;
+      font-size: 1.25rem;
+    }
+
+    .action-button {
+      background-color: transparent;
+      color: var(--ng-ink-primary);
+      border: 1px solid var(--ng-border-hairline);
+      padding: 0 16px;
+      height: 44px;
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .action-button:hover, .action-button:focus-visible {
+      border-color: var(--ng-accent-primary);
+      color: var(--ng-accent-primary);
+      outline: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Acoustic Impulse Chamber</h1>
+  </header>
+
+  <main class="main-content">
+    <section class="panel">
+      <h2>Frequency Analyzer</h2>
+      <p style="color: var(--ng-ink-muted)">Monitor real-time spectral decay.</p>
+      <div class="telemetry tabular-nums">44.1 kHz</div>
+      <button class="action-button">Calibrate System</button>
+    </section>
+
+    <section class="panel">
+      <h2>Harmonics</h2>
+      <p style="color: var(--ng-ink-muted)">Observe fundamental waveforms and their corresponding overtones.</p>
+      <div class="telemetry tabular-nums">1.02% THD</div>
+      <button class="action-button">Reset Baseline</button>
+    </section>
+  </main>
+</body>
+</html>
