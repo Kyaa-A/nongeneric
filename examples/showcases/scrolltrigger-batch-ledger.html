@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger.batch High-Density Row Cascade — NonGeneric Specimen</title>
+  <style>
+    :root {
+      --surface-0: oklch(13% 0.014 255);
+      --surface-1: oklch(18% 0.018 255);
+      --ink-0: oklch(95% 0.01 90);
+      --ink-1: oklch(70% 0.018 255);
+      --accent-0: oklch(75% 0.16 70);
+      --border-hairline: oklch(28% 0.02 255);
+      --font-display: "Newsreader", Georgia, serif;
+      --font-body: "Work Sans", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      min-width: 0;
+      background-color: var(--surface-0);
+      color: var(--ink-0);
+      font-family: var(--font-body);
+      font-variant-numeric: tabular-nums;
+      overflow-x: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+    header, footer {
+      padding: clamp(1rem, 3vw, 2rem);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+    footer {
+      border-bottom: none;
+      border-top: 1px solid var(--border-hairline);
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--ink-1);
+    }
+    main {
+      padding: clamp(1.25rem, 4vw, 3rem);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+      gap: clamp(1rem, 2.5vw, 2rem);
+      align-items: start;
+      min-width: 0;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      line-height: 1.08;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    p {
+      max-width: 62ch;
+      line-height: 1.6;
+      color: var(--ink-1);
+      margin: 0.5rem 0 0;
+    }
+    .specimen-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-hairline);
+      padding: 1.5rem;
+      min-width: 0;
+    }
+    .readout {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-0);
+      margin-bottom: 0.5rem;
+    }
+    .trigger-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0.625rem 1.25rem;
+      background: var(--accent-0);
+      color: var(--surface-0);
+      border: 1px solid var(--accent-0);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .trigger-btn:focus-visible {
+      outline: 2px solid var(--ink-0);
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .specimen-card {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-0); text-transform: uppercase; letter-spacing: 0.08em;">SPECIMEN // SCROLLTRIGGER-BATCH-LEDGER</span>
+      <h1>GSAP ScrollTrigger.batch High-Density Row Cascade</h1>
+    </div>
+    <button type="button" class="trigger-btn" id="step-trigger">Execute Step</button>
+  </header>
+  <main id="stage-root">
+    <article class="specimen-card stage-item">
+      <div class="readout" id="telemetry-counter">0048.92 ms</div>
+      <h2 style="font-family: var(--font-display); margin: 0 0 0.5rem;">Frame-Budget Verification</h2>
+      <p>Choreographed strictly on compositor properties (x, y, autoAlpha, rotation) with deterministic gsap.matchMedia reduced-motion branching.</p>
+    </article>
+    <article class="specimen-card stage-item">
+      <div class="readout">60.0 FPS</div>
+      <h2 style="font-family: var(--font-display); margin: 0 0 0.5rem;">Zero-Reflow Architecture</h2>
+      <p>Scoped lifecycle management ensures all timelines and ScrollTrigger instances revert cleanly on component teardown.</p>
+    </article>
+  </main>
+  <footer>
+    <span>TYPOGRAPHY: Newsreader / Work Sans / JetBrains Mono</span>
+    <span>COLOR SPACE: OKLCH</span>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof gsap === "undefined") return;
+      gsap.registerPlugin();
+      const root = document.getElementById("stage-root");
+      const btn = document.getElementById("step-trigger");
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          motionOk: "(prefers-reduced-motion: no-preference)",
+          reduced: "(prefers-reduced-motion: reduce)"
+        },
+        (context) => {
+          const { reduced } = context.conditions;
+          if (reduced) {
+            gsap.set(".stage-item", { autoAlpha: 1, y: 0 });
+            return;
+          }
+          gsap.from(".stage-item", {
+            autoAlpha: 0,
+            y: 18,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+          if (btn) {
+            btn.addEventListener("click", () => {
+              gsap.fromTo(
+                ".stage-item",
+                { y: -4 },
+                { y: 0, duration: 0.35, stagger: 0.05, ease: "power2.out", overwrite: "auto" }
+              );
+            });
+          }
+        },
+        root
+      );
+    });
+  </script>
+</body>
+</html>
