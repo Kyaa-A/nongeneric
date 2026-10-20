@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Flip Multi-Faceted Taxonomic Filter</title>
+  <style>
+    :root {
+      --bg: oklch(0.98 0.01 90);
+      --surface: oklch(0.95 0.02 90);
+      --text: oklch(0.2 0.05 270);
+      --accent: oklch(0.6 0.15 270);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Work Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .filter-container {
+      width: 100%;
+      max-width: 1200px;
+      min-width: 0;
+    }
+
+    .filter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--text);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+
+    .filter-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 2rem;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .filter-item {
+      background: var(--surface);
+      border: 1px solid var(--text);
+      padding: 2rem;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .filter-item:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .item-id {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .item-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+</head>
+<body>
+  <h1>Taxonomic Filter</h1>
+  <div class="filter-container" id="app">
+    <div class="filter-controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="alpha">Alpha</button>
+      <button class="filter-btn" data-filter="beta">Beta</button>
+      <button class="filter-btn" data-filter="gamma">Gamma</button>
+    </div>
+    <div class="items-grid">
+      <!-- Items will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(Flip);
+
+    const itemsData = [
+      { id: '001', tags: ['alpha', 'gamma'] },
+      { id: '002', tags: ['beta'] },
+      { id: '003', tags: ['alpha'] },
+      { id: '004', tags: ['beta', 'gamma'] },
+      { id: '005', tags: ['alpha', 'beta'] },
+      { id: '006', tags: ['gamma'] }
+    ];
+
+    const container = document.getElementById('app');
+    const grid = container.querySelector('.items-grid');
+    const buttons = container.querySelectorAll('.filter-btn');
+
+    let visibleItems = itemsData;
+
+    const itemNodes = new Map();
+
+    function createItemNode(item) {
+        const div = document.createElement('div');
+        div.className = 'filter-item';
+        div.tabIndex = 0;
+        div.dataset.id = item.id;
+        div.dataset.flipId = \`item-\${item.id}\`;
+
+        const idSpan = document.createElement('span');
+        idSpan.className = 'item-id';
+        idSpan.textContent = \`Item \${item.id}\`;
+
+        const tagsDiv = document.createElement('div');
+        tagsDiv.className = 'item-tags';
+        item.tags.forEach(t => {
+            const tSpan = document.createElement('span');
+            tSpan.className = 'tag';
+            tSpan.textContent = t;
+            tagsDiv.appendChild(tSpan);
+        });
+
+        div.appendChild(idSpan);
+        div.appendChild(tagsDiv);
+        return div;
+    }
+
+    itemsData.forEach(item => {
+        itemNodes.set(item.id, createItemNode(item));
+    });
+
+    function renderItems() {
+      grid.replaceChildren();
+      visibleItems.forEach(item => {
+        grid.appendChild(itemNodes.get(item.id));
+      });
+    }
+
+    function filterItems(tag) {
+      const state = Flip.getState('.filter-item');
+
+      visibleItems = tag === 'all' ? itemsData : itemsData.filter(i => i.tags.includes(tag));
+
+      buttons.forEach(b => {
+        if(b.dataset.filter === tag) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+
+      renderItems();
+
+      if (window._flipMm) window._flipMm.revert();
+      window._flipMm = gsap.matchMedia();
+      window._flipMm.add("(prefers-reduced-motion: no-preference)", () => {
+          Flip.from(state, {
+              targets: ".filter-item",
+              duration: 0.6,
+              ease: "power2.out",
+              absolute: true,
+              stagger: 0.05,
+              onEnter: elements => gsap.fromTo(elements, {opacity: 0, scale: 0.9}, {opacity: 1, scale: 1, duration: 0.6, ease: "power2.out"}),
+              onLeave: elements => gsap.to(elements, {opacity: 0, scale: 0.9, duration: 0.4}),
+              onComplete: () => {
+                   const firstItem = container.querySelector('.filter-item');
+                   if(firstItem) firstItem.focus();
+              }
+          });
+      });
+    }
+
+    window._flipMm = gsap.matchMedia();
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => filterItems(btn.dataset.filter));
+    });
+
+    renderItems();
+  </script>
+</body>
+</html>
