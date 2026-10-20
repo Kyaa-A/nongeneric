@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Acuity Clinical Biometrics & Diagnostic World</title>
+  <style>
+    :root {
+      --ng-bg: oklch(0.12 0.01 250);
+      --ng-surface: oklch(0.18 0.02 250);
+      --ng-text-primary: oklch(0.95 0.01 250);
+      --ng-text-secondary: oklch(0.70 0.02 250);
+      --ng-accent-vitals: oklch(0.65 0.20 25);
+      --ng-accent-telemetry: oklch(0.75 0.15 180);
+      --ng-accent-alert: oklch(0.55 0.22 30);
+      --ng-font-display: "Atkinson Hyperlegible", sans-serif;
+      --ng-font-body: "Work Sans", sans-serif;
+      --ng-font-mono: "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-bg);
+      color: var(--ng-text-primary);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(min(100%, 300px), 1fr);
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: 100dvh;
+    }
+
+    .telemetry-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      min-width: 0;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0 0 1rem 0;
+      color: var(--ng-text-primary);
+    }
+
+    .patient-vitals {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+      gap: 1rem;
+    }
+
+    .vital-card {
+      background-color: var(--ng-surface);
+      padding: 1.5rem;
+      border-radius: 0;
+      border-left: 4px solid var(--ng-accent-telemetry);
+    }
+
+    .vital-card.alert {
+      border-left-color: var(--ng-accent-alert);
+    }
+
+    .vital-label {
+      font-size: 0.875rem;
+      color: var(--ng-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .vital-value {
+      font-family: var(--ng-font-mono);
+      font-size: 2.5rem;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .vital-unit {
+      font-size: 1rem;
+      color: var(--ng-text-secondary);
+      margin-left: 0.25rem;
+    }
+
+    .action-panel {
+      background-color: var(--ng-surface);
+      padding: 2rem;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 1.5rem;
+      background-color: var(--ng-accent-vitals);
+      color: #fff;
+      font-family: var(--ng-font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <main class="telemetry-dashboard">
+      <h1>Patient Telemetry</h1>
+      <div class="patient-vitals">
+        <div class="vital-card">
+          <div class="vital-label">Heart Rate</div>
+          <div class="vital-value">72<span class="vital-unit">bpm</span></div>
+        </div>
+        <div class="vital-card alert">
+          <div class="vital-label">SpO2</div>
+          <div class="vital-value">92<span class="vital-unit">%</span></div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">Respiration</div>
+          <div class="vital-value">16<span class="vital-unit">/min</span></div>
+        </div>
+      </div>
+    </main>
+    <aside class="action-panel">
+      <div class="vital-label">Patient ID: HX-4921</div>
+      <p style="margin: 0; color: var(--ng-text-secondary);">Acuity level requires frequent monitoring.</p>
+      <button class="btn" type="button">Review History</button>
+    </aside>
+  </div>
+</body>
+</html>
