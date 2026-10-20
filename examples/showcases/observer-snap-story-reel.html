@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observer Snap Story Reel</title>
+  <style>
+    :root {
+      --bg: oklch(0.12 0.01 250);
+      --surface: oklch(0.18 0.02 250);
+      --text: oklch(0.95 0.01 250);
+      --accent: oklch(0.7 0.1 250);
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Source Serif 4', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .story-reel-container {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      min-height: 100dvh;
+    }
+
+    .chapter-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background-color: var(--surface);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .chapter-panel h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      margin: 0 0 1rem 0;
+    }
+
+    .chapter-panel p {
+      font-size: 1.25rem;
+      max-width: 60ch;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .nav-btn {
+      margin-top: 2rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.5rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      cursor: pointer;
+      min-height: 44px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .story-reel-container {
+        overflow-y: auto;
+      }
+      .chapter-panel {
+        position: relative;
+        border-bottom: none;
+        margin-bottom: 2rem;
+        min-height: 100dvh;
+      }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+</head>
+<body>
+  <div class="story-reel-container" id="reel">
+    <section class="chapter-panel">
+      <h1>Chapter One</h1>
+      <p>The beginning of the velocity-clamped journey.</p>
+      <button class="nav-btn" data-dir="1">Next Chapter</button>
+    </section>
+    <section class="chapter-panel" style="transform: translateY(100%);">
+      <h1>Chapter Two</h1>
+      <p>Observing the forces at play.</p>
+      <button class="nav-btn" data-dir="-1">Prev</button>
+      <button class="nav-btn" data-dir="1">Next</button>
+    </section>
+    <section class="chapter-panel" style="transform: translateY(100%);">
+      <h1>Chapter Three</h1>
+      <p>Resolution through absolute positioning.</p>
+      <button class="nav-btn" data-dir="-1">Prev</button>
+    </section>
+  </div>
+
+  <script>
+    gsap.registerPlugin(Observer);
+
+    const container = document.getElementById('reel');
+    const sections = gsap.utils.toArray('.chapter-panel', container);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        gsap.set(sections, {
+            position: 'absolute',
+            yPercent: i => i === 0 ? 0 : 100,
+            y: 0,
+            transform: 'none'
+        });
+
+        const gotoSection = (index, direction) => {
+            if (isAnimating || index < 0 || index >= sections.length) return;
+            isAnimating = true;
+
+            const targetSection = sections[index];
+            const currentSection = sections[currentIndex];
+
+            gsap.to(currentSection, {
+                yPercent: direction === 1 ? -100 : 100,
+                duration: 1,
+                ease: "power3.inOut"
+            });
+
+            gsap.fromTo(targetSection, {
+                yPercent: direction === 1 ? 100 : -100
+            }, {
+                yPercent: 0,
+                duration: 1,
+                ease: "power3.inOut",
+                onComplete: () => {
+                    currentIndex = index;
+                    isAnimating = false;
+                }
+            });
+        };
+
+        const handleVelocitySnap = (velocity, deltaY) => {
+            const threshold = 50;
+            const clampedVelocity = gsap.utils.clamp(-1000, 1000, velocity);
+
+            if (Math.abs(clampedVelocity) > threshold) {
+                if (clampedVelocity < 0 && currentIndex < sections.length - 1) {
+                     gotoSection(currentIndex + 1, 1);
+                } else if (clampedVelocity > 0 && currentIndex > 0) {
+                     gotoSection(currentIndex - 1, -1);
+                }
+            } else if (deltaY !== 0) {
+                 if (deltaY > 0 && currentIndex < sections.length - 1) {
+                     gotoSection(currentIndex + 1, 1);
+                 } else if (deltaY < 0 && currentIndex > 0) {
+                     gotoSection(currentIndex - 1, -1);
+                 }
+            }
+        };
+
+        const obs = Observer.create({
+            target: container,
+            type: "wheel,touch,pointer",
+            preventDefault: true,
+            wheelSpeed: -1,
+            tolerance: 10,
+            onChangeY: (self) => {
+                if (!isAnimating) {
+                    handleVelocitySnap(self.velocityY, self.deltaY);
+                }
+            }
+        });
+
+        container.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const dir = parseInt(e.target.dataset.dir);
+                gotoSection(currentIndex + dir, dir);
+            });
+        });
+
+        return () => obs.kill();
+    });
+
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(container, { overflowY: 'auto' });
+        gsap.set(sections, {
+            position: 'relative',
+            yPercent: 0,
+            y: 0,
+            transform: 'none',
+            height: 'auto',
+            minHeight: '100dvh'
+        });
+
+        container.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const dir = parseInt(e.target.dataset.dir);
+            });
+        });
+
+        return () => {};
+    });
+  </script>
+</body>
+</html>
