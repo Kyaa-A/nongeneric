@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP matchMedia Desktop-to-Mobile Adaptive Motion Matrix</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Syne:wght@400;700&family=Work+Sans:wght@400;500&display=swap');
+
+        :root {
+            --bg-color: oklch(0.98 0.01 200);
+            --text-color: oklch(0.2 0.01 200);
+            --accent-color: oklch(0.6 0.15 200);
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .adaptive-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .adaptive-item {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            text-align: center;
+            /* opacity and transform handled by GSAP */
+        }
+
+        .action-button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            cursor: pointer;
+            min-height: 44px; /* Accessible button size */
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (min-width: 768px) {
+            .adaptive-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .adaptive-item {
+                flex: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .adaptive-item {
+                /* Static fallback styles */
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="adaptive-container" id="app">
+        <div class="adaptive-item">Item 1</div>
+        <div class="adaptive-item">Item 2</div>
+        <div class="adaptive-item">
+            <button class="action-button">100.00%</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        gsap.registerPlugin();
+
+        function initAdaptiveChoreography(container) {
+            const ctx = gsap.context(() => {
+                const mm = gsap.matchMedia();
+                const items = gsap.utils.toArray('.adaptive-item');
+
+                mm.add({
+                    isDesktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+                    isMobile: "(max-width: 767px) and (prefers-reduced-motion: no-preference)",
+                    reduceMotion: "(prefers-reduced-motion: reduce)"
+                }, (context) => {
+                    let { isDesktop, isMobile, reduceMotion } = context.conditions;
+
+                    if (reduceMotion) {
+                        // Instantly set states for accessibility
+                        gsap.set(items, { opacity: 1, x: 0, y: 0 });
+                        return;
+                    }
+
+                    if (isDesktop) {
+                        // Desktop: Spatial choreography with stagger
+                        gsap.fromTo(items,
+                            { opacity: 0, x: -50 },
+                            { opacity: 1, x: 0, duration: 1, stagger: 0.1, ease: "power3.out" }
+                        );
+                    } else if (isMobile) {
+                        // Mobile: Simplified vertical translation
+                        gsap.fromTo(items,
+                            { opacity: 0, y: 20 },
+                            { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }
+                        );
+                    }
+                });
+            }, container);
+            return () => ctx.revert();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initAdaptiveChoreography(document.getElementById('app'));
+        });
+    </script>
+</body>
+</html>
