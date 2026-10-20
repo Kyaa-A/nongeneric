@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Independent Type Foundry Specimen</title>
+  <style>
+    :root {
+      --ng-background: oklch(0.98 0.01 90);
+      --ng-foreground: oklch(0.15 0.02 240);
+      --ng-accent: oklch(0.65 0.15 30);
+      --ng-font-display: 'Syne', sans-serif;
+      --ng-font-body: 'Source Serif 4', serif;
+      --ng-font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-background);
+      color: var(--ng-foreground);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 100dvh;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .header {
+      padding: 2rem;
+      border-bottom: 2px solid var(--ng-foreground);
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin: 0;
+      line-height: 1;
+    }
+
+    .specimen-content {
+      padding: 2rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .glyph-display {
+      font-family: var(--ng-font-display);
+      font-size: 15rem;
+      line-height: 1;
+      margin: 2rem 0;
+      color: var(--ng-accent);
+    }
+
+    .metrics {
+      font-family: var(--ng-font-mono);
+      font-size: 1rem;
+    }
+
+    button {
+      font-family: var(--ng-font-body);
+      min-height: 44px;
+      padding: 0 1.5rem;
+      font-size: 1rem;
+      background-color: var(--ng-foreground);
+      color: var(--ng-background);
+      border: none;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--ng-accent);
+      outline-offset: 4px;
+    }
+
+    .anim-glyph {
+      animation: float 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .anim-glyph {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="header">
+      <h1>Specimen</h1>
+    </div>
+    <div class="specimen-content">
+      <div class="metrics">
+        CAP HEIGHT: 700<br>
+        X-HEIGHT: 500<br>
+        ASCENDER: 750<br>
+        DESCENDER: -200
+      </div>
+      <div class="glyph-display anim-glyph">
+        Ag
+      </div>
+      <button>Download Trial</button>
+    </div>
+  </main>
+</body>
+</html>
