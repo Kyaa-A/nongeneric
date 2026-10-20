@@ -30,7 +30,7 @@ Whenever you create, redesign, animate, or polish a surface, follow these 5 step
    - **`read`** (Documentation, technical guides, essays, changelogs): The world owns the **frame** (masthead, navigation rail, ground, section openers, marginalia, and code/table styling), while the **reading column stays calm** (`60ch–75ch`, `>=16px`, `>=7:1` contrast, zero noisy backgrounds behind prose).
    - **`experience`** (Interactive stories, scrollytelling, portfolios, exhibitions): The interactive or spatial work leads from the first pixel. Commit to one dominant choreographed move per viewport.
 
-3. Read [references/ux-workflow.md](references/ux-workflow.md). Define the primary task, flow, information hierarchy, applicable interaction states, and a failure/recovery scenario before choosing the visual direction.
+3. Read [references/ux-workflow.md](references/ux-workflow.md). Define the primary task, flow, information hierarchy, applicable interaction states, and a failure/recovery scenario before choosing the visual direction. Decide where each state appears: field validation inline at the field; blocking interruptions and the flow's final result in a focused overlay (`<dialog>`, bottom sheet on small screens), not inserted inline into the page.
 
 ### Step 2: Roll the Concept Seed & Commit to an Aesthetic World
 When starting a new surface or redesigning an generic one, run the offline-first Concept Seed engine to break the LLM's #1 ranking rut:

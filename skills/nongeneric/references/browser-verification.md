@@ -12,10 +12,13 @@ Use the browser tools available in the host environment and follow the project's
 - Check hierarchy, readable text, clipped content, sticky overlays, long labels, and image loading. Measure page overflow with `document.documentElement.scrollWidth <= document.documentElement.clientWidth`; inspect intended internal scrollers separately.
 - Inspect at 200% text/browser zoom. Check actual foreground/background contrast with a suitable tool, including hover, focus, disabled, and error states where applicable.
 - Save or reference screenshots with viewport and state labels. A screenshot alone does not verify interaction.
+- Capture after motion settles. Wait for fonts and for revealed content to reach full opacity; screenshot options that disable CSS animations do not stop GSAP. A mid-animation capture can look like a broken layout, and a transparent page can look empty.
+- For sticky or pinned layouts, test several desktop heights (for example 1280x720, 1440x900, 1920x1080) and measure that pinned elements never overlap.
+- Inspect the states a user reaches after interacting (selected, error, overlay, result), not only the first view. In practice most defects live there: stale selection fills, an empty grid cell rendered as a solid block, a legend straddling its panel, a wrapped button label.
 
 ## 3. Complete the task
 
-Run the primary scenario and a relevant failure/recovery path from the UX checklist. Verify actual outcomes, not merely button clicks. Test keyboard-only navigation, visible focus, accessible names, dialog focus return, and status feedback. Use available accessibility tooling and targeted assistive-technology checks; state the tested coverage rather than claiming full compliance.
+Run the primary scenario and a relevant failure/recovery path from the UX checklist. Verify actual outcomes, not merely button clicks. Automated visibility assertions (for example Playwright `toBeVisible`) pass for elements at `opacity: 0`; assert computed opacity or inspect a screenshot where it matters. On touch viewports, confirm hover styles are scoped to `(hover: hover)` so a tapped control doesn't stay highlighted, and that sticky bars never cover the focused control. Test keyboard-only navigation, visible focus, accessible names, dialog focus return, and status feedback. Use available accessibility tooling and targeted assistive-technology checks; state the tested coverage rather than claiming full compliance.
 
 ## 4. Verify motion and runtime behavior
 

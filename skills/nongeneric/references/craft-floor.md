@@ -36,6 +36,11 @@ Every surface built or touched by `nongeneric` must satisfy these baseline craft
    - No `from-purple-500 to-indigo-600` gradients (`purple-blue-gradient`, `ai-color-palette`).
    - No `background-clip: text` rainbow or purple-blue headlines (`gradient-text`).
    - No diffuse neon box-shadows (`dark-glow`) or blurred background blobs (`radial-halo`).
+   - The "tasteful" default is a default too: warm cream paper with an editorial serif, a terracotta or vermilion accent, and broadsheet hairline rules reads as AI-made even when every detector rule passes. Use it only when the subject's own world calls for it, never as the fallback for "make it look designed".
+4. **Color Must Mean Something**:
+   - In `operate` surfaces, reserve saturated color for state (selected, active, error). Decorative color on unselected rows competes with the selection and tells the user nothing.
+5. **Check Text on Accent Fills Both Ways**:
+   - For every accent used as a fill, compute contrast for both light and dark text. If the readable option looks muddy (near-black on mid orange at 5.3:1 while white fails at 3.3:1), shift the accent's lightness until the intended ink passes (a deeper fired terracotta takes white at 5.96:1). Keep one ink rule per fill.
 
 ---
 
@@ -51,3 +56,10 @@ Every surface built or touched by `nongeneric` must satisfy these baseline craft
    - Choose either **exposed 1px architectural hairlines** (`border: 1px solid var(--ng-border-hairline)`) OR **tonal surface elevation** (`background: var(--ng-ground-elevated)`).
    - Never nest bordered, shadowed cards inside bordered, shadowed cards (`nested-cards`).
    - Never put a thick `4px` colored left/right border on a rounded card (`side-tab`).
+   - Hairlines drawn as `gap: 1px` over a dark container background fill every empty grid cell with that color. When items don't fill the last row, draw each cell's rule itself (`box-shadow: 0 0 0 1px var(--rule)` with a 1px gap and padding).
+3. **Recompose, Don't Repaint**:
+   - A redesign that keeps the original single column and only swaps fonts and colors still looks generic. Change the composition when the task benefits, for example a split layout with a persistent summary and action rail beside the steps.
+   - Give the composition one focal point and balanced weight. Avoid a stack of equally loud blocks followed by thin outlined ones.
+   - Fill the frame. A sticky column that leaves a large dead area under its content looks unfinished: pin it to the viewport (heading at the top, action at the bottom) and test more than one viewport height so pinned parts never collide.
+4. **Unavailable Is Not Empty**:
+   - Dashed outlines read as placeholders or drop zones. Mark unavailable options with a hatch or reduced fill, a struck label, and an explicit word ("Full"), and keep them disabled.

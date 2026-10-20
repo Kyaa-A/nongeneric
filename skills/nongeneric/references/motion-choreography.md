@@ -18,6 +18,10 @@ Motion is never wallpaper. Every animation in `nongeneric` either **clarifies sp
    - If the hero has a live interactive chessboard or telemetry oscilloscope, keep the surrounding background and navigation completely still. Competing motion in multiple regions creates visual chaos.
 5. **Mandatory Reduced-Motion Parity (`missing-reduced-motion`)**:
    - Every CSS stylesheet must include a `@media (prefers-reduced-motion: reduce)` block, and every GSAP timeline must use `gsap.matchMedia()` so users with vestibular sensitivity receive instant, zero-travel state changes.
+6. **Binary UI State Belongs to CSS**:
+   - Selected/unselected, open/closed, and similar class-driven states should animate with CSS transitions on the class. A GSAP tween writes inline styles that outlive the state: a `fromTo` on a selected item left its fill visible after the selection moved, and tweens restarted by React re-renders froze halfway. Use GSAP for entrances, choreography, and dialog or ticket reveals; if GSAP must touch a stateful element, finish with `clearProps`.
+7. **Content Is Visible at Rest**:
+   - Never leave essential content at `opacity: 0` waiting on JavaScript. Entrance tweens start from a visible resting state or finish quickly, and never delay the first meaningful paint.
 
 ---
 
