@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broadcast Kinetic Telemetry Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ng-ground-primary: oklch(0.12 0.01 250);
+      --ng-ground-elevated: oklch(0.18 0.01 250);
+      --ng-ground-glass: oklch(0.12 0.01 250 / 0.8);
+      --ng-ink-primary: oklch(0.98 0 0);
+      --ng-ink-secondary: oklch(0.85 0 0);
+      --ng-ink-muted: oklch(0.65 0 0);
+      --ng-accent-primary: oklch(0.6 0.2 25);
+      --ng-accent-secondary: oklch(0.7 0.18 70);
+      --ng-border-hairline: oklch(0.25 0.01 250);
+      --ng-semantic-success: oklch(0.6 0.15 150);
+      --ng-semantic-warning: oklch(0.7 0.18 70);
+      --ng-semantic-danger: oklch(0.6 0.2 25);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-ground-primary);
+      color: var(--ng-ink-primary);
+      font-family: 'Chakra Petch', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1rem, 5vw, 4rem);
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Barlow Condensed', sans-serif;
+      text-transform: uppercase;
+      margin: 0 0 1rem;
+      color: var(--ng-ink-primary);
+    }
+
+    .telemetry-deck {
+      width: min(100%, 1200px);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 1rem;
+      position: relative;
+    }
+
+    .telemetry-card {
+      background-color: var(--ng-ground-elevated);
+      border: 1px solid var(--ng-border-hairline);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transform: skewX(-5deg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .telemetry-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background-color: var(--ng-accent-primary);
+    }
+
+    .telemetry-card:nth-child(even)::before {
+      background-color: var(--ng-accent-secondary);
+    }
+
+    .telemetry-card-inner {
+      transform: skewX(5deg);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    .card-label {
+      font-size: clamp(0.75rem, 2vw, 0.875rem);
+      color: var(--ng-ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .card-unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.875rem, 2vw, 1.25rem);
+      color: var(--ng-ink-secondary);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .leaderboard {
+      width: min(100%, 1200px);
+      margin-top: 2rem;
+      border: 1px solid var(--ng-border-hairline);
+      background-color: var(--ng-ground-elevated);
+    }
+
+    .leaderboard-header,
+    .leaderboard-row {
+      display: grid;
+      grid-template-columns: 3rem 1fr 6rem 8rem;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--ng-border-hairline);
+      gap: 1rem;
+    }
+
+    .leaderboard-row:last-child {
+      border-bottom: none;
+    }
+
+    .leaderboard-header {
+      font-family: 'Barlow Condensed', sans-serif;
+      color: var(--ng-ink-muted);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .pos {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ng-ink-secondary);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .driver {
+      font-weight: 600;
+      font-size: 1.125rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .team {
+      color: var(--ng-ink-muted);
+      font-size: 0.875rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .split {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+      font-weight: 500;
+      color: var(--ng-semantic-warning);
+    }
+
+    .split.positive {
+      color: var(--ng-semantic-success);
+    }
+
+    .leaderboard-row:first-child .split {
+      color: var(--ng-ink-primary);
+    }
+
+    /* Animation definition for dynamic feel without 'transition: all' */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) skewX(-5deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) skewX(-5deg);
+      }
+    }
+
+    .telemetry-card {
+      animation: slideIn 0.6s cubic-bezier(0.19, 1, 0.22, 1) both;
+    }
+
+    .telemetry-card:nth-child(1) { animation-delay: 0.1s; }
+    .telemetry-card:nth-child(2) { animation-delay: 0.2s; }
+    .telemetry-card:nth-child(3) { animation-delay: 0.3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .telemetry-card {
+        animation: none;
+        transform: none;
+      }
+      .telemetry-card-inner {
+        transform: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="telemetry-deck">
+    <div class="telemetry-card">
+      <div class="telemetry-card-inner">
+        <div class="card-label">Sector 1 Split</div>
+        <div class="card-value">27.345 <span class="card-unit">SEC</span></div>
+      </div>
+    </div>
+    <div class="telemetry-card">
+      <div class="telemetry-card-inner">
+        <div class="card-label">Current Velocity</div>
+        <div class="card-value">324 <span class="card-unit">KM/H</span></div>
+      </div>
+    </div>
+    <div class="telemetry-card">
+      <div class="telemetry-card-inner">
+        <div class="card-label">Engine RPM</div>
+        <div class="card-value">11,400 <span class="card-unit">RPM</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="leaderboard">
+    <div class="leaderboard-header">
+      <div>POS</div>
+      <div>DRIVER</div>
+      <div>TEAM</div>
+      <div style="text-align: right;">INTERVAL</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="pos">1</div>
+      <div class="driver">Verstappen</div>
+      <div class="team">Red Bull Racing</div>
+      <div class="split">Leader</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="pos">2</div>
+      <div class="driver">Norris</div>
+      <div class="team">McLaren</div>
+      <div class="split">+1.245</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="pos">3</div>
+      <div class="driver">Leclerc</div>
+      <div class="team">Ferrari</div>
+      <div class="split">+3.892</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="pos">4</div>
+      <div class="driver">Hamilton</div>
+      <div class="team">Mercedes</div>
+      <div class="split">+5.104</div>
+    </div>
+  </div>
+</body>
+</html>
