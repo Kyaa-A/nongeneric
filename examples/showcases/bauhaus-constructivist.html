@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bauhaus Dessau & Constructivist Archive</title>
+  <style>
+    :root {
+      --ng-bauhaus-cream: oklch(0.95 0.018 84);
+      --ng-bauhaus-black: oklch(0.16 0.01 60);
+      --ng-bauhaus-vermilion: oklch(0.56 0.21 29);
+      --ng-bauhaus-cobalt: oklch(0.45 0.17 258);
+      --ng-font-display: 'Syne', sans-serif;
+      --ng-font-body: 'Plus Jakarta Sans', sans-serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-bauhaus-cream);
+      color: var(--ng-bauhaus-black);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .constructivist-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1.5fr);
+      grid-auto-rows: auto;
+      gap: 0;
+      min-height: 100dvh;
+      width: 100%;
+      min-width: 0;
+      border: 10px solid var(--ng-bauhaus-black);
+    }
+
+    .column {
+      border-right: 10px solid var(--ng-bauhaus-black);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .column:last-child {
+      border-right: none;
+    }
+
+    .manifesto-block {
+      background-color: var(--ng-bauhaus-vermilion);
+      color: var(--ng-bauhaus-cream);
+      padding: 3rem;
+      border-bottom: 10px solid var(--ng-bauhaus-black);
+      flex: 1;
+    }
+
+    .manifesto-block h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin: 0;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+
+    .typophoto-block {
+      background-color: var(--ng-bauhaus-cream);
+      padding: 3rem;
+      flex: 2;
+    }
+
+    .typophoto-block p {
+      font-family: var(--ng-font-body);
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      margin: 0 0 2rem 0;
+      max-width: 40ch;
+      font-weight: 600;
+    }
+
+    .geometric-rule {
+      height: 10px;
+      width: 100%;
+      background-color: var(--ng-bauhaus-black);
+    }
+
+    .data-block {
+      background-color: var(--ng-bauhaus-cobalt);
+      color: var(--ng-bauhaus-cream);
+      padding: 3rem;
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .metadata {
+      font-family: var(--ng-font-mono);
+      font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .circle-accent {
+      width: clamp(100px, 15vw, 200px);
+      height: clamp(100px, 15vw, 200px);
+      background-color: var(--ng-bauhaus-black);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      right: -5px;
+      transform: translate(50%, -50%);
+      z-index: 10;
+    }
+
+    @media (max-width: 900px) {
+      .constructivist-grid {
+        grid-template-columns: 1fr;
+      }
+      .column {
+        border-right: none;
+        border-bottom: 10px solid var(--ng-bauhaus-black);
+      }
+      .column:last-child {
+        border-bottom: none;
+      }
+      .circle-accent {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="constructivist-grid">
+    <div class="column">
+      <div class="manifesto-block">
+        <h1>Form<br>Rules</h1>
+      </div>
+      <div class="geometric-rule"></div>
+      <div class="data-block">
+        <p class="metadata">ARCHIVE NO.<br>1919-1933</p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="typophoto-block">
+        <p>
+          Architecture is the synthesis of all the arts. The ultimate aim of all visual arts is the complete building!
+        </p>
+        <p>
+          To decorate was the greatest of errors. The object must be determined by its function, material, and construction.
+        </p>
+      </div>
+      <div class="circle-accent"></div>
+    </div>
+    <div class="column">
+      <div class="data-block" style="background-color: var(--ng-bauhaus-cream); color: var(--ng-bauhaus-black);">
+        <p class="metadata" style="writing-mode: vertical-lr; transform: rotate(180deg);">
+          DESSAU / WEIMAR / BERLIN
+        </p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
