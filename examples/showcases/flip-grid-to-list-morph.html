@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Flip Dense Table-to-Gallery Spatial Morph</title>
+  <style>
+    :root {
+      --ng-bg: oklch(0.96 0.01 250);
+      --ng-surface: oklch(0.98 0.005 250);
+      --ng-text: oklch(0.2 0.02 250);
+      --ng-accent: oklch(0.6 0.15 250);
+      --ng-font-display: 'Newsreader', serif;
+      --ng-font-body: 'Work Sans', sans-serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-bg);
+      color: var(--ng-text);
+      font-family: var(--ng-font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4rem 2rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0 0 1rem 0;
+      font-weight: 500;
+    }
+
+    .morph-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .toggle-view-btn {
+      background-color: var(--ng-text);
+      color: var(--ng-bg);
+      border: none;
+      padding: 0 1.5rem;
+      height: 44px;
+      font-family: var(--ng-font-mono);
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+    }
+
+    .toggle-view-btn:focus-visible {
+      outline: 2px solid var(--ng-accent);
+      outline-offset: 2px;
+    }
+
+    .morph-layout {
+      width: 100%;
+      min-width: 0;
+      display: grid;
+    }
+
+    /* Grid View */
+    .view-grid .morph-layout {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .view-grid .morph-item {
+      background-color: var(--ng-surface);
+      border: 1px solid var(--ng-text);
+      aspect-ratio: 4 / 3;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    .view-grid .morph-content {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.85rem;
+    }
+
+    /* List/Table View */
+    .view-list .morph-layout {
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-top: 1px solid var(--ng-text);
+    }
+
+    .view-list .morph-item {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--ng-text);
+      align-items: center;
+      background-color: transparent;
+      aspect-ratio: auto;
+    }
+
+    .view-list .morph-content {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.85rem;
+    }
+
+    .morph-image-placeholder {
+      background-color: var(--ng-text);
+      opacity: 0.1;
+      width: 100%;
+      height: 100%;
+      min-height: 60px;
+    }
+
+    .view-grid .morph-image-placeholder {
+        flex-grow: 1;
+        margin-bottom: 1rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Archive Morph</h1>
+  </div>
+
+  <div class="morph-container view-grid" id="morphContainer">
+    <div class="controls">
+      <button class="toggle-view-btn" id="toggleBtn">Toggle View</button>
+    </div>
+
+    <div class="morph-layout">
+      <!-- Item 1 -->
+      <div class="morph-item" data-flip-id="item-1">
+        <div class="morph-image-placeholder"></div>
+        <div class="morph-content" data-flip-id="content-1">SPEC-001 <br> 2024.10.15</div>
+      </div>
+      <!-- Item 2 -->
+      <div class="morph-item" data-flip-id="item-2">
+        <div class="morph-image-placeholder"></div>
+        <div class="morph-content" data-flip-id="content-2">SPEC-002 <br> 2024.10.16</div>
+      </div>
+      <!-- Item 3 -->
+      <div class="morph-item" data-flip-id="item-3">
+        <div class="morph-image-placeholder"></div>
+        <div class="morph-content" data-flip-id="content-3">SPEC-003 <br> 2024.10.17</div>
+      </div>
+      <!-- Item 4 -->
+      <div class="morph-item" data-flip-id="item-4">
+        <div class="morph-image-placeholder"></div>
+        <div class="morph-content" data-flip-id="content-4">SPEC-004 <br> 2024.10.18</div>
+      </div>
+      <!-- Item 5 -->
+      <div class="morph-item" data-flip-id="item-5">
+        <div class="morph-image-placeholder"></div>
+        <div class="morph-content" data-flip-id="content-5">SPEC-005 <br> 2024.10.19</div>
+      </div>
+      <!-- Item 6 -->
+      <div class="morph-item" data-flip-id="item-6">
+        <div class="morph-image-placeholder"></div>
+        <div class="morph-content" data-flip-id="content-6">SPEC-006 <br> 2024.10.20</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+  <script>
+    gsap.registerPlugin(Flip);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('morphContainer');
+      const toggleBtn = document.getElementById('toggleBtn');
+      let isGrid = true;
+
+      const toggleView = () => {
+        const items = container.querySelectorAll('.morph-item, .morph-content');
+        const state = Flip.getState(items);
+
+        isGrid = !isGrid;
+
+        if (isGrid) {
+          container.classList.remove('view-list');
+          container.classList.add('view-grid');
+        } else {
+          container.classList.remove('view-grid');
+          container.classList.add('view-list');
+        }
+
+        const mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          Flip.from(state, {
+            duration: 0.6,
+            ease: "power3.inOut",
+            absolute: true,
+            nested: true,
+            onComplete: () => {
+              toggleBtn.focus();
+            }
+          });
+        });
+      };
+
+      const ctx = gsap.context(() => {
+        const handleEscape = (e) => {
+          if (e.key === 'Escape' && !isGrid) {
+            toggleView();
+          }
+        };
+
+        document.addEventListener('keydown', handleEscape);
+        toggleBtn.addEventListener('click', toggleView);
+
+        return () => {
+          document.removeEventListener('keydown', handleEscape);
+          toggleBtn.removeEventListener('click', toggleView);
+        };
+      }, container);
+    });
+  </script>
+</body>
+</html>
