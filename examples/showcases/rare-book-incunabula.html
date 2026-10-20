@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renaissance Incunabula & Rubricated Folio World</title>
+  <style>
+    :root {
+      --parchment: oklch(0.96 0.02 85);
+      --ink: oklch(0.2 0.01 65);
+      --rubrication: oklch(0.5 0.2 30);
+
+      --font-display: "Cormorant Garamond", serif;
+      --font-body: "Source Serif 4", serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      min-width: 0;
+      background-color: var(--parchment);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 4rem 2rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      min-width: 0;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      color: var(--rubrication);
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--rubrication);
+      padding-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+      max-width: 65ch;
+    }
+
+    .drop-cap::first-letter {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.5rem;
+      color: var(--rubrication);
+    }
+
+    .meta {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--ink);
+      opacity: 0.8;
+      border-top: 1px solid var(--ink);
+      padding-top: 1rem;
+      margin-top: 4rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .button-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 1.5rem;
+      background-color: var(--rubrication);
+      color: var(--parchment);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Incipit Liber Primus</h1>
+
+    <p class="drop-cap">
+      Here begins the text, illuminated by rubrication and set in types that echo the hand of scribes. The parchment absorbs the ink, leaving a tactile impression of knowledge preserved through centuries.
+    </p>
+
+    <p>
+      The early printed books, known as incunabula, represent a transitional period where technology imitated manuscript traditions before finding its own mechanical voice.
+    </p>
+
+    <button class="button-primary">Inspect Folio</button>
+
+    <div class="meta">
+      FOLIO. 001 — PRINTED ANNO 1475
+    </div>
+  </div>
+</body>
+</html>
