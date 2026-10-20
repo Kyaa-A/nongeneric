@@ -13,6 +13,8 @@ const CORE_FILES = [
   'tokens.js',
   'motion-planner.js',
   'auditor.js',
+  'specimen.js',
+  'check-update.js',
   'nongeneric.js',
 ];
 

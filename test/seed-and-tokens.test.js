@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { formatConceptSeed, rollConceptSeed } from '../scripts/concept-seed.js';
 import { generateTokens } from '../scripts/tokens.js';
 import { WORLD_CONCEPTS } from '../scripts/catalog.js';
+import { generateWorldSpecimenHtml } from '../scripts/specimen.js';
+import { detectInText } from '../scripts/detector.js';
 
 describe('NonGeneric Offline-First Concept Seed & Token Compiler', () => {
   it('deals deterministic seed rolls when given a fixed 8-hex key', () => {
@@ -55,6 +57,10 @@ describe('NonGeneric Offline-First Concept Seed & Token Compiler', () => {
 
       const tw = generateTokens(world.id, 'tailwind');
       assert.match(tw, /@theme\s*\{/);
+
+      const specimenHtml = generateWorldSpecimenHtml(world.id);
+      const findings = detectInText(specimenHtml, `${world.id}-specimen.html`).filter((f) => !f.advisory);
+      assert.equal(findings.length, 0, `Specimen for ${world.id} had findings: ${JSON.stringify(findings)}`);
     }
   });
 });

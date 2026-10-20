@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { auditTargets, formatAuditReport } from './auditor.js';
 import { STRUCTURAL_COMPOSITIONS, WORLD_CONCEPTS } from './catalog.js';
@@ -6,6 +7,7 @@ import { formatConceptSeed, rollConceptSeed } from './concept-seed.js';
 import { scanTargets } from './detector.js';
 import { generateMotionBlueprint } from './motion-planner.js';
 import { ANTIPATTERN_RULES, filterRulesByScope } from './rules-registry.js';
+import { generateWorldSpecimenHtml } from './specimen.js';
 import { generateTokens } from './tokens.js';
 export const USAGE = `Usage: nongeneric <command> [options] [targets...]
 
@@ -15,6 +17,7 @@ Commands:
   tokens [options]          Generate OKLCH design tokens, fluid typography scale, and motion tokens for a World
   motion-plan [options]     Generate cleanup-safe, reduced-motion-safe GSAP choreography code blueprints
   audit [targets...]        Run a scored 0-100 NonGeneric Craft & Anti-Slop Audit with P0-P3 remediation plan
+  specimen [options]        Generate a self-contained Grade-S HTML5 + GSAP design system specimen board for a World
   rules [--scope <name>]    List all 82 deterministic anti-pattern rules
   worlds                    List all curated Aesthetic Worlds and Structural Compositions
   doctor                    Verify NonGeneric installation and runtime environment
@@ -149,6 +152,19 @@ export function runCli(argv) {
         const worldId = takeFlagValue(args, '--world');
         const format = (takeFlagValue(args, '--format') ?? 'css');
         process.stdout.write(generateTokens(worldId, format) + '\n');
+        return 0;
+    }
+    if (command === 'specimen') {
+        const worldId = takeFlagValue(args, '--world') ?? 'knightvision-editorial-telemetry';
+        const outFile = takeFlagValue(args, '--out');
+        const html = generateWorldSpecimenHtml(worldId);
+        if (outFile) {
+            writeFileSync(outFile, html, 'utf8');
+            process.stderr.write(`Wrote specimen for '${worldId}' to ${outFile}\n`);
+        }
+        else {
+            process.stdout.write(html + '\n');
+        }
         return 0;
     }
     if (command === 'motion-plan') {
