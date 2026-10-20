@@ -1,11 +1,72 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { generateMotionBlueprint } from '../scripts/motion-planner.js';
 import { detectInText } from '../scripts/detector.js';
-import { auditTargets } from '../scripts/auditor.js';
+import { auditTargets, formatAuditReport } from '../scripts/auditor.js';
 import { runCli } from '../scripts/nongeneric.js';
 
 describe('NonGeneric GSAP Motion Planner, Auditor & CLI', () => {
+  it('reports static checks without certifying an empty page as good design', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'nongeneric-audit-'));
+    try {
+      const file = join(dir, 'blank.html');
+      writeFileSync(file, '<!doctype html><html lang="en"><head><title>Blank</title></head><body></body></html>');
+      const report = auditTargets([file]);
+      assert.equal(report.scoreKind, 'static-checks');
+      assert.deepEqual(report.verification, {
+        visualQuality: 'not-verified',
+        usability: 'not-verified',
+        accessibility: 'not-verified',
+        runtimeBehavior: 'not-verified',
+      });
+      const output = formatAuditReport(report);
+      assert.match(output, /STATIC CHECKS/);
+      assert.match(output, /Visual quality: not-verified/);
+      assert.doesNotMatch(output, /Impeccable|High-craft/);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('does not award a score when no supported files were scanned', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'nongeneric-empty-'));
+    try {
+      const report = auditTargets([dir]);
+      assert.equal(report.overallScore, null);
+      assert.equal(report.grade, null);
+      assert.deepEqual(report.pillars, []);
+      assert.match(formatAuditReport(report), /NOT SCORED/);
+      assert.equal(runCli(['audit', '--json', dir]), 1);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('exposes evidence limits and no-file errors through the JSON CLI', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'nongeneric-cli-'));
+    try {
+      for (const target of [dir, join(dir, 'missing.html')]) {
+        const result = spawnSync(process.execPath, ['scripts/nongeneric.js', 'audit', '--json', target], { encoding: 'utf8' });
+        assert.equal(result.status, 1, result.stderr);
+        const report = JSON.parse(result.stdout);
+        assert.equal(report.overallScore, null);
+        assert.equal(report.grade, null);
+        assert.equal(report.scoreKind, 'static-checks');
+      }
+      const result = spawnSync(process.execPath, ['scripts/nongeneric.js', 'audit', '--json', 'examples/crafted-knightvision.html'], { encoding: 'utf8' });
+      assert.equal(result.status, 0, result.stderr);
+      const report = JSON.parse(result.stdout);
+      assert.equal(report.overallScore, 100);
+      assert.equal(report.grade, 'S');
+      assert.equal(report.verification.usability, 'not-verified');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
   const patterns = [
     'hero-reveal',
     'pinned-horizontal',

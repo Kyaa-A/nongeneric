@@ -18,9 +18,9 @@ Never ship statistical-average AI templates. Every interface built under `nongen
 
 ## 1. Mandatory Execution Sequence
 
-Whenever you create, redesign, animate, or polish a surface, follow these 5 steps in order:
+Whenever you create, redesign, animate, or polish a surface, follow these 5 steps in order. Scope the work to the requested change and preserve established product conventions.
 
-### Step 1: Resolve Product Authority & Visitor Mode
+### Step 1: Resolve Product Authority, Visitor Mode & UX Flow
 1. Check for `PRODUCT.md` and `DESIGN.md` in the workspace root.
    - `PRODUCT.md` owns durable product facts (users, job-to-be-done, positioning, real evidence, constraints). Never invent fake testimonials, fake customer counts, or placeholder "Acme Corp" copy.
    - `DESIGN.md` owns the committed visual identity (Aesthetic World, OKLCH palette, tri-voice typography, spatial rhythm, component grammar, and GSAP motion law).
@@ -29,6 +29,8 @@ Whenever you create, redesign, animate, or polish a surface, follow these 5 step
    - **`operate`** (Dashboards, workbenches, editors, terminals, settings): The visitor came to get a job done. Someone familiar with the category must know where everything is before noticing the world. The world lends **ONLY 4 things**: `typography`, `palette`, `density`, and **one signature move**. Never costume standard controls, tables, or navigation.
    - **`read`** (Documentation, technical guides, essays, changelogs): The world owns the **frame** (masthead, navigation rail, ground, section openers, marginalia, and code/table styling), while the **reading column stays calm** (`60ch–75ch`, `>=16px`, `>=7:1` contrast, zero noisy backgrounds behind prose).
    - **`experience`** (Interactive stories, scrollytelling, portfolios, exhibitions): The interactive or spatial work leads from the first pixel. Commit to one dominant choreographed move per viewport.
+
+3. Read [references/ux-workflow.md](references/ux-workflow.md). Define the primary task, flow, information hierarchy, applicable interaction states, and a failure/recovery scenario before choosing the visual direction.
 
 ### Step 2: Roll the Concept Seed & Commit to an Aesthetic World
 When starting a new surface or redesigning an generic one, run the offline-first Concept Seed engine to break the LLM's #1 ranking rut:
@@ -70,12 +72,16 @@ node scripts/nongeneric.js detect <target-files-or-dir>
 node scripts/nongeneric.js audit <target-files-or-dir>
 ```
 
-- Fix every primary finding (`exit code 0`, `0 primary anti-patterns`, Grade `A` or `S`).
+- Resolve primary findings or document a justified contextual suppression. The score and grade measure static checks only; they do not certify design quality, usability, accessibility, or runtime behavior. No supported files means no score.
+- Follow [references/browser-verification.md](references/browser-verification.md): inspect the rendered surface, execute the primary task and a recovery path, and test keyboard access and reduced motion. Report evidence and unverified dimensions separately. Do not claim full verification when browser access is unavailable.
 - For major surfaces, run the unanchored dual-persona review protocol in [references/critique-and-finish.md](references/critique-and-finish.md).
 
 ---
 
 ## 2. Reference Playbooks Index
+
+- [references/ux-workflow.md](references/ux-workflow.md) — Task flows, information hierarchy, interaction states, recovery, and acceptance scenarios.
+- [references/browser-verification.md](references/browser-verification.md) — Rendered inspection, task execution, accessibility and motion checks, and evidence reporting.
 
 - [references/new-work.md](references/new-work.md) — Discovery, `PRODUCT.md`/`DESIGN.md` authority, Concept Seed workflow, Visitor Mode rules, and Direction Contracts.
 - [references/craft-floor.md](references/craft-floor.md) — Typography scales, OKLCH color theory, spatial rhythm, and visual hierarchy invariants.

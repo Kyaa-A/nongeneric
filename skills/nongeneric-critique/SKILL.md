@@ -10,12 +10,16 @@ description: >
 
 When asked to critique, review, or audit a UI:
 
-1. **Run the Deterministic Audit First**:
+1. **Inspect the Surface Cold**:
+   Follow `../nongeneric/references/browser-verification.md` and inspect rendered evidence before reading the builder's rationale or static score. Mark unavailable evidence as not verified.
+2. **Run the Deterministic Audit**:
    ```bash
    node scripts/nongeneric.js audit <target>
    ```
-2. **Execute Unanchored Dual-Persona Evaluation**:
+   This is a static-check score, not a visual or usability grade.
+3. **Execute Unanchored Dual-Persona Evaluation**:
    - **Persona 1 (Design & Motion Director)**: Grade Typography (20), OKLCH Color & Atmosphere (20), Spatial Rhythm & 320px Responsive (20), GSAP Motion Choreography (20), and Copy Authenticity & Working Proof (20).
-   - **Persona 2 (Skeptical Target Visitor)**: Evaluate the first viewport in 3 seconds according to its Visitor Mode (`persuade`, `operate`, `read`, `experience`). Does it prove its claim with a real interactive mechanism, or hide behind marketing buzzwords and decorative cards?
-3. **Output Prioritized P0–P3 Remediation Plan**:
+   - **Persona 2 (Skeptical Target Visitor)**: Evaluate according to Visitor Mode: offer and proof for persuade, task completion for operate, comprehension for read, participation and exit for experience. Execute the primary task and a relevant recovery path; report observed outcomes. This is expert review, not user research.
+4. **Output Prioritized P0–P3 Remediation Plan**:
    - List exact file:line locations and concrete code replacements for every P0 and P1 issue.
+   - Separate static findings from rendered observations. Include viewport/state coverage and unverified dimensions. Do not assign a visual score without rendered evidence.

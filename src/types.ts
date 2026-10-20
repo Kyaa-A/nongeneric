@@ -164,8 +164,15 @@ export interface PillarScore {
 }
 
 export interface AuditReport {
-  overallScore: number;
-  grade: 'S' | 'A' | 'B' | 'C' | 'D' | 'F';
+  scoreKind: 'static-checks';
+  overallScore: number | null;
+  grade: 'S' | 'A' | 'B' | 'C' | 'D' | 'F' | null;
+  verification: {
+    visualQuality: 'not-verified';
+    usability: 'not-verified';
+    accessibility: 'not-verified';
+    runtimeBehavior: 'not-verified';
+  };
   verdict: string;
   pillars: PillarScore[];
   scan: ScanReport;

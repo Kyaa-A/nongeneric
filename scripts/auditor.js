@@ -113,13 +113,15 @@ export function auditTargets(targets, options = {}) {
         grade = 'C';
     else if (overallScore >= 40)
         grade = 'D';
-    const verdict = grade === 'S'
-        ? 'Impeccable NonGeneric Craft — zero primary anti-patterns detected.'
-        : grade === 'A'
-            ? 'High-craft surface with minor polish items remaining.'
-            : grade === 'B'
-                ? 'Solid foundation, but noticeable AI-slop or motion/responsive issues remain.'
-                : 'Significant AI-template slop, layout hazards, or motion anti-patterns require remediation.';
+    const verdict = scan.scannedFiles === 0
+        ? 'No supported files scanned; static checks were not scored.'
+        : grade === 'S'
+            ? 'Zero primary anti-patterns detected in scanned source. Design quality is not verified.'
+            : grade === 'A'
+                ? 'Few static-check deductions. Design quality is not verified.'
+                : grade === 'B'
+                    ? 'Static anti-pattern findings require review. Design quality is not verified.'
+                    : 'Significant static anti-pattern findings require remediation. Design quality is not verified.';
     const remediationPlan = allFindings.map((f) => {
         const priority = f.severity === 'error'
             ? 'P0'
@@ -138,10 +140,17 @@ export function auditTargets(targets, options = {}) {
     const priorityOrder = { P0: 0, P1: 1, P2: 2, P3: 3 };
     remediationPlan.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
     return {
-        overallScore,
-        grade,
+        scoreKind: 'static-checks',
+        overallScore: scan.scannedFiles > 0 ? overallScore : null,
+        grade: scan.scannedFiles > 0 ? grade : null,
+        verification: {
+            visualQuality: 'not-verified',
+            usability: 'not-verified',
+            accessibility: 'not-verified',
+            runtimeBehavior: 'not-verified',
+        },
         verdict,
-        pillars: pillarList,
+        pillars: scan.scannedFiles > 0 ? pillarList : [],
         scan,
         remediationPlan,
     };
@@ -149,8 +158,16 @@ export function auditTargets(targets, options = {}) {
 export function formatAuditReport(report) {
     const lines = [];
     lines.push('══════════════════════════════════════════════════════════════════════');
-    lines.push(`  NONGENERIC CRAFT & ANTI-SLOP AUDIT — SCORE: ${report.overallScore}/100 (GRADE ${report.grade})`);
+    const score = report.overallScore === null
+        ? 'NOT SCORED'
+        : `SCORE: ${report.overallScore}/100 (GRADE ${report.grade})`;
+    lines.push(`  NONGENERIC STATIC CHECKS — ${score}`);
     lines.push(`  Verdict: ${report.verdict}`);
+    lines.push('  Scope: source patterns only; scores do not certify design quality or accessibility.');
+    lines.push(`  Visual quality: ${report.verification.visualQuality}`);
+    lines.push(`  Usability: ${report.verification.usability}`);
+    lines.push(`  Accessibility: ${report.verification.accessibility}`);
+    lines.push(`  Runtime behavior: ${report.verification.runtimeBehavior}`);
     lines.push('══════════════════════════════════════════════════════════════════════');
     lines.push('');
     lines.push('PILLAR BREAKDOWN:');

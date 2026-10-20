@@ -24,7 +24,7 @@ Commands:
   seed [options]            Roll a deterministic Concept Seed, Challenger Worlds, and Structural Compositions
   tokens [options]          Generate OKLCH design tokens, fluid typography scale, and motion tokens for a World
   motion-plan [options]     Generate cleanup-safe, reduced-motion-safe GSAP choreography code blueprints
-  audit [targets...]        Run a scored 0-100 NonGeneric Craft & Anti-Slop Audit with P0-P3 remediation plan
+  audit [targets...]        Score static source checks (not design quality) with P0-P3 remediation plan
   specimen [options]        Generate a self-contained Grade-S HTML5 + GSAP design system specimen board for a World
   rules [--scope <name>]    List all 82 deterministic anti-pattern rules
   worlds                    List all curated Aesthetic Worlds and Structural Compositions
@@ -217,6 +217,7 @@ export function runCli(argv: string[]): number {
     } else {
       process.stdout.write(formatAuditReport(report) + '\n');
     }
+    if (report.scan.scannedFiles === 0) return 1;
     return report.scan.primaryCount > 0 ? 2 : 0;
   }
 

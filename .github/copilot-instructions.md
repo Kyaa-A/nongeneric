@@ -3,6 +3,7 @@
 Always apply the **NonGeneric Design, Motion & Responsive Discipline** when creating, styling, animating, or refactoring web and app interfaces:
 
 1. **Commit to an Aesthetic World & Visitor Mode**:
+   - First follow `skills/nongeneric/references/ux-workflow.md`: define the primary task, flow, applicable states, and recovery scenario.
    - Determine the surface's visitor mode (`persuade`, `operate`, `read`, or `experience`) before writing layout or CSS.
    - Run `node scripts/nongeneric.js seed --mode <mode>` to roll a committed direction and structural composition.
    - Never ship generic SaaS templates (split hero with floating badge row over 3-column icon-in-colored-circle cards, purple/indigo/violet gradients, `background-clip: text` gradients, neon dark glows, or side-tab borders on rounded cards).
@@ -20,4 +21,5 @@ Always apply the **NonGeneric Design, Motion & Responsive Discipline** when crea
    - Always wrap animations in `gsap.matchMedia()` with a `(prefers-reduced-motion: reduce)` branch and clean up via `useGSAP()` (React) or `gsap.context()` + `ctx.revert()`.
 
 4. **Deterministic Verification Gate**:
-   - Before completing any UI task, run `node scripts/nongeneric.js detect <target>` and `node scripts/nongeneric.js audit <target>` and fix all primary findings.
+   - Run `node scripts/nongeneric.js detect <target>` and `node scripts/nongeneric.js audit <target>`; resolve primary findings or document justified suppressions. Scores measure static checks only.
+   - Follow `skills/nongeneric/references/browser-verification.md` before claiming surface verification. Report visual, usability, accessibility, and runtime evidence separately, marking untested dimensions as not verified.

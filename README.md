@@ -2,6 +2,10 @@
 
 **The Anti-Generic AI Art Director, UI/UX Architect & GreenSock (GSAP) Motion Choreographer.**
 
+Build interfaces around real user tasks, deliberate visual direction, and purposeful motion. NonGeneric combines agent instructions with a local CLI for design seeds, tokens, animation blueprints, and static checks.
+
+[MIT license](LICENSE) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md) · [Code of conduct](CODE_OF_CONDUCT.md)
+
 `nongeneric` is a multi-harness AI agent plugin (Claude Code, OpenAI Codex, Cursor, Universal Agents, GitHub Copilot) and zero-dependency TypeScript CLI engine reverse-engineered via [`morluto/rea`](https://github.com/morluto/rea) from [`pbakaus/impeccable`](https://github.com/pbakaus/impeccable) and [`greensock/gsap-skills`](https://github.com/greensock/gsap-skills), fused with [`Kyaa-A/StockFish`](https://github.com/Kyaa-A/StockFish) (`KnightVision`) editorial-interactive craft and [`Kyaa-A/doesntbreak`](https://github.com/Kyaa-A/doesntbreak) 320px–1440px responsive discipline.
 
 ---
@@ -14,11 +18,19 @@ Left unguided, LLMs converge on the statistical average of their training corpus
 - **Motion Slop & Jank**: `animate-bounce`, `transition: all`, GSAP tweens animating layout-thrashing `width`/`height`/`top`/`left`, nested `ScrollTrigger`s inside timelines, `containerAnimation` without `ease: "none"`, React `useEffect` memory leaks without `useGSAP()`, and missing `prefers-reduced-motion` support.
 - **Responsive Breakage**: `100vw` horizontal scrollbars, bare `100vh` mobile jumps, missing `min-width: 0` on flex/grid children, and `<16px` inputs triggering iOS Safari zoom.
 
-`nongeneric` replaces template slop with **committed Aesthetic Worlds**, **4 Visitor Modes**, **60fps GSAP Choreography**, and a **deterministic 82-rule static detector & craft auditor**.
+`nongeneric` replaces template slop with **committed Aesthetic Worlds**, **4 Visitor Modes**, **60fps GSAP Choreography**, and a **deterministic 82-rule static detector & source auditor**.
 
 ---
 
 ## Quickstart
+
+### Requirements
+
+- Node.js 20 or newer.
+- npm for development setup or local CLI installation.
+- A compatible agent host to use the skills; the CLI also works independently.
+
+The CLI has no runtime npm dependencies. Generated animation code requires GSAP and, for React examples, `@gsap/react` in the application where you use it.
 
 ### 1. Install as an Agent Plugin / Skill
 ```bash
@@ -28,7 +40,22 @@ Left unguided, LLMs converge on the statistical average of their training corpus
 
 # Universal / Codex / Cursor / Antigravity
 git clone https://github.com/Kyaa-A/nongeneric.git
+cd nongeneric
+npm ci
+npm run build
+node scripts/nongeneric.js doctor
 ```
+
+Cloning makes the source available; it does not automatically activate skills in your agent host. The canonical entry point is [skills/nongeneric/SKILL.md](skills/nongeneric/SKILL.md), with host manifests in `.claude-plugin/`, `.codex-plugin/`, and `.cursor-plugin/`. Configure your host to load the skill/plugin using its installation mechanism.
+
+The relative commands below run from this repository root. From a different application directory, use the absolute path to this checkout's `scripts/nongeneric.js`, or run `npm link` in this checkout and use `nongeneric`:
+
+```bash
+# After npm link, run from the application you want to inspect:
+nongeneric audit ./src
+```
+
+Example agent request: “Use NonGeneric to improve this booking flow. Preserve the brand, cover loading/error/recovery states, and verify the result in the browser.”
 
 ### 2. CLI Commands (`node scripts/nongeneric.js`)
 
@@ -45,7 +72,7 @@ node scripts/nongeneric.js motion-plan --pattern hero-reveal --framework react -
 # 4. Scan Files or Directories with the 82-Rule Anti-Slop, Motion & Responsive Detector
 node scripts/nongeneric.js detect src/ examples/crafted-knightvision.html
 
-# 5. Run a Quantitative 0-100 Craft Audit with Prioritized P0-P3 Remediation Plan
+# 5. Run a 0-100 Static-Check Audit with Prioritized P0-P3 Remediation Plan
 node scripts/nongeneric.js audit examples/crafted-knightvision.html
 
 # 6. Inspect All 82 Rules or Curated Aesthetic Worlds
@@ -54,6 +81,14 @@ node scripts/nongeneric.js worlds
 ```
 
 ---
+
+## UX and Verification Workflow
+
+Before styling, define the primary task, user flow, information hierarchy, and applicable loading, empty, success, error, and recovery states using the [UX workflow](skills/nongeneric/references/ux-workflow.md).
+
+Before claiming a surface is verified, follow the [browser verification protocol](skills/nongeneric/references/browser-verification.md): inspect rendered layouts, complete the task and a recovery path, and check keyboard access, reduced motion, and runtime behavior. Report tested scope and unavailable evidence explicitly.
+
+The CLI audit score measures recognized source patterns only. Even an empty-body HTML page can score 100 when no patterns are detected; that is not a design-quality certificate. JSON exposes `scoreKind: "static-checks"` and separate `verification` fields marked `not-verified`. With no supported files, audit returns null score/grade and exit code 1. Browser evidence belongs in a separate review report.
 
 ## The 4 Visitor Modes
 
@@ -92,7 +127,7 @@ node scripts/nongeneric.js worlds
 | `/nongeneric:animate` | Choreograph cleanup-safe, reduced-motion-safe 60fps GSAP animations |
 | `/nongeneric:overdrive` | Push a surface with a signature pinned stage, FLIP morph, or kinetic type |
 | `/nongeneric:critique` | Run an unanchored Dual-Persona Critique (`Design Director` + `Target Visitor`) |
-| `/nongeneric:audit` | Execute the 82-rule detector and 0–100 Craft Scorecard with P0–P3 plan |
+| `/nongeneric:audit` | Execute the 82-rule detector and 0–100 Static-Check Scorecard with P0–P3 plan |
 | `/nongeneric:polish` | Final alignment, contrast, focus-ring, and optical spacing pass |
 | `/nongeneric:typeset` | Upgrade to Tri-Voice typography, fluid `clamp()`, and `tabular-nums` |
 | `/nongeneric:colorize` | Apply cohesive OKLCH tokens and eliminate AI gradients / gray-on-color |
@@ -138,6 +173,29 @@ node scripts/nongeneric.js worlds
 - [Luxury & Independent Editorial Commerce](docs/playbooks/domain-luxury-commerce.md)
 - [Creative Coding, WebGL & Shader Stages](docs/playbooks/domain-webgl-stages.md)
 
-## License
+## Development and Support
 
-MIT © [Asnari Pacalna (Kyaa-A)](https://github.com/Kyaa-A)
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, source/generated-file conventions, and pull request expectations. Required checks:
+
+```bash
+npm run build
+npm run typecheck
+npm run check:generated
+npm run check:json
+npm test
+```
+
+Use [GitHub Issues](https://github.com/Kyaa-A/nongeneric/issues) for bugs, usage questions, and feature requests. Include the command or prompt, version/commit, and a small reproduction. Report vulnerabilities through [SECURITY.md](SECURITY.md).
+
+### Troubleshooting
+
+- **Cannot find `scripts/nongeneric.js`:** run from this checkout, use an absolute script path, or use the linked CLI.
+- **Generated files are out of date:** run `npm run build` and include the generated changes.
+- **Audit says NOT SCORED:** check that the target exists and contains supported source files.
+- **High static score but a broken interface:** run the browser verification protocol; static checks do not execute the interface.
+
+## License and Acknowledgments
+
+This repository is licensed under the [MIT License](LICENSE), copyright © 2026 [Asnari Pacalna (Kyaa-A)](https://github.com/Kyaa-A).
+
+The project draws on the projects credited above; see the [evidence ledger](docs/rea-reverse-engineering-ledger.md) for provenance. External libraries, fonts, assets, and referenced projects retain their respective licenses. The repository's MIT license does not relicense those materials.

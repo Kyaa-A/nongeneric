@@ -2,6 +2,8 @@
 
 Never grade your own work from memory alone. Before shipping a major surface, run both the deterministic audit (`node scripts/nongeneric.js audit`) and the **Unanchored Dual-Persona Critique**.
 
+Follow [browser-verification.md](browser-verification.md) for evidence. Inspect the surface before reading the builder's rationale or static score to avoid anchoring. The CLI grade measures source patterns only. Keep any human/agent design score separate, explain the observations behind it, and leave unobserved dimensions unscored. A simulated visitor is not a substitute for user research.
+
 ---
 
 ## 1. Why Unanchored Critique Matters
@@ -14,12 +16,13 @@ Evaluates the surface cold across 5 pillars (20 points each = 100 total):
 2. **OKLCH Color & Material Atmosphere (20 pts)**: Does the palette commit to a cohesive material world with tinted neutrals and high-contrast ink, free of purple/indigo AI gradients and gray-on-color muddiness?
 3. **Spatial Rhythm & 320px Responsive Integrity (20 pts)**: Does the topology avoid the 3-equal-card SaaS rut? Does it hold from `320px` to `1440px+` with zero horizontal overflow?
 4. **GSAP Motion Choreography (20 pts)**: Are entrances, scroll triggers, and interactive state changes smooth (60fps compositor properties), purposeful, and `prefers-reduced-motion` safe?
-5. **Copy Authenticity & Working Proof (20 pts)**: Does the first viewport prove the product's mechanism with real domain data and interactive controls rather than buzzwords?
+5. **Copy Authenticity & Task Fit (20 pts)**: Does the surface support its visitor mode with truthful content? Persuade surfaces demonstrate the product; operate surfaces enable the task; read surfaces support comprehension; experience surfaces make participation discoverable.
 
 ### Persona B: The Skeptical Target Visitor
 Arrives with a real job to do in the surface's **Visitor Mode** (`persuade`, `operate`, `read`, `experience`):
 - **First 3-Second Test**: "What is this product, who is it for, and what can I do right now in the first viewport?"
 - **Friction & Doubt Audit**: Flags any control that looks like a fake picture of a tool, any claim backed by fluff instead of proof, or any animation that gets in the way of completing the task.
+- **Task & Recovery Test**: Execute the primary scenario and a relevant error/recovery scenario from [ux-workflow.md](ux-workflow.md). Report expected and observed outcomes, keyboard behavior, and any untested states.
 
 ---
 
