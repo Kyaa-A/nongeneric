@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broadsheet Masthead, Issue Colophon & Index Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-background: oklch(0.97 0.01 70);
+      --color-foreground: oklch(0.15 0.01 70);
+      --color-accent: oklch(0.50 0.15 40);
+
+      --font-display: "Playfair Display", serif;
+      --font-body: "Source Serif 4", serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    body {
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+      font-family: var(--font-body);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .masthead-container {
+      padding: 32px 16px;
+      border-bottom: 2px solid var(--color-foreground);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .masthead-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .colophon {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .index-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--color-foreground);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .action-button {
+      background-color: transparent;
+      color: var(--color-foreground);
+      border: 1px solid var(--color-foreground);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      text-transform: uppercase;
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-button:hover,
+    .action-button:focus-visible {
+      background-color: var(--color-foreground);
+      color: var(--color-background);
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .action-button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead-colophon">
+    <header class="masthead-container">
+      <div class="colophon masthead-element">
+        <span>Vol. XXIV</span>
+        <span>Issue 42</span>
+        <span>Est. 1999</span>
+      </div>
+      <h1 class="masthead-title masthead-element">The Chronicle</h1>
+    </header>
+    <nav class="index-bar masthead-element">
+      <span>Index: 01-14</span>
+      <button type="button" class="action-button">Subscribe</button>
+    </nav>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.querySelector(".masthead-colophon");
+      let ctx = gsap.context(() => {
+        let mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          gsap.from(".masthead-element", {
+            y: 20,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: 'power3.out'
+          });
+        });
+      }, container);
+    });
+  </script>
+</body>
+</html>
