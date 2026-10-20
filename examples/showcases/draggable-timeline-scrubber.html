@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Timeline Scrubber</title>
+    <style>
+        :root {
+            --primary: oklch(0.65 0.25 250);
+            --surface: oklch(0.2 0.05 250);
+            --text: oklch(0.9 0.05 250);
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: var(--surface);
+            color: var(--text);
+            font-family: "Work Sans", sans-serif;
+            min-height: 100dvh;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-family: "Chakra Petch", sans-serif;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .time-display {
+            font-family: "JetBrains Mono", monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 1.5rem;
+            text-align: center;
+            user-select: none;
+        }
+
+        .timeline-track {
+            width: 100%;
+            height: 48px;
+            background: oklch(0.15 0.02 250);
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .timeline-playhead {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: 4px;
+            min-width: 44px;
+            min-height: 44px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--surface);
+            font-weight: bold;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .timeline-playhead {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Precision Timeline</h1>
+
+    <div class="timeline-container">
+        <div class="time-display" id="time-display">00:00.000</div>
+
+        <div class="timeline-track" id="timeline-track">
+            <button class="timeline-playhead" id="timeline-playhead" aria-label="Scrub timeline">
+                ||
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+    <script>
+        gsap.registerPlugin(Draggable);
+
+        const track = document.getElementById('timeline-track');
+        const playhead = document.getElementById('timeline-playhead');
+        const timeDisplay = document.getElementById('time-display');
+
+        const totalDuration = 60; // 60 seconds
+
+        function updateTime(x) {
+            const maxX = track.offsetWidth - playhead.offsetWidth - 4; // 4px for padding
+            const ratio = Math.max(0, Math.min(1, x / maxX));
+            const currentTime = ratio * totalDuration;
+
+            const mins = Math.floor(currentTime / 60).toString().padStart(2, '0');
+            const secs = Math.floor(currentTime % 60).toString().padStart(2, '0');
+            const ms = Math.floor((currentTime % 1) * 1000).toString().padStart(3, '0');
+
+            timeDisplay.textContent = \`\${mins}:\${secs}.\${ms}\`;
+        }
+
+        const mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            Draggable.create(playhead, {
+                type: "x",
+                bounds: track,
+                inertia: true,
+                onDrag: function() {
+                    updateTime(this.x);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
