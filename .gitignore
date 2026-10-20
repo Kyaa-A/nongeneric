@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+.nongeneric/questions/
+.impeccable/questions/
+scripts/jules/.state.json
+scripts/jules/.dispatched.json
+scripts/jules/.reviewed-prs.json
+scripts/jules/.pr-review.log
+scripts/jules/.autopilot.log
+*.log
+.DS_Store

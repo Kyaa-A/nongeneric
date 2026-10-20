@@ -1,0 +1,6 @@
+{
+  "description": "NonGeneric design & motion verification hooks",
+  "hooks": {
+    "SessionStart": []
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "nongeneric",
+  "version": "1.0.0",
+  "description": "Anti-generic AI Designer & GSAP Motion Choreographer Agent, Skill Pack, Deterministic Slop Detector, and Aesthetic World Engine.",
+  "author": {
+    "name": "Asnari Pacalna",
+    "url": "https://github.com/Kyaa-A"
+  },
+  "homepage": "https://github.com/Kyaa-A/nongeneric",
+  "repository": "https://github.com/Kyaa-A/nongeneric",
+  "license": "MIT",
+  "keywords": [
+    "design-system",
+    "anti-slop",
+    "gsap",
+    "animation",
+    "scrolltrigger",
+    "ui-design",
+    "typography",
+    "oklch",
+    "responsive-css"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/codex-hooks.json"
+}

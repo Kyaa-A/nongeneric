@@ -1,0 +1,59 @@
+{
+  "name": "nongeneric",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Anti-generic AI Designer & GSAP Motion Choreographer Agent, Skill Pack, Deterministic Slop Detector, and Aesthetic World Engine.",
+  "type": "module",
+  "bin": {
+    "nongeneric": "./scripts/nongeneric.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "detect": "node scripts/nongeneric.js detect",
+    "seed": "node scripts/nongeneric.js seed",
+    "tokens": "node scripts/nongeneric.js tokens",
+    "motion-plan": "node scripts/nongeneric.js motion-plan",
+    "audit": "node scripts/nongeneric.js audit",
+    "check:generated": "node tooling/check-generated.mjs",
+    "check:json": "node tooling/check-json.mjs",
+    "test": "node --test",
+    "jules:dispatch": "node scripts/jules/dispatch.mjs",
+    "jules:review": "node scripts/jules/review-prs.mjs",
+    "jules:merge": "node scripts/jules/merge-approved.mjs",
+    "jules:autopilot": "node scripts/jules/autopilot.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "design-system",
+    "anti-slop",
+    "gsap",
+    "animation",
+    "scrolltrigger",
+    "ui-design",
+    "ux",
+    "typography",
+    "oklch",
+    "responsive-css",
+    "claude-code",
+    "codex",
+    "cursor",
+    "ai-agent"
+  ],
+  "author": {
+    "name": "Asnari Pacalna",
+    "url": "https://github.com/Kyaa-A"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kyaa-A/nongeneric.git"
+  },
+  "homepage": "https://github.com/Kyaa-A/nongeneric",
+  "devDependencies": {
+    "@types/node": "24.2.1",
+    "typescript": "5.9.2"
+  }
+}

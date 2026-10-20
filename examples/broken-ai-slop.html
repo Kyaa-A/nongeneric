@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acme AI — Unleash Next-Generation Workflows</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    .hero {
+      width: 960px;
+      padding: 24px;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      box-shadow: 0 0 48px rgba(139, 92, 246, 0.55);
+      transition: all 0.3s linear;
+    }
+    .hero h1 {
+      background: linear-gradient(90deg, #a855f7, #38bdf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: bounce 1s infinite;
+    }
+    .callout {
+      border-radius: 16px;
+      border-left: 4px solid #6366f1;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <span class="badge">✨ Introducing Acme Corp Next-Generation AI</span>
+    <h1>Unleash the power of seamless experience — supercharge your workflow today</h1>
+    <p>Not a dashboard. A command center. Not a tracker. A revolution. Built for the modern enterprise — empower your team — transform your business — drive growth with John Doe.</p>
+    <div class="callout">
+      <a href="#">Click here</a>
+    </div>
+  </section>
+  <script>
+    // Intentional GSAP layout thrash fixture for detector verification
+    gsap.to('.callout', { width: 600, top: 40, ease: 'bounce.out' });
+  </script>
+</body>
+</html>

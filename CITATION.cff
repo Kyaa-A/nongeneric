@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "NonGeneric: Anti-Generic AI Designer & GSAP Motion Choreographer Skill Pack and Engine"
+message: "If you use this software or skill pack, please cite it using the metadata from this file."
+type: software
+authors:
+  - given-names: Asnari
+    family-names: Pacalna
+    alias: Kyaa-A
+repository-code: "https://github.com/Kyaa-A/nongeneric"
+license: MIT
+version: 1.0.0
+date-released: "2026-10-20"

@@ -1,0 +1,23 @@
+{
+  "name": "nongeneric",
+  "owner": {
+    "name": "Asnari Pacalna",
+    "email": "asnaripacalna@gmail.com"
+  },
+  "description": "Marketplace for the NonGeneric anti-slop designer & GSAP motion choreographer skill pack.",
+  "plugins": [
+    {
+      "name": "nongeneric",
+      "source": "./",
+      "description": "Anti-generic AI Designer & GSAP Motion Choreographer Agent, Skill Pack, Deterministic Slop Detector, and Aesthetic World Engine.",
+      "author": {
+        "name": "Asnari Pacalna"
+      },
+      "homepage": "https://github.com/Kyaa-A/nongeneric",
+      "repository": "https://github.com/Kyaa-A/nongeneric",
+      "license": "MIT",
+      "keywords": ["design-system", "anti-slop", "gsap", "animation", "ui-design"],
+      "category": "design"
+    }
+  ]
+}

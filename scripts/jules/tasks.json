@@ -1,0 +1,104 @@
+{
+  "project": "nongeneric",
+  "repo": "Kyaa-A/nongeneric",
+  "branch": "main",
+  "description": "Parallel Jules cloud task definitions for expanding NonGeneric with isolated Aesthetic World packs, GSAP Motion Blueprint packs, Domain Playbooks, and zero-slop HTML showcases.",
+  "tasks": [
+    {
+      "id": "NONGEN-101",
+      "wave": 1,
+      "title": "Add Broadcast Kinetic World Pack & Zero-Slop Showcase",
+      "branch": "feat/nongen-101-broadcast-kinetic-world",
+      "files_to_create": [
+        "packs/worlds/broadcast-kinetic.mjs",
+        "examples/showcases/broadcast-kinetic.html",
+        "test/packs/broadcast-kinetic.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. Do NOT use `innerHTML`, `outerHTML`, `document.write()`, or `eval()`.\n3. Do NOT use banned AI-slop fonts (`Inter`, `Roboto`, `Open Sans`, `Lato`, `Montserrat`, `Poppins`, `Space Grotesk`), purple-to-blue gradients, `100vw`, `100vh` without `100dvh`, or `transition: all`.\n\n### Files to Create\n1. `packs/worlds/broadcast-kinetic.mjs`:\n   - Export `BROADCAST_KINETIC_WORLD` conforming to the `AestheticWorld` shape (`id: 'broadcast-kinetic'`, `name`, `category: 'kinetic_typography'`, `era`, `summary`, `VisitorModes: ['immerse', 'convert']`, `References`, `Typography` using `'Barlow Condensed'` display + `'Chakra Petch'` body + `'JetBrains Mono'` mono, `Palette` with dark carbon/titanium OKLCH surfaces and broadcast signal-red/amber accents, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage` with `'expo.out'` ease, `AntiHero`).\n   - Export `compileBroadcastKineticCss()` returning a CSS `:root` string with the world's OKLCH tokens.\n2. `examples/showcases/broadcast-kinetic.html`:\n   - Self-contained HTML5 showcase demonstrating a high-velocity motorsport/esports broadcast telemetry deck using `Barlow Condensed`, `Chakra Petch`, and `JetBrains Mono`, `min-height: 100dvh`, fluid `clamp()` typography, tabular-nums leaderboard/telemetry splits, and reduced-motion-safe CSS (`@media (prefers-reduced-motion: reduce)`).\n   - Must pass `scanTargets(['examples/showcases/broadcast-kinetic.html'])` from `../../scripts/detector.js` with `primaryCount === 0`.\n3. `test/packs/broadcast-kinetic.test.js`:\n   - Node `node:test` suite verifying `BROADCAST_KINETIC_WORLD` metadata, `compileBroadcastKineticCss()`, and asserting `scanTargets(['examples/showcases/broadcast-kinetic.html']).primaryCount === 0`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-102",
+      "wave": 1,
+      "title": "Add Monastic Washi Editorial World Pack & Zero-Slop Showcase",
+      "branch": "feat/nongen-102-monastic-washi-world",
+      "files_to_create": [
+        "packs/worlds/monastic-washi.mjs",
+        "examples/showcases/monastic-washi.html",
+        "test/packs/monastic-washi.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. Do NOT use `innerHTML`, `outerHTML`, `document.write()`, or `eval()`.\n3. Do NOT use banned AI-slop fonts (`Inter`, `Roboto`, `Open Sans`, `Lato`, `Montserrat`, `Poppins`, `Space Grotesk`), purple-to-blue gradients, `100vw`, `100vh` without `100dvh`, or `transition: all`.\n\n### Files to Create\n1. `packs/worlds/monastic-washi.mjs`:\n   - Export `MONASTIC_WASHI_WORLD` conforming to the `AestheticWorld` shape (`id: 'monastic-washi'`, `name: 'Monastic Washi & Sumi Ink Editorial'`, `category: 'organic_craft'`, `era`, `summary`, `VisitorModes: ['read', 'immerse']`, `References`, `Typography` using `'Shippori Mincho'` display + `'Source Serif 4'` body + `'IBM Plex Mono'` mono, `Palette` with warm raw washi paper `oklch(0.96 0.015 82)` and deep sumi ink `oklch(0.19 0.01 65)` + vermilion hanko seal accent `oklch(0.55 0.19 32)`, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `compileMonasticWashiCss()` returning a CSS `:root` block.\n2. `examples/showcases/monastic-washi.html`:\n   - Self-contained HTML5 editorial monograph showcase using `Shippori Mincho` + `Source Serif 4` + `IBM Plex Mono`, asymmetric editorial grid with `min-width: 0`, `100dvh`, generous Ma (negative space), marginalia folio indexing, and `@media (prefers-reduced-motion: reduce)`.\n   - Must pass `scanTargets(['examples/showcases/monastic-washi.html'])` from `../../scripts/detector.js` with `primaryCount === 0`.\n3. `test/packs/monastic-washi.test.js`:\n   - Node `node:test` suite verifying `MONASTIC_WASHI_WORLD`, `compileMonasticWashiCss()`, and asserting `scanTargets(['examples/showcases/monastic-washi.html']).primaryCount === 0`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-103",
+      "wave": 1,
+      "title": "Add Avionics CNC Flight-Deck World Pack & Zero-Slop Showcase",
+      "branch": "feat/nongen-103-avionics-cnc-world",
+      "files_to_create": [
+        "packs/worlds/avionics-cnc.mjs",
+        "examples/showcases/avionics-cnc.html",
+        "test/packs/avionics-cnc.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. Do NOT use `innerHTML`, `outerHTML`, `document.write()`, or `eval()`.\n3. Do NOT use banned AI-slop fonts (`Inter`, `Roboto`, `Open Sans`, `Lato`, `Montserrat`, `Poppins`, `Space Grotesk`), purple-to-blue gradients, `100vw`, `100vh` without `100dvh`, or `transition: all`.\n\n### Files to Create\n1. `packs/worlds/avionics-cnc.mjs`:\n   - Export `AVIONICS_CNC_WORLD` conforming to the `AestheticWorld` shape (`id: 'avionics-cnc'`, `name: 'Anodized CNC & Flight-Deck Avionics'`, `category: 'industrial_hardware'`, `era`, `summary`, `VisitorModes: ['operate', 'decide']`, `References`, `Typography` using `'Rajdhani'` display + `'Atkinson Hyperlegible'` body + `'Berkeley Mono'` mono, `Palette` with bead-blasted dark titanium OKLCH surfaces and aviation amber/emerald status tokens, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `compileAvionicsCncCss()` returning a CSS `:root` block.\n2. `examples/showcases/avionics-cnc.html`:\n   - Self-contained HTML5 flight-deck / CNC mission control interface opening directly into the live instrument workspace (no marketing hero!), using `Rajdhani`, `Atkinson Hyperlegible`, and `IBM Plex Mono`, `100dvh`, `tabular-nums`, accessible 44x44px tactile controls, and `@media (prefers-reduced-motion: reduce)`.\n   - Must pass `scanTargets(['examples/showcases/avionics-cnc.html'])` from `../../scripts/detector.js` with `primaryCount === 0`.\n3. `test/packs/avionics-cnc.test.js`:\n   - Node `node:test` suite verifying `AVIONICS_CNC_WORLD`, `compileAvionicsCncCss()`, and asserting `scanTargets(['examples/showcases/avionics-cnc.html']).primaryCount === 0`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-104",
+      "wave": 1,
+      "title": "Add GSAP SVG Choreography Pack (DrawSVG, MorphSVG, MotionPath)",
+      "branch": "feat/nongen-104-gsap-svg-choreography",
+      "files_to_create": [
+        "packs/motion/svg-choreography.mjs",
+        "docs/playbooks/svg-choreography.md",
+        "test/packs/svg-choreography.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. Generated GSAP blueprints must pass `detectInText(code, 'Blueprint.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings (always include `gsap.registerPlugin(...)`, `useGSAP` or `gsap.context`, `gsap.matchMedia()` for `prefers-reduced-motion`, and transform/SVG properties only).\n\n### Files to Create\n1. `packs/motion/svg-choreography.mjs`:\n   - Export `SVG_CHOREOGRAPHY_PRESETS` (array of 3 presets: `'stroke-schematic-draw'`, `'organic-path-morph'`, `'orbital-motion-path'`).\n   - Export `generateSvgMotionBlueprint({ preset, framework = 'react', ease = 'power3.out' })` that returns `{ preset, framework, plugins, code, a11yNotes }` with complete cleanup-safe, reduced-motion-safe GSAP code for `'vanilla'`, `'react'`, `'vue'`, and `'svelte'`.\n2. `docs/playbooks/svg-choreography.md`:\n   - Comprehensive engineering playbook covering SVG preparation (`vector-effect: non-scaling-stroke`, path normalization), `DrawSVGPlugin` vs native `stroke-dashoffset`, `MorphSVGPlugin` rotational alignment, `MotionPathPlugin`, and reduced-motion static reveal fallbacks.\n3. `test/packs/svg-choreography.test.js`:\n   - Node `node:test` suite testing all 3 presets across all 4 frameworks (`vanilla`, `react`, `vue`, `svelte`) and asserting `detectInText(bp.code, 'SvgMotion.tsx', { scopes: ['motion', 'security'] }).length === 0`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-105",
+      "wave": 1,
+      "title": "Add GSAP Gesture Physics Pack (Observer, Draggable & Keyboard Parity)",
+      "branch": "feat/nongen-105-gsap-gesture-physics",
+      "files_to_create": [
+        "packs/motion/gesture-physics.mjs",
+        "docs/playbooks/gesture-physics.md",
+        "test/packs/gesture-physics.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. All generated GSAP blueprints must pass `detectInText(code, 'Gesture.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings.\n\n### Files to Create\n1. `packs/motion/gesture-physics.mjs`:\n   - Export `GESTURE_PHYSICS_PRESETS` (`'observer-chamber-deck'`, `'draggable-Bounded-canvas'`, `'elastic-dial-snap'`).\n   - Export `generateGesturePhysicsBlueprint({ preset, framework = 'react', ease = 'expo.out' })` returning `{ preset, framework, plugins, code, keyboardFallback }` with complete `gsap.registerPlugin`, `gsap.matchMedia()`, `useGSAP` / `gsap.context`, and keyboard arrow/button parity so drag/swipe interactions are 100% WCAG accessible.\n2. `docs/playbooks/gesture-physics.md`:\n   - Deep reference guide on GSAP `Observer` and `Draggable`, debouncing wheel/touch velocity, snap grids, cleanup on unmount, and mandatory WCAG 2.2 keyboard alternatives for drag gestures.\n3. `test/packs/gesture-physics.test.js`:\n   - Node `node:test` suite verifying all 3 presets across all 4 frameworks (`vanilla`, `react`, `vue`, `svelte`) and asserting 0 motion/security detector findings.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-106",
+      "wave": 1,
+      "title": "Add GSAP Velocity Marquee & Scroll-Linked Skew Pack",
+      "branch": "feat/nongen-106-velocity-marquee",
+      "files_to_create": [
+        "packs/motion/velocity-marquee.mjs",
+        "docs/playbooks/velocity-marquee.md",
+        "test/packs/velocity-marquee.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. All generated GSAP blueprints must pass `detectInText(code, 'Marquee.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings.\n\n### Files to Create\n1. `packs/motion/velocity-marquee.mjs`:\n   - Export `VELOCITY_MARQUEE_PRESETS` (`'seamless-ribbon-loop'`, `'scroll-velocity-skew'`, `'ticker-telemetry-tape'`).\n   - Export `generateVelocityMarqueeBlueprint({ preset, framework = 'react', ease = 'none' })` returning `{ preset, framework, plugins, code, reducedMotionBehavior }` using `xPercent`, `gsap.utils.wrap`, `gsap.utils.clamp(-12, 12)` for ScrollTrigger `getVelocity()`, pause-on-hover/focus, `gsap.matchMedia()`, and full framework cleanup.\n2. `docs/playbooks/velocity-marquee.md`:\n   - Playbook explaining why CSS `@keyframes` marquees jump on resize, how to build seamless `xPercent` loops in GSAP, clamping scroll velocity skews to prevent motion sickness, and pausing on keyboard focus.\n3. `test/packs/velocity-marquee.test.js`:\n   - Node `node:test` suite testing all presets across all 4 frameworks and verifying 0 detector findings.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-107",
+      "wave": 1,
+      "title": "Add Fintech & Telemetry Domain Playbook and Ledger World Pack",
+      "branch": "feat/nongen-107-fintech-ledger-pack",
+      "files_to_create": [
+        "packs/worlds/fintech-ledger.mjs",
+        "docs/playbooks/domain-fintech-telemetry.md",
+        "test/packs/fintech-ledger.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n\n### Files to Create\n1. `packs/worlds/fintech-ledger.mjs`:\n   - Export `FINTECH_LEDGER_WORLD` conforming to `AestheticWorld` (`id: 'fintech-ledger'`, `name: 'Institutional Ledger & High-Density Telemetry'`, `category: 'swiss_grids'`, `VisitorModes: ['operate', 'decide']`, `Typography` using `'Instrument Serif'` display + `'Plus Jakarta Sans'` body + `'JetBrains Mono'` mono, `Palette` with crisp daylight alabaster & obsidian dark tokens in OKLCH, semantic positive/negative delta tokens, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `validateFinancialTableMarkup(html)` helper that checks for `tabular-nums`, right-aligned numeric cells, and absence of sparkline-card slop.\n2. `docs/playbooks/domain-fintech-telemetry.md`:\n   - Authoritative design playbook for trading terminals, institutional ledgers, and real-time observability dashboards (banning decorative 4-card KPI rows with fake +12.5% badges, enforcing right-aligned `tabular-nums`, hairline grid borders, and direct-to-workspace entry).\n3. `test/packs/fintech-ledger.test.js`:\n   - Node `node:test` suite testing `FINTECH_LEDGER_WORLD` and `validateFinancialTableMarkup()`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-108",
+      "wave": 1,
+      "title": "Add WebGL / Shader Stage Bridge Pack & Creative Coding Playbook",
+      "branch": "feat/nongen-108-webgl-shader-bridge",
+      "files_to_create": [
+        "packs/motion/shader-stage-bridge.mjs",
+        "docs/playbooks/domain-webgl-stages.md",
+        "test/packs/shader-stage-bridge.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. All generated GSAP blueprints must pass `detectInText(code, 'ShaderBridge.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings.\n\n### Files to Create\n1. `packs/motion/shader-stage-bridge.mjs`:\n   - Export `SHADER_BRIDGE_PRESETS` (`'uniform-scroll-scrub'`, `'pointer-displacement-field'`, `'dom-to-canvas-sync'`).\n   - Export `generateShaderBridgeBlueprint({ preset, framework = 'react', ease = 'power2.out' })` returning `{ preset, framework, plugins, code, performanceChecklist }` showing how to tween plain JS uniform proxy objects (`uProgress`, `uVelocity`, `uPointer`) with GSAP + `gsap.ticker.add()` and clean up WebGL/ticker listeners inside `useGSAP` / `gsap.context` + `gsap.matchMedia()`.\n2. `docs/playbooks/domain-webgl-stages.md`:\n   - Playbook for pairing WebGL/Three.js/Canvas2D stages with DOM typography without tanking LCP/INP or violating `prefers-reduced-motion`.\n3. `test/packs/shader-stage-bridge.test.js`:\n   - Node `node:test` suite verifying all 3 presets across all 4 frameworks and asserting 0 motion/security findings.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    }
+  ]
+}

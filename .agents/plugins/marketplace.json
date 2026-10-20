@@ -1,0 +1,14 @@
+{
+  "name": "nongeneric",
+  "plugins": [
+    {
+      "name": "nongeneric",
+      "version": "1.0.0",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "category": "Design & Animation"
+    }
+  ]
+}

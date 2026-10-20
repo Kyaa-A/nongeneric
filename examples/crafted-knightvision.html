@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KnightVision — Stockfish 19 NNUE Tactical Telemetry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&display=swap" />
+  <style>
+    :root {
+      --ng-ground-primary: oklch(0.975 0.008 80);
+      --ng-ground-elevated: oklch(0.992 0.004 80);
+      --ng-ink-primary: oklch(0.16 0.01 75);
+      --ng-ink-secondary: oklch(0.36 0.015 75);
+      --ng-ink-muted: oklch(0.5 0.015 75);
+      --ng-accent-emerald: oklch(0.56 0.16 148);
+      --ng-accent-amber: oklch(0.66 0.16 70);
+      --ng-border-hairline: oklch(0.86 0.012 80);
+      --ng-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --ng-font-serif: 'Newsreader', Georgia, serif;
+      --ng-font-mono: 'JetBrains Mono', monospace;
+      --ng-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100dvh;
+      background-color: var(--ng-ground-primary);
+      color: var(--ng-ink-primary);
+      font-family: var(--ng-font-display);
+      font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      line-height: 1.58;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .masthead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      max-width: min(100%, 1280px);
+      margin-inline: auto;
+      padding: 1.25rem clamp(1rem, 3vw, 2.5rem);
+      border-bottom: 1px solid var(--ng-border-hairline);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+      color: var(--ng-ink-primary);
+      text-decoration: none;
+    }
+
+    .telemetry-pill {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.625rem;
+      border: 1px solid var(--ng-border-hairline);
+      background: var(--ng-ground-elevated);
+      color: var(--ng-ink-secondary);
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: clamp(2rem, 4vw, 4.5rem);
+      align-items: center;
+      max-width: min(100%, 1280px);
+      margin-inline: auto;
+      padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1rem, 3vw, 2.5rem);
+    }
+
+    .editorial-col {
+      min-width: 0;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-family: var(--ng-font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ng-ink-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2.25rem, 1.8rem + 2.6vw, 4rem);
+      line-height: 1.06;
+      letter-spacing: -0.028em;
+      text-wrap: balance;
+      margin: 0 0 1.25rem;
+    }
+
+    h1 em {
+      font-family: var(--ng-font-serif);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .lead-copy {
+      max-width: 60ch;
+      color: var(--ng-ink-secondary);
+      margin: 0 0 2rem;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.875rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.625rem 1.25rem;
+      background: var(--ng-ink-primary);
+      color: var(--ng-ground-elevated);
+      font-family: var(--ng-font-display);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border: 1px solid var(--ng-ink-primary);
+      cursor: pointer;
+      transition: transform 160ms var(--ng-ease-out), background-color 160ms var(--ng-ease-out);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:focus-visible,
+    .candidate-row:focus-visible {
+      outline: 2px solid var(--ng-accent-emerald);
+      outline-offset: 2px;
+    }
+
+    .instrument-card {
+      min-width: 0;
+      background: var(--ng-ground-elevated);
+      border: 1px solid var(--ng-border-hairline);
+      padding: clamp(1rem, 2.5vw, 1.75rem);
+    }
+
+    .instrument-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.875rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--ng-border-hairline);
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.75rem;
+    }
+
+    .candidate-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .candidate-row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      padding: 0.625rem 0.875rem;
+      border: 1px solid var(--ng-border-hairline);
+      background: var(--ng-ground-primary);
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.875rem;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      color: var(--ng-ink-primary);
+    }
+
+    .keycap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      min-height: 28px;
+      padding-inline: 0.375rem;
+      border: 1px solid var(--ng-border-hairline);
+      background: var(--ng-ground-elevated);
+      font-weight: 600;
+      margin-right: 0.625rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/knightvision">KnightVision</a>
+    <span class="telemetry-pill" id="engine-status">SF19 NNUE · Depth 16 · Eval +0.17</span>
+  </header>
+
+  <main class="stage">
+    <section class="editorial-col">
+      <span class="kicker" data-ng-kicker>01 · Live Tactical Overlay</span>
+      <h1 data-ng-headline>Play smarter with <em>Green &amp; Yellow</em> chess vision.</h1>
+      <p class="lead-copy">
+        Inspect candidate continuations in real time. Press <strong>Q</strong> for the primary Stockfish 19 NNUE line or <strong>E</strong> to probe the secondary tactical branch directly on the board.
+      </p>
+      <div class="action-row">
+        <button type="button" class="btn-primary" id="btn-evaluate">Analyze Active Position</button>
+        <span class="telemetry-pill">Shortcuts: Q · E · Alt+A</span>
+      </div>
+    </section>
+
+    <aside class="instrument-card" data-ng-instrument aria-label="Stockfish Candidate Move Telemetry">
+      <div class="instrument-header">
+        <span>ENGINE: STOCKFISH 19 NNUE</span>
+        <span id="active-line-readout">LINE: 1. d2-d3 (+0.17)</span>
+      </div>
+      <div class="candidate-stack">
+        <button type="button" class="candidate-row" data-move="1. d2 to d3 (+0.17)" data-ng-bar>
+          <span><span class="keycap">Q</span>1ST · Pawn d2 to d3</span>
+          <strong>51.4%</strong>
+        </button>
+        <button type="button" class="candidate-row" data-move="1. c2 to c3 (+0.11)" data-ng-bar>
+          <span><span class="keycap">E</span>2ND · Pawn c2 to c3</span>
+          <strong>51.0%</strong>
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module">
+    const readout = document.getElementById('active-line-readout');
+    const buttons = document.querySelectorAll('.candidate-row');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const move = btn.getAttribute('data-move') || '';
+        if (readout) {
+          readout.textContent = 'LINE: ' + move;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
