@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architectural Monograph & Spatial Practice World</title>
+  <style>
+    :root {
+      --ng-surface: oklch(0.96 0.01 85);
+      --ng-ink: oklch(0.18 0.02 60);
+      --ng-accent: oklch(0.52 0.15 45);
+      --ng-muted: oklch(0.85 0.01 80);
+      --ng-font-display: "Cormorant Garamond", serif;
+      --ng-font-body: "Work Sans", sans-serif;
+      --ng-font-mono: "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      min-width: 0;
+      background-color: var(--ng-surface);
+      color: var(--ng-ink);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .monograph-container {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+      min-height: 100dvh;
+      min-width: 0;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .monograph-sidebar {
+      border-right: 1px solid var(--ng-ink);
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .monograph-content {
+      padding: 2rem;
+    }
+
+    .monograph-title {
+      font-family: var(--ng-font-display);
+      font-size: clamp(3rem, 5vw, 6rem);
+      margin: 0 0 2rem 0;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .monograph-meta {
+      font-family: var(--ng-font-mono);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+    }
+
+    .monograph-text {
+      font-size: 1.2rem;
+      max-width: 65ch;
+      margin-bottom: 2rem;
+    }
+
+    .monograph-action {
+      background-color: var(--ng-ink);
+      color: var(--ng-surface);
+      border: none;
+      padding: 0 2rem;
+      min-height: 44px;
+      font-family: var(--ng-font-mono);
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .monograph-action:hover {
+      background-color: var(--ng-accent);
+    }
+
+    @media (max-width: 768px) {
+      .monograph-container {
+        grid-template-columns: 1fr;
+      }
+      .monograph-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--ng-ink);
+        padding-right: 0;
+        padding-bottom: 2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="monograph-container">
+    <aside class="monograph-sidebar">
+      <div class="monograph-meta">
+        <div>Folio 01</div>
+        <div>Spatial Practice</div>
+      </div>
+      <div class="monograph-meta">
+        <div>Est. 2024</div>
+      </div>
+    </aside>
+    <main class="monograph-content">
+      <h1 class="monograph-title">Architectural Structure</h1>
+      <p class="monograph-text">
+        The synthesis of material, form, and light. A structured framework providing stability and definition within space.
+      </p>
+      <button class="monograph-action">Analyze Structure</button>
+    </main>
+  </div>
+</body>
+</html>
