@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Density Telemetry Data Grid</title>
+  <style>
+    :root {
+      --bg-color: oklch(0.1 0 0);
+      --surface-color: oklch(0.2 0 0);
+      --border-color: oklch(0.3 0 0);
+      --text-color: oklch(0.9 0 0);
+      --accent-color: oklch(0.7 0.1 180);
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body: 'Atkinson Hyperlegible', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      min-width: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border-color);
+      color: var(--text-color);
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .telemetry-row {
+      background: var(--surface-color);
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 8px 16px;
+      background: var(--accent-color);
+      border: none;
+      color: var(--bg-color);
+      font-family: var(--font-body);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="app">
+    <header>
+      <h1>Telemetry Grid</h1>
+    </header>
+    <section class="telemetry-grid">
+      <article class="telemetry-row">
+        <span>0x001</span>
+        <span>STATUS: OK</span>
+        <button type="button">Inspect</button>
+      </article>
+      <article class="telemetry-row">
+        <span>0x002</span>
+        <span>STATUS: WARN</span>
+        <button type="button">Inspect</button>
+      </article>
+      <article class="telemetry-row">
+        <span>0x003</span>
+        <span>STATUS: FAIL</span>
+        <button type="button">Inspect</button>
+      </article>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    gsap.registerPlugin();
+
+    const container = document.getElementById('app');
+    if (container) {
+      const ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          gsap.fromTo('.telemetry-row',
+            { autoAlpha: 0, y: 10 },
+            { autoAlpha: 1, y: 0, stagger: 0.05, duration: 0.4, ease: "power2.out" }
+          );
+        });
+        mm.add("(prefers-reduced-motion: reduce)", () => {
+          gsap.set('.telemetry-row', { autoAlpha: 1, y: 0 });
+        });
+      }, container);
+    }
+  </script>
+</body>
+</html>
