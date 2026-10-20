@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Independent Game Lore & Worldbuilding Codex World</title>
+  <style>
+    :root {
+      --ng-surface: oklch(0.2 0.01 250);
+      --ng-text: oklch(0.9 0.02 80);
+      --ng-accent: oklch(0.6 0.15 45);
+      --ng-font-display: 'Shippori Mincho', serif;
+      --ng-font-body: 'Source Serif 4', serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-surface);
+      color: var(--ng-text);
+      font-family: var(--ng-font-body);
+      min-width: 0;
+    }
+
+    .mythic-codex-archive {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .codex-title {
+      font-family: var(--ng-font-display);
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      color: var(--ng-accent);
+    }
+
+    .codex-entry {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--ng-accent);
+      min-width: 0;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 0.5rem 1rem;
+      font-family: var(--ng-font-mono);
+      background-color: var(--ng-accent);
+      color: var(--ng-surface);
+      border: none;
+      cursor: pointer;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="mythic-codex-archive">
+    <h1 class="codex-title">Mythic Codex Archive</h1>
+    <div class="codex-entry">Codex Entry: Origins</div>
+    <div class="codex-entry">Codex Entry: The Fall</div>
+    <button>Explore More Lore</button>
+  </div>
+</body>
+</html>
