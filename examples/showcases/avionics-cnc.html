@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avionics CNC Mission Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-surface-base: oklch(0.25 0.01 260);
+      --color-surface-raised: oklch(0.30 0.01 260);
+      --color-surface-recessed: oklch(0.20 0.01 260);
+
+      --color-text-primary: oklch(0.95 0.01 260);
+      --color-text-secondary: oklch(0.75 0.01 260);
+
+      --color-status-amber: oklch(0.75 0.18 70);
+      --color-status-emerald: oklch(0.70 0.16 150);
+      --color-status-danger: oklch(0.65 0.20 25);
+
+      --font-display: "Rajdhani", sans-serif;
+      --font-body: "Atkinson Hyperlegible", sans-serif;
+      --font-mono: "Berkeley Mono", "IBM Plex Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-surface-base);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .panel {
+      background-color: var(--color-surface-raised);
+      border: 1px solid var(--color-surface-recessed);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel-header {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--color-surface-recessed);
+      padding-bottom: 8px;
+    }
+
+    .readout {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-variant-numeric: tabular-nums;
+      color: var(--color-status-emerald);
+      background-color: var(--color-surface-recessed);
+      padding: 16px;
+      text-align: right;
+    }
+
+    .control-btn {
+      background-color: var(--color-surface-recessed);
+      color: var(--color-status-amber);
+      border: 2px solid var(--color-status-amber);
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .control-btn:hover,
+    .control-btn:focus-visible {
+      background-color: var(--color-status-amber);
+      color: var(--color-surface-base);
+      outline: 2px solid var(--color-text-primary);
+      outline-offset: 2px;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--color-status-emerald);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .control-btn {
+        transition: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="workspace">
+    <section class="panel">
+      <h1 class="panel-header">Telemetry Feed</h1>
+      <div class="readout">142.857</div>
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>SYSTEM NOMINAL</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-header">Primary Controls</h2>
+      <button type="button" class="control-btn">ENGAGE SEQUENCE</button>
+      <button type="button" class="control-btn" style="border-color: var(--color-status-danger); color: var(--color-status-danger);">ABORT</button>
+    </section>
+  </main>
+</body>
+</html>
