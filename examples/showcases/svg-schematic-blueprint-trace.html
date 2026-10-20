@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP SVG Technical Callout & Isometric Wireframe Trace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-surface: oklch(0.20 0.01 250);
+      --color-text: oklch(0.95 0.01 250);
+      --color-accent: oklch(0.70 0.16 150);
+      --font-display: "Barlow Condensed", sans-serif;
+      --font-body: "Atkinson Hyperlegible", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      min-height: 100dvh;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 48px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .telemetry {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 24px;
+      color: var(--color-accent);
+      margin-bottom: 32px;
+    }
+
+    .control-btn {
+      background-color: transparent;
+      color: var(--color-text);
+      border: 2px solid var(--color-accent);
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 12px 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .control-btn:hover,
+    .control-btn:focus-visible {
+      background-color: var(--color-accent);
+      color: var(--color-surface);
+      outline: 2px solid var(--color-text);
+      outline-offset: 2px;
+    }
+
+    .wireframe-container {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid oklch(0.30 0.01 250);
+      position: relative;
+    }
+
+    .wireframe-path {
+      stroke: var(--color-accent);
+      stroke-width: 2;
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .control-btn {
+        /* Avoid transition: all, just no transition needed */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <h1>Technical Callout</h1>
+      <p>An isometric wireframe trace demonstrating SVG motion choreography without layout thrashing.</p>
+      <div class="telemetry">COORD: 45.912, 12.001</div>
+      <button type="button" class="control-btn" id="replay-btn">Replay Trace</button>
+    </div>
+    <div class="wireframe-container" id="wireframe-scope">
+      <svg viewBox="0 0 100 100" width="80%" height="80%" preserveAspectRatio="xMidYMid meet">
+        <path class="wireframe-path" d="M10 50 L50 10 L90 50 L50 90 Z" />
+        <path class="wireframe-path" d="M10 50 L50 90" />
+        <path class="wireframe-path" d="M50 10 L50 90" />
+      </svg>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/DrawSVGPlugin.min.js"></script>
+  <script type="module">
+    // Minimal fallback implementation of DrawSVG logic since it's a premium plugin
+    // We mock it for the showcase if not available locally
+    if (typeof DrawSVGPlugin === 'undefined') {
+      gsap.registerPlugin({
+        name: "drawSVG",
+        init(target, value) {
+          const length = target.getTotalLength();
+          target.style.strokeDasharray = length;
+          target.style.strokeDashoffset = length;
+          this.target = target;
+          this.length = length;
+
+          let parsedValue = 0;
+          if (value === "100%") parsedValue = 0; // offset 0 means fully drawn
+          else if (value === 0 || value === "0%") parsedValue = length; // offset length means fully hidden
+
+          this.offset = parsedValue;
+        },
+        render(progress, data) {
+          data.target.style.strokeDashoffset = data.length - (data.length - data.offset) * progress;
+        }
+      });
+    }
+
+    const container = document.getElementById('wireframe-scope');
+    const replayBtn = document.getElementById('replay-btn');
+
+    let ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const tl = gsap.timeline();
+        tl.from(".wireframe-path", {
+          drawSVG: 0,
+          duration: 1.5,
+          ease: "power3.out",
+          stagger: 0.2
+        });
+
+        replayBtn.addEventListener('click', () => {
+          tl.restart();
+        });
+      });
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(".wireframe-path", { drawSVG: "100%" });
+
+        // Static visual feedback on click
+        replayBtn.addEventListener('click', () => {
+          gsap.fromTo(".wireframe-path",
+            { opacity: 0.5 },
+            { opacity: 1, duration: 0.3 }
+          );
+        });
+      });
+
+      return () => mm.revert();
+    }, container);
+
+  </script>
+</body>
+</html>
