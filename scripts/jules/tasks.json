@@ -99,6 +99,78 @@
         "test/packs/shader-stage-bridge.test.js"
       ],
       "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. All generated GSAP blueprints must pass `detectInText(code, 'ShaderBridge.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings.\n\n### Files to Create\n1. `packs/motion/shader-stage-bridge.mjs`:\n   - Export `SHADER_BRIDGE_PRESETS` (`'uniform-scroll-scrub'`, `'pointer-displacement-field'`, `'dom-to-canvas-sync'`).\n   - Export `generateShaderBridgeBlueprint({ preset, framework = 'react', ease = 'power2.out' })` returning `{ preset, framework, plugins, code, performanceChecklist }` showing how to tween plain JS uniform proxy objects (`uProgress`, `uVelocity`, `uPointer`) with GSAP + `gsap.ticker.add()` and clean up WebGL/ticker listeners inside `useGSAP` / `gsap.context` + `gsap.matchMedia()`.\n2. `docs/playbooks/domain-webgl-stages.md`:\n   - Playbook for pairing WebGL/Three.js/Canvas2D stages with DOM typography without tanking LCP/INP or violating `prefers-reduced-motion`.\n3. `test/packs/shader-stage-bridge.test.js`:\n   - Node `node:test` suite verifying all 3 presets across all 4 frameworks and asserting 0 motion/security findings.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-201",
+      "wave": 2,
+      "title": "Add Bauhaus Constructivist Archive World Pack & Zero-Slop Showcase",
+      "branch": "feat/nongen-201-bauhaus-constructivist",
+      "files_to_create": [
+        "packs/worlds/bauhaus-constructivist.mjs",
+        "examples/showcases/bauhaus-constructivist.html",
+        "test/packs/bauhaus-constructivist.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. Do NOT use `innerHTML`, `outerHTML`, `document.write()`, or `eval()`.\n3. Do NOT use banned AI-slop fonts (`Inter`, `Roboto`, `Open Sans`, `Lato`, `Montserrat`, `Poppins`, `Space Grotesk`), purple-to-blue gradients, `100vw`, `100vh` without `100dvh`, or `transition: all`.\n\n### Files to Create\n1. `packs/worlds/bauhaus-constructivist.mjs`:\n   - Export `BAUHAUS_CONSTRUCTIVIST_WORLD` conforming to `AestheticWorld` (`id: 'bauhaus-constructivist'`, `name: 'Bauhaus Dessau & Constructivist Archive'`, `category: 'brutalist_systems'`, `VisitorModes: ['immerse', 'read', 'convert']`, `Typography` using `'Syne'` display + `'Plus Jakarta Sans'` body + `'IBM Plex Mono'` mono, `Palette` with warm newsprint cream `oklch(0.95 0.018 84)`, carbon black `oklch(0.16 0.01 60)`, constructivist vermilion `oklch(0.56 0.21 29)`, and cobalt `oklch(0.45 0.17 258)`, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `compileBauhausConstructivistCss()` returning a CSS `:root` string.\n2. `examples/showcases/bauhaus-constructivist.html`:\n   - Self-contained HTML5 exhibition & architectural poster archive showcase with exposed structural rules, asymmetric grid, `min-height: 100dvh`, `min-width: 0`, fluid `clamp()` typography, and `@media (prefers-reduced-motion: reduce)`.\n   - Must pass `scanTargets(['examples/showcases/bauhaus-constructivist.html'])` from `../../scripts/detector.js` with `primaryCount === 0`.\n3. `test/packs/bauhaus-constructivist.test.js`:\n   - Node `node:test` suite verifying `BAUHAUS_CONSTRUCTIVIST_WORLD`, `compileBauhausConstructivistCss()`, and asserting `scanTargets(['examples/showcases/bauhaus-constructivist.html']).primaryCount === 0`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-202",
+      "wave": 2,
+      "title": "Add Botanical Herbarium World Pack & Zero-Slop Showcase",
+      "branch": "feat/nongen-202-botanical-herbarium",
+      "files_to_create": [
+        "packs/worlds/botanical-herbarium.mjs",
+        "examples/showcases/botanical-herbarium.html",
+        "test/packs/botanical-herbarium.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. Do NOT use `innerHTML`, `outerHTML`, `document.write()`, or `eval()`.\n3. Do NOT use banned AI-slop fonts (`Inter`, `Roboto`, `Open Sans`, `Lato`, `Montserrat`, `Poppins`, `Space Grotesk`), purple-to-blue gradients, `100vw`, `100vh` without `100dvh`, or `transition: all`.\n\n### Files to Create\n1. `packs/worlds/botanical-herbarium.mjs`:\n   - Export `BOTANICAL_HERBARIUM_WORLD` conforming to `AestheticWorld` (`id: 'botanical-herbarium'`, `name: 'Archival Botanical Herbarium & Natural History'`, `category: 'organic_craft'`, `VisitorModes: ['read', 'immerse', 'decide']`, `Typography` using `'Cormorant Garamond'` display + `'Source Serif 4'` body + `'IBM Plex Mono'` mono, `Palette` with pressed-linen parchment `oklch(0.955 0.016 86)`, iron-gall ink `oklch(0.21 0.015 65)`, chlorophyll moss `oklch(0.46 0.09 148)`, and terracotta specimen tag `oklch(0.56 0.13 42)`, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `compileBotanicalHerbariumCss()` returning a CSS `:root` string.\n2. `examples/showcases/botanical-herbarium.html`:\n   - Self-contained HTML5 botanical specimen archive showcase with binomial nomenclature ledger, archival catalog stamps, `min-height: 100dvh`, `tabular-nums`, and `@media (prefers-reduced-motion: reduce)`.\n   - Must pass `scanTargets(['examples/showcases/botanical-herbarium.html'])` from `../../scripts/detector.js` with `primaryCount === 0`.\n3. `test/packs/botanical-herbarium.test.js`:\n   - Node `node:test` suite verifying `BOTANICAL_HERBARIUM_WORLD`, `compileBotanicalHerbariumCss()`, and asserting `scanTargets(['examples/showcases/botanical-herbarium.html']).primaryCount === 0`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-203",
+      "wave": 2,
+      "title": "Add GSAP TextScramble & Accessible Telemetry Decoder Pack",
+      "branch": "feat/nongen-203-text-scramble-telemetry",
+      "files_to_create": [
+        "packs/motion/text-scramble-telemetry.mjs",
+        "docs/playbooks/text-scramble-telemetry.md",
+        "test/packs/text-scramble-telemetry.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. All generated GSAP blueprints must pass `detectInText(code, 'Scramble.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings (never use `innerHTML`; always use `textContent` and `aria-label` preservation).\n\n### Files to Create\n1. `packs/motion/text-scramble-telemetry.mjs`:\n   - Export `TEXT_SCRAMBLE_PRESETS` (`'cipher-glyph-decode'`, `'tabular-odometer-roll'`, `'coordinate-lock-reveal'`).\n   - Export `generateTextScrambleBlueprint({ preset, framework = 'react', ease = 'power2.out' })` returning `{ preset, framework, plugins, code, a11yNotes }` using `textContent` (never `innerHTML`), `aria-label` on the parent + `aria-hidden=\"true\"` on the animated glyph span so screen readers never read scrambled characters, `gsap.matchMedia()`, and full cleanup.\n2. `docs/playbooks/text-scramble-telemetry.md`:\n   - Playbook covering cryptographic/telemetry text decoding, `tabular-nums` alignment during character swaps, screen-reader safety (`aria-label` + `aria-hidden`), and reduced-motion instant text assignment.\n3. `test/packs/text-scramble-telemetry.test.js`:\n   - Node `node:test` suite testing all 3 presets across all 4 frameworks (`vanilla`, `react`, `vue`, `svelte`) and asserting 0 motion/security findings.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-204",
+      "wave": 2,
+      "title": "Add GSAP Shared-Element Flip Expansion & Lightbox Pack",
+      "branch": "feat/nongen-204-flip-shared-element",
+      "files_to_create": [
+        "packs/motion/flip-shared-element.mjs",
+        "docs/playbooks/flip-shared-element.md",
+        "test/packs/flip-shared-element.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n2. All generated GSAP blueprints must pass `detectInText(code, 'FlipShared.tsx', { scopes: ['motion', 'security'] })` from `../../scripts/detector.js` with 0 findings.\n\n### Files to Create\n1. `packs/motion/flip-shared-element.mjs`:\n   - Export `FLIP_SHARED_PRESETS` (`'card-to-dossier-sheet'`, `'specimen-lightbox-fit'`, `'dock-to-inspector-panel'`).\n   - Export `generateFlipSharedBlueprint({ preset, framework = 'react', ease = 'expo.inOut' })` returning `{ preset, framework, plugins, code, focusManagementNotes }` using `gsap.registerPlugin(Flip)`, `Flip.getState()`, `Flip.from()` / `Flip.fit()`, `gsap.matchMedia()`, focus restoration to trigger button on `Escape` close, and framework cleanup.\n2. `docs/playbooks/flip-shared-element.md`:\n   - Playbook covering shared-element transitions with `data-flip-id`, nested content counter-scaling, `zIndex` layering during morphs, keyboard `Escape` + focus return, and `prefers-reduced-motion` instant state switch.\n3. `test/packs/flip-shared-element.test.js`:\n   - Node `node:test` suite testing all 3 presets across all 4 frameworks (`vanilla`, `react`, `vue`, `svelte`) and asserting 0 motion/security findings.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-205",
+      "wave": 2,
+      "title": "Add AI-Native Workspaces Anti-Slop Playbook & Artifact Workbench World",
+      "branch": "feat/nongen-205-artifact-workbench",
+      "files_to_create": [
+        "packs/worlds/artifact-workbench.mjs",
+        "docs/playbooks/domain-ai-native-workspaces.md",
+        "test/packs/artifact-workbench.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n\n### Files to Create\n1. `packs/worlds/artifact-workbench.mjs`:\n   - Export `ARTIFACT_WORKBENCH_WORLD` conforming to `AestheticWorld` (`id: 'artifact-workbench'`, `name: 'Spatial Artifact Workbench & Provenance Canvas'`, `category: 'swiss_grids'`, `VisitorModes: ['operate', 'decide']`, `Typography` using `'Newsreader'` display + `'Plus Jakarta Sans'` body + `'JetBrains Mono'` mono, `Palette` in OKLCH with graphite slate and warm parchment modes, provenance citation tokens, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `auditAiWorkspaceMarkup(html)` helper that detects AI-chat-slop anti-patterns (sparkle emoji/icons `✨`, gradient 'Ask AI' pills, chat-only bottlenecks without direct artifact inspection).\n2. `docs/playbooks/domain-ai-native-workspaces.md`:\n   - Playbook for designing non-generic AI products: why chat bubbles and purple sparkle icons are lazy AI slop, and how to design spatial artifact workbenches, inline diff lenses, confidence/provenance indicators, and keyboard-first command palettes.\n3. `test/packs/artifact-workbench.test.js`:\n   - Node `node:test` suite testing `ARTIFACT_WORKBENCH_WORLD` and `auditAiWorkspaceMarkup()`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
+    },
+    {
+      "id": "NONGEN-206",
+      "wave": 2,
+      "title": "Add Luxury Editorial Commerce Playbook & Atelier Lookbook World",
+      "branch": "feat/nongen-206-atelier-lookbook",
+      "files_to_create": [
+        "packs/worlds/atelier-lookbook.mjs",
+        "docs/playbooks/domain-luxury-commerce.md",
+        "test/packs/atelier-lookbook.test.js"
+      ],
+      "prompt": "You are working on `Kyaa-A/nongeneric`, the Anti-Generic Designer & GSAP Motion Choreographer engine.\n\n### CRITICAL ISOLATION RULES\n1. ONLY create the 3 files listed below. Do NOT modify `package.json`, `tsconfig.json`, or any existing files in `src/` or `scripts/`.\n\n### Files to Create\n1. `packs/worlds/atelier-lookbook.mjs`:\n   - Export `ATELIER_LOOKBOOK_WORLD` conforming to `AestheticWorld` (`id: 'atelier-lookbook'`, `name: 'Independent Atelier & Tactile Lookbook'`, `category: 'editorial_fashion'`, `VisitorModes: ['immerse', 'convert', 'decide']`, `Typography` using `'Playfair Display'` display + `'Instrument Sans'` body + `'IBM Plex Mono'` mono, `Palette` in OKLCH with unbleached silk `oklch(0.96 0.012 78)`, espresso umber `oklch(0.18 0.018 52)`, and oxidized bronze `oklch(0.52 0.09 64)`, `LayoutGrammar`, `SurfaceRules`, `MotionLanguage`, `AntiHero`).\n   - Export `compileAtelierLookbookCss()` returning a CSS `:root` string.\n2. `docs/playbooks/domain-luxury-commerce.md`:\n   - Playbook for designing independent/luxury e-commerce & product storytelling: banning fake countdown timers, pop-up spin wheels, and identical 3-card pricing grids in favor of tactile material close-ups, provenance specification tables, and editorial pacing.\n3. `test/packs/atelier-lookbook.test.js`:\n   - Node `node:test` suite testing `ATELIER_LOOKBOOK_WORLD` and `compileAtelierLookbookCss()`.\n\nRun `npm test`, `npm run check:generated`, `npm run check:json`, and `npm run typecheck` before finishing."
     }
   ]
 }
