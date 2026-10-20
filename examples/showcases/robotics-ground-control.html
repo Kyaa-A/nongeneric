@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robotics Ground Control Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@100..800&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --robotics-background: oklch(0.2 0.05 250);
+      --robotics-surface: oklch(0.25 0.05 250);
+      --robotics-border: oklch(0.4 0.1 250);
+      --robotics-text-primary: oklch(0.9 0.05 250);
+      --robotics-text-secondary: oklch(0.7 0.05 250);
+      --robotics-accent: oklch(0.7 0.2 150);
+      --robotics-danger: oklch(0.6 0.2 25);
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--robotics-background);
+      color: var(--robotics-text-primary);
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      min-height: 100dvh;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .telemetry {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 2rem;
+      color: var(--robotics-accent);
+      margin-bottom: 2rem;
+    }
+
+    .control-panel {
+      background-color: var(--robotics-surface);
+      border: 1px solid var(--robotics-border);
+      padding: 2rem;
+      border-radius: 8px;
+    }
+
+    .alert {
+      font-family: 'Rajdhani', sans-serif;
+      background-color: var(--robotics-danger);
+      color: oklch(1 0 0); /* White text on danger background */
+      padding: 1rem;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .button {
+      background-color: var(--robotics-accent);
+      color: var(--robotics-background);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      outline: 2px solid var(--robotics-text-primary);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="control-panel">
+    <div class="alert">Critical Alert: Connection Unstable</div>
+    <div class="telemetry">LAT: 34.0522 N</div>
+    <div class="telemetry">LON: 118.2437 W</div>
+    <div class="telemetry">ALT: 14500m</div>
+    <button class="button">Reconnect</button>
+  </div>
+</body>
+</html>
