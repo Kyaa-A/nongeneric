@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Audio/Shader Waveform Transport Bar Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ng-ground-primary: oklch(0.12 0.01 250);
+      --ng-ground-elevated: oklch(0.18 0.01 250);
+      --ng-ink-primary: oklch(0.98 0 0);
+      --ng-ink-muted: oklch(0.65 0 0);
+      --ng-accent-primary: oklch(0.6 0.2 25);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-ground-primary);
+      color: var(--ng-ink-primary);
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1rem, 5vw, 4rem);
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Chakra Petch', sans-serif;
+      color: var(--ng-ink-primary);
+    }
+
+    .waveform-transport {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--ng-ground-elevated);
+      border-radius: 8px;
+      min-width: 0;
+    }
+
+    .waveform-display {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 40px;
+    }
+
+    .waveform-bar {
+      width: 8px;
+      height: 100%;
+      background: var(--ng-accent-primary);
+      transform-origin: center;
+      transform: scaleY(0.5);
+    }
+
+    .transport-controls {
+      display: flex;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    .transport-controls button {
+      min-height: 44px;
+      min-width: 44px;
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+      background: var(--ng-ground-primary);
+      color: var(--ng-ink-primary);
+      border: 1px solid var(--ng-ink-muted);
+      border-radius: 4px;
+      padding: 0 0.5rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .waveform-bar {
+        transform: scaleY(0.5) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="waveform-transport" aria-label="Audio Transport">
+    <div class="waveform-display" aria-hidden="true">
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+    </div>
+    <div class="transport-controls">
+      <button class="btn-play" aria-label="Play">PLAY</button>
+      <button class="btn-pause" aria-label="Pause">PAUSE</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script type="module">
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initWaveformTransport(container) {
+      const bars = container.querySelectorAll('.waveform-bar');
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        if (bars.length > 0) {
+          const tl = gsap.timeline({ repeat: -1, yoyo: true });
+          tl.to(bars, {
+            scaleY: "random(0.2, 1)",
+            duration: 0.15,
+            stagger: {
+              each: 0.05,
+              from: "random"
+            },
+            ease: "none"
+          });
+
+          const playBtn = container.querySelector('.btn-play');
+          const pauseBtn = container.querySelector('.btn-pause');
+
+          const handlePlay = () => tl.play();
+          const handlePause = () => tl.pause();
+
+          if (playBtn) {
+            playBtn.addEventListener('click', handlePlay);
+          }
+          if (pauseBtn) {
+            pauseBtn.addEventListener('click', handlePause);
+          }
+
+          return () => {
+            tl.kill();
+            if (playBtn) playBtn.removeEventListener('click', handlePlay);
+            if (pauseBtn) pauseBtn.removeEventListener('click', handlePause);
+          };
+        }
+      });
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(bars, { scaleY: 0.5 });
+        return () => {};
+      });
+    }
+
+    const transportContainer = document.querySelector('.waveform-transport');
+    if (transportContainer) {
+      initWaveformTransport(transportContainer);
+    }
+  </script>
+</body>
+</html>
