@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maritime Vessel Traffic & AIS Radar Plotting World</title>
+  <style>
+    :root {
+      --ng-radar-surface: oklch(0.12 0.01 250);
+      --ng-grid-line: oklch(0.3 0.05 250);
+      --ng-ship-vessel: oklch(0.85 0.15 150);
+      --ng-alert-zone: oklch(0.6 0.2 25);
+      --ng-text-primary: oklch(0.95 0.02 250);
+      --ng-text-secondary: oklch(0.7 0.05 250);
+
+      --ng-font-display: "Rajdhani", sans-serif;
+      --ng-font-body: "Atkinson Hyperlegible", sans-serif;
+      --ng-font-mono: "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-radar-surface);
+      color: var(--ng-text-primary);
+      font-family: var(--ng-font-body);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+    }
+
+    .telemetry-panel {
+      border-right: 1px solid var(--ng-grid-line);
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      min-width: 0;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: 2rem;
+      margin: 0;
+      color: var(--ng-text-primary);
+      line-height: 1.2;
+    }
+
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--ng-font-mono);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--ng-grid-line);
+      padding-bottom: 0.5rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .data-label {
+      color: var(--ng-text-secondary);
+      text-transform: uppercase;
+    }
+
+    .data-value {
+      color: var(--ng-ship-vessel);
+    }
+
+    .data-value.alert {
+      color: var(--ng-alert-zone);
+    }
+
+    .radar-display {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 1 / 1;
+      border: 2px solid var(--ng-grid-line);
+      border-radius: 50%;
+      margin: 0 auto;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .radar-grid-x,
+    .radar-grid-y {
+      position: absolute;
+      background-color: var(--ng-grid-line);
+    }
+
+    .radar-grid-x {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+    }
+
+    .radar-grid-y {
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 100%;
+    }
+
+    .vessel-blip {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: var(--ng-ship-vessel);
+      border-radius: 50%;
+      top: 30%;
+      left: 60%;
+    }
+
+    .vessel-blip::after {
+      content: 'MMSI 311000000';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-family: var(--ng-font-mono);
+      font-size: 0.75rem;
+      color: var(--ng-text-secondary);
+      white-space: nowrap;
+    }
+
+    button.action-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--ng-grid-line);
+      color: var(--ng-text-primary);
+      font-family: var(--ng-font-mono);
+      padding: 0 1rem;
+      min-height: 44px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    button.action-btn:hover {
+      background: var(--ng-grid-line);
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .telemetry-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--ng-grid-line);
+        padding-right: 0;
+        padding-bottom: 2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="dashboard">
+    <aside class="telemetry-panel">
+      <h1>Maritime AIS Traffic</h1>
+
+      <div>
+        <div class="data-row">
+          <span class="data-label">Vessels Tracked</span>
+          <span class="data-value">1,492</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Active Alerts</span>
+          <span class="data-value alert">03</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">System Status</span>
+          <span class="data-value">NOMINAL</span>
+        </div>
+      </div>
+
+      <button class="action-btn" type="button">Acknowledge</button>
+    </aside>
+
+    <section class="radar-container" style="min-width: 0; width: 100%;">
+      <div class="radar-display">
+        <div class="radar-grid-x"></div>
+        <div class="radar-grid-y"></div>
+        <div class="vessel-blip"></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
