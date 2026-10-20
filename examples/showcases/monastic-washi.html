@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monastic Washi & Sumi Ink Editorial</title>
+  <style>
+    :root {
+      --ng-washi: oklch(0.96 0.015 82);
+      --ng-sumi: oklch(0.19 0.01 65);
+      --ng-vermilion: oklch(0.55 0.19 32);
+      --ng-font-display: 'Shippori Mincho', serif;
+      --ng-font-body: 'Source Serif 4', serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-washi);
+      color: var(--ng-sumi);
+      font-family: var(--ng-font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+      min-height: 100dvh;
+    }
+
+    .marginalia {
+      font-family: var(--ng-font-mono);
+      font-size: 0.85rem;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+      border-left: 1px solid var(--ng-sumi);
+      padding-left: 1rem;
+      min-width: 0;
+    }
+
+    .hanko {
+      width: 40px;
+      height: 40px;
+      background-color: var(--ng-vermilion);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ng-washi);
+      font-weight: bold;
+      writing-mode: horizontal-tb;
+    }
+
+    .editorial-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      min-width: 0;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.2;
+      margin: 0;
+      color: var(--ng-sumi);
+    }
+
+    p {
+      font-family: var(--ng-font-body);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin: 0;
+      max-width: 65ch;
+    }
+
+    .folio {
+      font-family: var(--ng-font-mono);
+      font-size: 0.85rem;
+      align-self: flex-end;
+      margin-top: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="marginalia">
+      <span>MONASTIC WASHI</span>
+      <span>ED. 01</span>
+      <div class="hanko">印</div>
+    </aside>
+    <main class="editorial-content">
+      <h1>The Essence of Empty Space</h1>
+      <p>
+        In traditional Japanese aesthetics, Ma (間) translates to negative space, or the gap between structural elements. It is not merely an emptiness, but a dynamic spatial interval that gives shape to the whole.
+      </p>
+      <p>
+        Here, we explore the intersection of raw washi paper and deep sumi ink, creating an asymmetric editorial experience grounded in timeless typographic principles and deliberate pacing.
+      </p>
+      <div class="folio">FOLIO 01 — SUMI & WASHI</div>
+    </main>
+  </div>
+</body>
+</html>
