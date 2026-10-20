@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinned Vertical Stratum & Epoch Timeline Rail</title>
+    <style>
+        :root {
+            --rail-bg: oklch(0.98 0.01 90);
+            --rail-fg: oklch(0.20 0.02 260);
+            --rail-accent: oklch(0.60 0.15 30);
+            --rail-subtle: oklch(0.90 0.02 90);
+
+            font-family: 'Source Serif 4', serif;
+            color: var(--rail-fg);
+            background-color: var(--rail-bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100dvh;
+        }
+
+        .chronicle-root {
+            position: relative;
+            min-height: 100dvh;
+            min-width: 0;
+        }
+
+        .stratum-rail-wrapper {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100dvh;
+            width: 4rem; /* 64px */
+            border-right: 1px solid var(--rail-subtle);
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 2rem;
+        }
+
+        .epoch-indicator {
+            width: 0.75rem; /* 12px */
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: var(--rail-accent);
+            opacity: 0.5;
+            transition: opacity 200ms ease, transform 200ms ease;
+            transform: scale(1);
+        }
+
+        .epoch-content {
+            margin-left: 4rem;
+        }
+
+        .epoch-item {
+            min-height: 100dvh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        time {
+            font-family: 'IBM Plex Mono', monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.875rem;
+            color: var(--rail-accent);
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-top: 1rem;
+            margin-bottom: 0;
+            line-height: 1.1;
+        }
+
+        .epoch-description {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.125rem;
+            max-width: 60ch;
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            min-width: 44px;
+            padding: 0 1rem;
+            margin-top: 2rem;
+            background-color: var(--rail-fg);
+            color: var(--rail-bg);
+            border: none;
+            border-radius: 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 200ms ease;
+        }
+
+        .nav-button:hover, .nav-button:focus-visible {
+            background-color: var(--rail-accent);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .epoch-indicator {
+                transition: none !important;
+                transform: scale(1) !important;
+                opacity: 1 !important;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="chronicle-root">
+        <div class="stratum-rail-wrapper">
+            <nav aria-label="Timeline Epochs">
+                <div class="epoch-indicator" aria-hidden="true"></div>
+                <div class="epoch-indicator" aria-hidden="true"></div>
+                <div class="epoch-indicator" aria-hidden="true"></div>
+            </nav>
+        </div>
+        <div class="epoch-content">
+            <article class="epoch-item">
+                <time datetime="1998">1998</time>
+                <h2>The Analog Foundation</h2>
+                <p class="epoch-description">
+                    Before the digital acceleration, the structural principles were laid down in physical space. Architecture was bound by the constraints of gravity and material resistance.
+                </p>
+                <button class="nav-button">Explore Era</button>
+            </article>
+            <article class="epoch-item">
+                <time datetime="2005">2005</time>
+                <h2>Digital Expansion</h2>
+                <p class="epoch-description">
+                    The network proliferated. Grids became fluid, and typography broke free from the static page. The screen became a stage for choreographed interactions.
+                </p>
+                <button class="nav-button">Explore Era</button>
+            </article>
+            <article class="epoch-item">
+                <time datetime="2012">2012</time>
+                <h2>Algorithmic Synthesis</h2>
+                <p class="epoch-description">
+                    Code generated form. The boundary between designer and system blurred as parametric models dictated the evolution of structural aesthetics.
+                </p>
+                <button class="nav-button">Explore Era</button>
+            </article>
+        </div>
+    </section>
+
+    <!-- Fallback script simulating GSAP logic for the showcase if needed, though often showcases are static HTML unless explicitly importing GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const mm = gsap.matchMedia();
+
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            const root = document.querySelector('.chronicle-root');
+            const railWrapper = document.querySelector('.stratum-rail-wrapper');
+            const epochs = gsap.utils.toArray('.epoch-item');
+
+            if (root && railWrapper && epochs.length > 0) {
+                ScrollTrigger.create({
+                    trigger: root,
+                    start: "top top",
+                    end: "bottom bottom",
+                    pin: railWrapper,
+                    pinSpacing: false
+                });
+
+                epochs.forEach((epoch, i) => {
+                    const indicator = railWrapper.querySelector(\`.epoch-indicator:nth-child(\${i + 1})\`);
+
+                    if (indicator) {
+                        ScrollTrigger.create({
+                            trigger: epoch,
+                            start: "top center",
+                            end: "bottom center",
+                            onEnter: () => gsap.to(indicator, { opacity: 1, scale: 1.1, duration: 0.3, ease: "power3.out" }),
+                            onLeave: () => gsap.to(indicator, { opacity: 0.5, scale: 1, duration: 0.3, ease: "power3.out" }),
+                            onEnterBack: () => gsap.to(indicator, { opacity: 1, scale: 1.1, duration: 0.3, ease: "power3.out" }),
+                            onLeaveBack: () => gsap.to(indicator, { opacity: 0.5, scale: 1, duration: 0.3, ease: "power3.out" })
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
