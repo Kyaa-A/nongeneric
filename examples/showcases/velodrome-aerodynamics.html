@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computational Fluid Dynamics & Wind-Tunnel Telemetry</title>
+  <style>
+    :root {
+      --va-bg: oklch(0.15 0.02 240);
+      --va-surface: oklch(0.20 0.02 240);
+      --va-text-primary: oklch(0.95 0.01 240);
+      --va-text-secondary: oklch(0.80 0.01 240);
+      --va-accent: oklch(0.70 0.15 200);
+
+      --font-display: "Rajdhani", sans-serif;
+      --font-body: "Work Sans", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--va-bg);
+      color: var(--va-text-primary);
+      font-family: var(--font-body);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .va-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    .va-header {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      margin: 0 0 32px 0;
+      color: var(--va-accent);
+    }
+
+    .va-data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      min-width: 0;
+    }
+
+    .va-card {
+      background-color: var(--va-surface);
+      padding: 24px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .va-card-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--va-text-secondary);
+    }
+
+    .va-telemetry {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      color: var(--va-text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .va-button {
+      background-color: var(--va-accent);
+      color: var(--va-bg);
+      border: none;
+      border-radius: 4px;
+      padding: 12px 24px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      cursor: pointer;
+      min-height: 44px;
+      margin-top: 32px;
+      align-self: flex-start;
+    }
+
+    .va-button:hover {
+      background-color: var(--va-text-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="va-container">
+    <h1 class="va-header">CFD & Telemetry</h1>
+    <div class="va-data-grid">
+      <div class="va-card">
+        <div class="va-card-title">Drag Coefficient</div>
+        <div class="va-telemetry">0.24 Cd</div>
+      </div>
+      <div class="va-card">
+        <div class="va-card-title">Airflow Velocity</div>
+        <div class="va-telemetry">120 m/s</div>
+      </div>
+      <div class="va-card">
+        <div class="va-card-title">Downforce</div>
+        <div class="va-telemetry">450 N</div>
+      </div>
+    </div>
+    <button class="va-button">Run Simulation</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    gsap.registerPlugin();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.querySelector(".va-container");
+
+      let ctx = gsap.context(() => {
+        let mm = gsap.matchMedia();
+
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          gsap.from(".va-card", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out"
+          });
+        });
+      }, container);
+    });
+  </script>
+</body>
+</html>
