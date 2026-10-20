@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinite Canvas Minimap & Coordinate Reticle</title>
+  <style>
+    :root {
+      --ng-color-surface: oklch(0.1 0 0);
+      --ng-color-grid: oklch(0.2 0 0);
+      --ng-color-accent: oklch(0.7 0.15 150);
+      --ng-color-text: oklch(0.9 0 0);
+      --ng-font-display: 'Barlow Condensed', sans-serif;
+      --ng-font-body: 'Atkinson Hyperlegible', sans-serif;
+      --ng-font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-color-surface);
+      color: var(--ng-color-text);
+      font-family: var(--ng-font-body);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 100dvh;
+      width: 100%;
+      min-width: 0;
+      position: relative;
+    }
+
+    .viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .canvas {
+      position: absolute;
+      width: min(100%, 4000px);
+      height: 4000px;
+      top: -1500px;
+      left: -1500px;
+      background-image:
+        linear-gradient(var(--ng-color-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--ng-color-grid) 1px, transparent 1px);
+      background-size: 100px 100px;
+      background-position: center center;
+    }
+
+    .reticle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--ng-color-accent);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .reticle::before,
+    .reticle::after {
+      content: '';
+      position: absolute;
+      background-color: var(--ng-color-accent);
+    }
+
+    .reticle::before {
+      top: 50%;
+      left: -10px;
+      right: -10px;
+      height: 1px;
+      transform: translateY(-50%);
+    }
+
+    .reticle::after {
+      left: 50%;
+      top: -10px;
+      bottom: -10px;
+      width: 1px;
+      transform: translateX(-50%);
+    }
+
+    .minimap-panel {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      width: 200px;
+      height: 200px;
+      background-color: var(--ng-color-surface);
+      border: 1px solid var(--ng-color-grid);
+      z-index: 20;
+    }
+
+    .minimap-view {
+      position: absolute;
+      border: 1px solid var(--ng-color-accent);
+      width: 40px;
+      height: 40px;
+      top: 80px;
+      left: 80px;
+      cursor: grab;
+    }
+
+    .minimap-view:active {
+      cursor: grabbing;
+    }
+
+    .controls {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 20;
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      background-color: transparent;
+      border: 1px solid var(--ng-color-grid);
+      color: var(--ng-color-text);
+      font-family: var(--ng-font-mono);
+      font-size: 0.9rem;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: var(--ng-color-grid);
+    }
+
+    .telemetry {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.9rem;
+      z-index: 20;
+      color: var(--ng-color-accent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="main-grid">
+    <div class="viewport" id="viewport">
+      <div class="canvas" id="canvas">
+        <!-- Canvas items go here -->
+      </div>
+      <div class="reticle"></div>
+    </div>
+
+    <div class="controls">
+      <button type="button">Reset</button>
+      <button type="button">Zoom In</button>
+      <button type="button">Zoom Out</button>
+    </div>
+
+    <div class="telemetry">
+      X: <span id="coord-x">0000.00</span> | Y: <span id="coord-y">0000.00</span>
+    </div>
+
+    <div class="minimap-panel" id="minimap">
+      <div class="minimap-view" id="minimap-view" aria-label="Minimap viewport"></div>
+    </div>
+  </main>
+
+  <script type="module">
+    import gsap from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
+    import { Draggable } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/Draggable.js';
+
+    gsap.registerPlugin(Draggable);
+
+    const viewport = document.getElementById('viewport');
+    const canvas = document.getElementById('canvas');
+    const minimap = document.getElementById('minimap');
+    const minimapView = document.getElementById('minimap-view');
+    const coordX = document.getElementById('coord-x');
+    const coordY = document.getElementById('coord-y');
+
+    const canvasSize = 4000;
+    const minimapSize = 200;
+    const scale = minimapSize / canvasSize;
+
+    function updateTelemetry() {
+      const viewRect = minimapView.getBoundingClientRect();
+      const minimapRect = minimap.getBoundingClientRect();
+
+      const x = (viewRect.left - minimapRect.left) / scale;
+      const y = (viewRect.top - minimapRect.top) / scale;
+
+      coordX.textContent = x.toFixed(2).padStart(7, '0');
+      coordY.textContent = y.toFixed(2).padStart(7, '0');
+
+      gsap.set(canvas, { x: -x, y: -y });
+    }
+
+    let ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        Draggable.create(minimapView, {
+          type: "x,y",
+          bounds: minimap,
+          inertia: true,
+          onDrag: updateTelemetry,
+          onThrowUpdate: updateTelemetry
+        });
+      });
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        Draggable.create(minimapView, {
+          type: "x,y",
+          bounds: minimap,
+          onDrag: updateTelemetry
+        });
+      });
+    });
+  </script>
+</body>
+</html>
