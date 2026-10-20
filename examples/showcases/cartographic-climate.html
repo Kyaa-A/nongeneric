@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth Observation Atlas</title>
+  <style>
+    :root {
+      --bg: oklch(0.98 0.01 200);
+      --surface: oklch(0.96 0.01 200);
+      --border: oklch(0.9 0.01 200);
+      --primary: oklch(0.4 0.1 200);
+      --text: oklch(0.2 0.02 200);
+      --muted: oklch(0.5 0.02 200);
+      --font-display: "Newsreader", serif;
+      --font-body: "Work Sans", sans-serif;
+      --font-mono: "Space Mono", monospace;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      margin: 0 0 1rem 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      flex-grow: 1;
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .datum-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+
+    .datum-value {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0.5rem;
+    }
+
+    .datum-label {
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    button {
+      background: var(--primary);
+      color: var(--bg);
+      border: none;
+      padding: 0 1.5rem;
+      min-height: 44px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container cartographic-canvas">
+    <h1>Global Sea Level Anomaly</h1>
+    <p>Observation metric aggregated from satellite altimetry records, projecting trends over the past decade.</p>
+
+    <div class="data-grid">
+      <article class="datum-card map-datum">
+        <div class="datum-value">+3.4 mm/yr</div>
+        <div class="datum-label">Rate of Change (Global)</div>
+      </article>
+      <article class="datum-card map-datum">
+        <div class="datum-value">98.5 mm</div>
+        <div class="datum-label">Peak Anomaly (Equatorial)</div>
+      </article>
+      <article class="datum-card map-datum">
+        <div class="datum-value">66.24&deg; N</div>
+        <div class="datum-label">Northern Ice Extent</div>
+      </article>
+    </div>
+
+    <button type="button">Update Telemetry</button>
+  </div>
+</body>
+</html>
