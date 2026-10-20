@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editorial Pricing Ledger</title>
+  <style>
+    :root {
+      --bg: oklch(0.98 0 0);
+      --surface: oklch(1 0 0);
+      --text: oklch(0.2 0 0);
+      --muted: oklch(0.5 0 0);
+      --border: oklch(0.9 0 0);
+      --accent: oklch(0.6 0.1 250);
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      min-height: 100dvh;
+      min-width: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Work Sans', sans-serif;
+      display: grid;
+      place-items: center;
+    }
+
+    h1, h2 {
+      font-family: 'Newsreader', serif;
+      margin: 0 0 1rem;
+    }
+
+    .pricing-ledger {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .ledger-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 2rem;
+    }
+
+    .ledger-table th,
+    .ledger-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ledger-table th {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ledger-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    .ledger-btn {
+      min-height: 44px;
+      padding: 0 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.875rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ledger-btn.primary {
+      background: var(--text);
+      color: var(--surface);
+      border-color: var(--text);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="pricing-ledger" id="ledger-container">
+    <div class="ledger-header">
+      <h2>Editorial Ledger</h2>
+      <p style="color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.875rem;">Specification Matrix</p>
+    </div>
+    <table class="ledger-table">
+      <thead>
+        <tr>
+          <th>Specification</th>
+          <th>Standard</th>
+          <th>Pro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="ledger-row">
+          <td>Telemetry</td>
+          <td>Basic</td>
+          <td>Advanced</td>
+        </tr>
+        <tr class="ledger-row">
+          <td>Latency</td>
+          <td>50ms</td>
+          <td>10ms</td>
+        </tr>
+        <tr class="ledger-row">
+          <td>Support</td>
+          <td>Community</td>
+          <td>Dedicated</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="ledger-actions">
+      <button class="ledger-btn">Acquire Standard</button>
+      <button class="ledger-btn primary">Acquire Pro</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    gsap.registerPlugin();
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".ledger-row", {
+          y: 20,
+          opacity: 0,
+          stagger: 0.05,
+          duration: 0.6,
+          ease: "power3.out"
+        });
+      });
+    }, document.getElementById("ledger-container"));
+  </script>
+</body>
+</html>
