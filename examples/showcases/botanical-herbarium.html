@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archival Botanical Herbarium</title>
+  <style>
+    :root {
+      --ng-parchment: oklch(0.955 0.016 86);
+      --ng-ink: oklch(0.21 0.015 65);
+      --ng-moss: oklch(0.46 0.09 148);
+      --ng-tag: oklch(0.56 0.13 42);
+      --ng-font-display: 'Cormorant Garamond', serif;
+      --ng-font-body: 'Source Serif 4', serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-parchment);
+      color: var(--ng-ink);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .archive-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+      gap: 3rem;
+      min-height: 100dvh;
+    }
+
+    .ledger-sidebar {
+      border-right: 1px solid var(--ng-ink);
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    .stamp {
+      width: fit-content;
+      border: 2px solid var(--ng-tag);
+      color: var(--ng-tag);
+      font-family: var(--ng-font-mono);
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transform: rotate(-5deg);
+      align-self: flex-start;
+    }
+
+    .ledger-info {
+      font-family: var(--ng-font-mono);
+      font-size: 0.85rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ledger-label {
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .specimen-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1.1;
+      margin: 0;
+      font-style: italic;
+      color: var(--ng-ink);
+    }
+
+    .taxonomy {
+      font-family: var(--ng-font-mono);
+      color: var(--ng-moss);
+      font-size: 1rem;
+      border-bottom: 1px solid var(--ng-moss);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      display: inline-block;
+    }
+
+    p {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--ng-font-mono);
+      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums;
+      margin-top: auto;
+    }
+
+    .data-table th, .data-table td {
+      border-top: 1px solid var(--ng-ink);
+      border-bottom: 1px solid var(--ng-ink);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    .data-table th {
+      font-weight: normal;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="archive-container">
+    <aside class="ledger-sidebar">
+      <div class="stamp">Verified Authentic</div>
+
+      <div class="ledger-info">
+        <span class="ledger-label">Collection:</span>
+        <span>Royal Botanical</span>
+
+        <span class="ledger-label">Date:</span>
+        <span>1894-10-12</span>
+
+        <span class="ledger-label">Cabinet:</span>
+        <span>IV-B</span>
+
+        <span class="ledger-label">Folio:</span>
+        <span>042</span>
+      </div>
+    </aside>
+
+    <main class="specimen-main">
+      <div class="taxonomy">Kingdom: Plantae > Tracheophyta > Polypodiopsida</div>
+
+      <h1>Adiantum capillus-veneris</h1>
+
+      <p>
+        Commonly known as the Southern Maidenhair Fern. This specimen was carefully pressed and preserved in the late 19th century. Note the delicate, fan-shaped pinnules and the wiry, dark rachis that give this genus its characteristic appearance.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Specimen ID</th>
+            <th>Collector</th>
+            <th>Location</th>
+            <th>Condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BH-8842-A</td>
+            <td>Dr. E. Thorne</td>
+            <td>Devon, UK</td>
+            <td>Preserved</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>
