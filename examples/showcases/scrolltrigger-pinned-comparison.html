@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger Pinned Before/After Lens Wipe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-surface: oklch(0.15 0.02 250);
+      --color-foreground: oklch(0.95 0.02 250);
+      --color-accent: oklch(0.7 0.15 180);
+      --font-display: "Syne", sans-serif;
+      --font-body: "Work Sans", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-surface);
+      color: var(--color-foreground);
+      font-family: var(--font-body);
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .spacer {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .comparison-container {
+      position: relative;
+      width: 100%;
+      min-height: 100dvh;
+      overflow: hidden;
+      min-width: 0; /* for flex/grid safety */
+    }
+
+    .before-image, .after-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .before-image {
+      background-color: oklch(0.2 0.05 250);
+    }
+
+    .after-image {
+      background-color: oklch(0.3 0.1 180);
+      clip-path: inset(0% 100% 0% 0%);
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 1rem;
+      border: 1px solid currentColor;
+    }
+
+    .stats {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .action-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 1.5rem;
+      background: transparent;
+      border: 2px solid var(--color-foreground);
+      color: var(--color-foreground);
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      margin: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .after-image {
+        /* Keep it halfway or static if no animations allowed */
+        clip-path: inset(0% 50% 0% 0%) !important;
+      }
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "gsap": "https://esm.sh/gsap@3.12.5",
+        "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="spacer">Scroll Down</div>
+
+  <main class="comparison-container">
+    <div class="before-image">
+      <div class="badge">Raw Telemetry</div>
+      <h2>BEFORE</h2>
+      <div class="stats">LATENCY: 142ms</div>
+      <button type="button" class="action-btn">Analyze</button>
+    </div>
+
+    <div class="after-image">
+      <div class="badge">Processed</div>
+      <h2>AFTER</h2>
+      <div class="stats">LATENCY: 12ms</div>
+      <button type="button" class="action-btn">Deploy</button>
+    </div>
+  </main>
+
+  <div class="spacer">Scroll Up</div>
+
+  <script type="module">
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const container = document.querySelector('.comparison-container');
+      const afterImage = container.querySelector('.after-image');
+
+      if (container && afterImage) {
+        gsap.to(afterImage, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top top",
+            end: "+=150%",
+            pin: true,
+            scrub: true,
+            anticipatePin: 1
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
