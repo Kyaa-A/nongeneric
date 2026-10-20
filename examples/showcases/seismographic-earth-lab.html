@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geophysical Seismograph & Subsurface Stratum World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono&family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ng-stratum: oklch(0.2 0.05 40);
+      --ng-mantle: oklch(0.3 0.1 35);
+      --ng-core: oklch(0.5 0.2 30);
+      --ng-seismograph: oklch(0.9 0.05 200);
+      --ng-font-display: 'Barlow Condensed', sans-serif;
+      --ng-font-body: 'Work Sans', sans-serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-stratum);
+      color: var(--ng-seismograph);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: 3rem;
+      min-height: 100dvh;
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--ng-mantle);
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1.1;
+      margin: 0;
+      color: var(--ng-seismograph);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--ng-font-mono);
+      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .data-table th, .data-table td {
+      border-bottom: 1px solid var(--ng-mantle);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    .data-table th {
+      font-weight: normal;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .seismograph-container {
+      width: 100%;
+      height: 100px;
+      border: 1px solid var(--ng-core);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .seismograph-line {
+      width: 200%;
+      height: 100%;
+      background: repeating-linear-gradient(90deg, var(--ng-stratum) 0, var(--ng-stratum) 20px, var(--ng-seismograph) 20px, var(--ng-seismograph) 22px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      will-change: transform;
+    }
+
+    .action-button {
+      font-family: var(--ng-font-mono);
+      background-color: transparent;
+      color: var(--ng-seismograph);
+      border: 1px solid var(--ng-seismograph);
+      padding: 0 1rem;
+      min-height: 44px;
+      font-size: 1rem;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="meta-info">
+        <div style="font-family: var(--ng-font-mono); font-size: 0.85rem; font-variant-numeric: tabular-nums;">
+          <span style="opacity: 0.7; text-transform: uppercase;">Station ID:</span>
+          <span>GS-402</span><br>
+          <span style="opacity: 0.7; text-transform: uppercase;">Lat/Lon:</span>
+          <span>35.6895, 139.6917</span>
+        </div>
+      </div>
+      <button class="action-button">Calibrate Sensor</button>
+    </aside>
+
+    <main class="main-content">
+      <div style="font-family: var(--ng-font-mono); color: var(--ng-mantle); font-size: 1rem; border-bottom: 1px solid var(--ng-mantle); padding-bottom: 0.5rem; display: inline-block;">
+        Depth: 10km &gt; Subsurface Stratum
+      </div>
+
+      <h1>Seismic Activity Record</h1>
+
+      <p style="font-size: clamp(1rem, 1.5vw, 1.2rem); max-width: 60ch; margin: 0;">
+        Monitoring subsurface anomalous vibrations. The data below is collected from the primary mantle sensor network.
+      </p>
+
+      <div class="seismograph-container">
+        <div class="seismograph-line"></div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Event ID</th>
+            <th>Time (UTC)</th>
+            <th>Magnitude</th>
+            <th>Depth (km)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EQ-2023-A1</td>
+            <td>14:22:05</td>
+            <td>4.2</td>
+            <td>12.5</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>
