@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eurorack Modular Patchbay</title>
+  <style>
+    :root {
+      --ng-background: oklch(0.15 0 0);
+      --ng-panel: oklch(0.20 0 0);
+      --ng-text: oklch(0.9 0 0);
+      --ng-accent: oklch(0.7 0.15 150);
+      --ng-cable: oklch(0.6 0.18 20);
+
+      --ng-font-display: 'Chakra Petch', sans-serif;
+      --ng-font-body: 'Atkinson Hyperlegible', sans-serif;
+      --ng-font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-background);
+      color: var(--ng-text);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      min-width: 0;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin: 0;
+      color: var(--ng-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .panel {
+      background-color: var(--ng-panel);
+      padding: 2rem;
+      border: 2px solid var(--ng-text);
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    .module {
+      border: 1px solid var(--ng-cable);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      min-width: 0;
+    }
+
+    .module-title {
+      font-family: var(--ng-font-mono);
+      font-size: 1.2rem;
+      margin: 0;
+      color: var(--ng-text);
+      border-bottom: 1px solid var(--ng-cable);
+      padding-bottom: 0.5rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .value-display {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      background: var(--ng-background);
+      color: var(--ng-accent);
+      padding: 0.5rem;
+      text-align: right;
+      border: 1px solid var(--ng-text);
+    }
+
+    button {
+      background-color: transparent;
+      border: 2px solid var(--ng-accent);
+      color: var(--ng-accent);
+      font-family: var(--ng-font-display);
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      min-height: 44px;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background-color: var(--ng-accent);
+      color: var(--ng-background);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Modular Synth</h1>
+
+    <div class="panel">
+      <div class="module">
+        <h2 class="module-title">VCO 1</h2>
+        <div class="controls">
+          <div class="value-display">440.00 Hz</div>
+          <button>Sync</button>
+        </div>
+      </div>
+
+      <div class="module">
+        <h2 class="module-title">VCF</h2>
+        <div class="controls">
+          <div class="value-display">1200.50 Hz</div>
+          <button>Filter</button>
+        </div>
+      </div>
+
+      <div class="module">
+        <h2 class="module-title">LFO</h2>
+        <div class="controls">
+          <div class="value-display">0.55 Hz</div>
+          <button>Trigger</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
