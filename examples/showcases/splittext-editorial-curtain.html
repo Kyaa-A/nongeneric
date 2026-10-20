@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP SplitText Masked Editorial Curtain</title>
+    <style>
+        :root {
+            --ng-surface: oklch(0.98 0.01 90);
+            --ng-text: oklch(0.20 0.02 260);
+            --ng-accent: oklch(0.60 0.15 40);
+
+            --ng-font-display: 'Cormorant Garamond', serif;
+            --ng-font-body: 'Work Sans', sans-serif;
+            --ng-font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--ng-surface);
+            color: var(--ng-text);
+            font-family: var(--ng-font-body);
+            min-height: 100dvh;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-family: var(--ng-font-mono);
+            font-size: 0.875rem;
+        }
+
+        .hero-heading {
+            font-family: var(--ng-font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            font-weight: 400;
+            max-width: 20ch;
+        }
+
+        .mono-label {
+            font-family: var(--ng-font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            color: var(--ng-accent);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            min-width: 44px;
+            padding: 0 1.5rem;
+            background-color: var(--ng-text);
+            color: var(--ng-surface);
+            border: none;
+            font-family: var(--ng-font-body);
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 3rem;
+            text-decoration: none;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cta-button:hover, .cta-button:focus-visible {
+            background-color: var(--ng-accent);
+            outline: 2px solid var(--ng-accent);
+            outline-offset: 2px;
+        }
+
+        /* Essential GSAP classes */
+        .split-target {
+            visibility: hidden; /* Prevent FOUC */
+        }
+
+        .split-target.ready {
+            visibility: visible;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .split-target {
+                visibility: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="mono-label">Editorial Motion</div>
+    <div class="mono-label">001</div>
+</header>
+
+<main>
+    <div class="mono-label" id="curtain-container">Curtain Reveal</div>
+    <h1 class="hero-heading split-target">
+        The discipline of typography elevated by precise motion control.
+    </h1>
+    <div>
+        <button type="button" class="cta-button">Explore Journal</button>
+    </div>
+</main>
+
+<footer>
+    <p>© 2024 Non-Generic Designer</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const target = document.querySelector('.split-target');
+
+        if (!target) return;
+
+        gsap.registerPlugin(SplitText);
+
+        // Wait for fonts to load before splitting
+        document.fonts.ready.then(() => {
+            target.classList.add('ready');
+
+            const mm = gsap.matchMedia();
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                const split = new SplitText(target, { type: "lines" });
+                const splitInner = new SplitText(split.lines, { type: "lines" });
+
+                // Mask setup
+                gsap.set(split.lines, { overflow: "hidden" });
+                gsap.set(splitInner.lines, { yPercent: 100 });
+
+                gsap.to(splitInner.lines, {
+                    yPercent: 0,
+                    duration: 1.4,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    onComplete: () => {
+                        splitInner.revert();
+                        split.revert();
+                    }
+                });
+
+                return () => {
+                    splitInner.revert();
+                    split.revert();
+                };
+            });
+
+            mm.add("(prefers-reduced-motion: reduce)", () => {
+                gsap.fromTo(target,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 1, ease: "power2.out" }
+                );
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
