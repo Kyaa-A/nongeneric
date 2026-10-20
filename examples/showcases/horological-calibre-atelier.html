@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haute Horlogerie Calibre</title>
+  <style>
+    :root {
+      --ng-steel: oklch(0.92 0.01 260);
+      --ng-brass: oklch(0.75 0.14 85);
+      --ng-ruby: oklch(0.55 0.22 15);
+      --ng-obsidian: oklch(0.18 0.01 260);
+
+      --ng-font-display: 'Cormorant Garamond', serif;
+      --ng-font-body: 'Source Serif 4', serif;
+      --ng-font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--ng-obsidian);
+      color: var(--ng-steel);
+      font-family: var(--ng-font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      min-width: 0;
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    h1 {
+      font-family: var(--ng-font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0;
+      color: var(--ng-brass);
+      text-align: center;
+    }
+
+    .data-table {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    .data-table th, .data-table td {
+      border-bottom: 1px solid var(--ng-steel);
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .data-table th {
+      color: var(--ng-ruby);
+      font-weight: normal;
+    }
+
+    .action-button {
+      font-family: var(--ng-font-mono);
+      background-color: transparent;
+      color: var(--ng-brass);
+      border: 1px solid var(--ng-brass);
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      min-height: 44px;
+      min-width: 44px;
+      cursor: pointer;
+      align-self: center;
+    }
+
+    .action-button:focus-visible {
+      outline: 2px solid var(--ng-steel);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Escapement Blueprint</h1>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Material</th>
+          <th>Tolerance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Balance Wheel</td>
+          <td>Glucydur</td>
+          <td>0.001mm</td>
+        </tr>
+        <tr>
+          <td>Pallet Fork</td>
+          <td>Steel & Synthetic Ruby</td>
+          <td>0.002mm</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="action-button">Engage Mechanism</button>
+  </main>
+</body>
+</html>
