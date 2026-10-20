@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viticultural Terroir & Archival Cellar Register World Showcase</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+    :root {
+      --ng-bg: oklch(0.15 0.02 15);
+      --ng-fg: oklch(0.9 0.02 20);
+      --ng-accent: oklch(0.4 0.1 25);
+      --ng-border: oklch(0.3 0.02 20);
+      --ng-font-display: "Newsreader", serif;
+      --ng-font-body: "Source Serif 4", serif;
+      --ng-font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--ng-bg);
+      color: var(--ng-fg);
+      font-family: var(--ng-font-body);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 0;
+    }
+
+    article {
+      border: 1px solid var(--ng-border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    h1, h2 {
+      font-family: var(--ng-font-display);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .tabular {
+      font-family: var(--ng-font-mono);
+      font-variant-numeric: tabular-nums;
+      color: var(--ng-accent);
+    }
+
+    button {
+      background: transparent;
+      border: 1px solid var(--ng-border);
+      color: var(--ng-fg);
+      padding: 0.5rem 1rem;
+      font-family: var(--ng-font-mono);
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    button:hover {
+      background: var(--ng-accent);
+      color: var(--ng-bg);
+    }
+
+    .vintage-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--ng-border);
+      padding: 1rem 0;
+      min-width: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="container">
+    <article>
+      <h1>Archival Cellar Register</h1>
+      <section>
+        <div class="vintage-item">
+          <h2>Château Margaux</h2>
+          <span class="tabular">1996</span>
+        </div>
+        <div class="vintage-item">
+          <h2>Domaine de la Romanée-Conti</h2>
+          <span class="tabular">2005</span>
+        </div>
+        <div class="vintage-item">
+          <h2>Screaming Eagle</h2>
+          <span class="tabular">2010</span>
+        </div>
+      </section>
+      <button>Explore Archives</button>
+    </article>
+  </main>
+
+  <script type="module">
+    import gsap from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
+    import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js/+esm';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const element = document.getElementById('container');
+    let ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".vintage-item", {
+          y: 20,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: element,
+            start: "top center",
+          }
+        });
+      });
+    }, element);
+  </script>
+</body>
+</html>
