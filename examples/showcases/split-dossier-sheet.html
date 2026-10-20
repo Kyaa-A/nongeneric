@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split-Screen Archival Dossier</title>
+  <style>
+    :root {
+      --dossier-surface: oklch(0.97 0.01 95);
+      --dossier-ink: oklch(0.15 0.02 240);
+      --dossier-accent: oklch(0.5 0.15 40);
+      --dossier-border: oklch(0.85 0.01 240);
+      --font-display: "Playfair Display", serif;
+      --font-body: "Work Sans", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background-color: var(--dossier-surface);
+      color: var(--dossier-ink);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .dossier-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: 100dvh;
+      width: 100%;
+    }
+
+    .dossier-sidebar {
+      border-right: 1px solid var(--dossier-border);
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .dossier-main {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .dossier-header {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 0 0 2rem 0;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .dossier-meta {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 1rem 2rem;
+      margin-bottom: 3rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dossier-meta-label {
+      opacity: 0.6;
+      text-transform: uppercase;
+    }
+
+    .dossier-meta-value {
+      font-weight: 500;
+    }
+
+    .dossier-content {
+      font-size: clamp(1.125rem, 2vw, 1.25rem);
+      max-width: 60ch;
+      margin: 0;
+    }
+
+    .dossier-stamp {
+      font-family: var(--font-mono);
+      color: var(--dossier-accent);
+      border: 2px solid var(--dossier-accent);
+      padding: 0.75rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      transform: rotate(-12deg);
+      margin-top: auto;
+      align-self: flex-start;
+      font-size: 1rem;
+    }
+
+    .dossier-action {
+      background-color: var(--dossier-ink);
+      color: var(--dossier-surface);
+      border: none;
+      padding: 0 2rem;
+      min-height: 44px;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      cursor: pointer;
+      margin-top: auto;
+      align-self: flex-start;
+      text-transform: uppercase;
+    }
+
+    .dossier-action:focus-visible {
+      outline: 2px solid var(--dossier-accent);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .dossier-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .dossier-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--dossier-border);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dossier-layout">
+    <aside class="dossier-sidebar">
+      <div class="dossier-meta">
+        <span class="dossier-meta-label">ID</span>
+        <span class="dossier-meta-value">ARC-993-B</span>
+
+        <span class="dossier-meta-label">Date</span>
+        <span class="dossier-meta-value">1982-11-04</span>
+
+        <span class="dossier-meta-label">Status</span>
+        <span class="dossier-meta-value">Declassified</span>
+      </div>
+
+      <div class="dossier-stamp">Verified</div>
+    </aside>
+
+    <main class="dossier-main">
+      <h1 class="dossier-header">Subject Analysis Protocol</h1>
+      <p class="dossier-content">
+        Observations from the initial containment phase indicate anomalous behavioral patterns. The structural integrity of the primary artifact remains stable, though ambient energy fluctuations have been recorded at irregular intervals. Further monitoring is strictly required by archival protocols.
+      </p>
+
+      <button type="button" class="dossier-action">Acknowledge Receipt</button>
+    </main>
+  </div>
+</body>
+</html>
