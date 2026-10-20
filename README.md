@@ -105,13 +105,38 @@ node scripts/nongeneric.js worlds
 
 ---
 
-## Documentation & Reverse-Engineering Ledger
+## Documentation, Expansion Packs & Reverse-Engineering Ledger
 
+### Core Documentation
 - [REA Reverse-Engineering Evidence Ledger](docs/rea-reverse-engineering-ledger.md)
 - [NonGeneric System Architecture](docs/architecture.md)
 - [Main Skill Playbook](skills/nongeneric/SKILL.md)
 - [GSAP Mastery Manual](skills/nongeneric/references/gsap-mastery.md)
 - [82-Rule Anti-Slop Catalog](skills/nongeneric/references/anti-slop-catalog.md)
+
+### Expansion World Packs (`packs/worlds/` & `packs/index.mjs`)
+- [`broadcast-kinetic`](packs/worlds/broadcast-kinetic.mjs) — High-velocity motorsport/esports broadcast telemetry ([Showcase](examples/showcases/broadcast-kinetic.html))
+- [`monastic-washi`](packs/worlds/monastic-washi.mjs) — Monastic Washi & Sumi Ink editorial monograph ([Showcase](examples/showcases/monastic-washi.html))
+- [`avionics-cnc`](packs/worlds/avionics-cnc.mjs) — Anodized CNC & flight-deck avionics console ([Showcase](examples/showcases/avionics-cnc.html))
+- [`bauhaus-constructivist`](packs/worlds/bauhaus-constructivist.mjs) — Bauhaus Dessau & constructivist exhibition archive ([Showcase](examples/showcases/bauhaus-constructivist.html))
+- [`botanical-herbarium`](packs/worlds/botanical-herbarium.mjs) — Archival botanical herbarium & natural history ([Showcase](examples/showcases/botanical-herbarium.html))
+- [`fintech-ledger`](packs/worlds/fintech-ledger.mjs) — Institutional ledger & high-density financial telemetry
+- [`artifact-workbench`](packs/worlds/artifact-workbench.mjs) — Spatial AI artifact workbench & provenance canvas
+- [`atelier-lookbook`](packs/worlds/atelier-lookbook.mjs) — Independent luxury atelier & tactile lookbook
+
+### GSAP Motion Choreography Suites (`packs/motion/` & `docs/playbooks/`)
+- [`svg-choreography`](packs/motion/svg-choreography.mjs) — `DrawSVG`, `MorphSVG`, and orbital `MotionPath` ([Playbook](docs/playbooks/svg-choreography.md))
+- [`gesture-physics`](packs/motion/gesture-physics.mjs) — `Observer`, `Draggable`, and WCAG keyboard parity ([Playbook](docs/playbooks/gesture-physics.md))
+- [`velocity-marquee`](packs/motion/velocity-marquee.mjs) — Seamless `xPercent` loops & clamped scroll-velocity skew ([Playbook](docs/playbooks/velocity-marquee.md))
+- [`shader-stage-bridge`](packs/motion/shader-stage-bridge.mjs) — GSAP-to-WebGL/Three.js uniform proxy bridge ([Playbook](docs/playbooks/domain-webgl-stages.md))
+- [`text-scramble-telemetry`](packs/motion/text-scramble-telemetry.mjs) — Screen-reader-safe cipher glyph decode & odometer rolls ([Playbook](docs/playbooks/text-scramble-telemetry.md))
+- [`flip-shared-element`](packs/motion/flip-shared-element.mjs) — Shared-element `Flip` card-to-dossier & lightbox transitions ([Playbook](docs/playbooks/flip-shared-element.md))
+
+### Domain Anti-Slop Playbooks (`docs/playbooks/`)
+- [Fintech, Trading & Telemetry Consoles](docs/playbooks/domain-fintech-telemetry.md)
+- [AI-Native Workspaces (Anti-Chat-Bubble Slop)](docs/playbooks/domain-ai-native-workspaces.md)
+- [Luxury & Independent Editorial Commerce](docs/playbooks/domain-luxury-commerce.md)
+- [Creative Coding, WebGL & Shader Stages](docs/playbooks/domain-webgl-stages.md)
 
 ## License
 
