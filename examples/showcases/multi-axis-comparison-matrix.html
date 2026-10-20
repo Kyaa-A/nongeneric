@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Axis Tradeoff & Benchmark Comparison Ledger</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+    :root {
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Atkinson Hyperlegible', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --color-background: oklch(98% 0.01 90);
+      --color-foreground: oklch(20% 0.02 250);
+      --color-primary: oklch(60% 0.15 140);
+      --color-border: oklch(85% 0.05 250);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+      min-height: 100dvh;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .matrix-container {
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .matrix-header {
+      font-family: var(--font-display);
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 12px;
+    }
+
+    .matrix-row-label {
+      font-family: var(--font-display);
+      font-weight: 600;
+      align-self: center;
+    }
+
+    .matrix-cell {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      padding: 16px;
+      background: oklch(95% 0.02 90);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      text-align: right;
+    }
+
+    button {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0 24px;
+      min-height: 44px;
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: oklch(50% 0.15 140);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Comparison Ledger</h1>
+
+  <div class="matrix-container" id="matrix">
+    <div class="matrix-header">Metric</div>
+    <div class="matrix-header">Model Alpha</div>
+    <div class="matrix-header">Model Beta</div>
+    <div class="matrix-header">Model Gamma</div>
+
+    <div class="matrix-row-label">Latency (ms)</div>
+    <div class="matrix-cell">124.5</div>
+    <div class="matrix-cell">89.2</div>
+    <div class="matrix-cell">145.0</div>
+
+    <div class="matrix-row-label">Throughput (req/s)</div>
+    <div class="matrix-cell">1050</div>
+    <div class="matrix-cell">2100</div>
+    <div class="matrix-cell">800</div>
+
+    <div class="matrix-row-label">Cost ($/1M)</div>
+    <div class="matrix-cell">0.50</div>
+    <div class="matrix-cell">1.25</div>
+    <div class="matrix-cell">0.20</div>
+  </div>
+
+  <button type="button">Export Ledger</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    let ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(".matrix-cell",
+          { opacity: 0, y: 10 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.05,
+            ease: "power2.out",
+            duration: 0.4,
+            scrollTrigger: {
+              trigger: "#matrix",
+              start: "top 80%"
+            }
+          }
+        );
+      });
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(".matrix-cell", { opacity: 1, y: 0 });
+      });
+    });
+  </script>
+</body>
+</html>
