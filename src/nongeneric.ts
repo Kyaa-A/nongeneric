@@ -261,7 +261,7 @@ export function runCli(argv: string[]): number {
       JSON.stringify(
         {
           status: 'ok',
-          version: '1.0.0',
+          version: '1.1.0',
           node: process.version,
           rulesCount: ANTIPATTERN_RULES.length,
           worldsCount: WORLD_CONCEPTS.length,

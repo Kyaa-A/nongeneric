@@ -6,6 +6,9 @@ User-facing changes are recorded here. See [GitHub history](https://github.com/K
 
 ### Added
 
+- Manual terminal update check and regression coverage for session notices, cache, opt-out, and offline behavior.
+- Interactive restrained workspace and reading sample with project filtering and native settings dialog.
+
 - Restrained-design guidance selectively adapted from Emil Kowalski, with pinned source attribution and MIT notice; Awwwards reference-study guidance.
 
 - Project banner for the README.
@@ -21,6 +24,8 @@ User-facing changes are recorded here. See [GitHub history](https://github.com/K
 - Browser verification checks for settled captures, opacity-0 visibility false positives, multiple viewport heights, and touch hover.
 
 ### Changed
+
+- Align package and plugin metadata at 1.1.0 so existing hook-enabled installs can detect this update after merge to main.
 
 - Typography uses consistent role tokens rather than requiring three font families. Main workflow, typeset/quieter commands, and critique accept intentional stillness and task-appropriate CSS feedback.
 

@@ -40,6 +40,20 @@ Left unguided, LLMs converge on the statistical average of their training corpus
 
 The CLI has no runtime npm dependencies. Generated animation code requires GSAP and, for React examples, `@gsap/react` in the application where you use it.
 
+### Restrained interface sample
+
+Open [Fieldwork](examples/showcases/restrained-workspace.html) in a browser for two working views: a studio workspace and a reading page. Try project search, view navigation, and the native settings dialog. It uses one system font, shared type roles, quiet colors, and immediate state changes. Serve the repository locally to follow the reference links; GitHub displays the HTML source.
+
+### Keeping your installation current
+
+Update notices compare the installed version with `main`. Changes that exist only on a PR branch are not announced.
+
+- **Claude Code / Codex plugins:** installations that include our SessionStart hook check GitHub on a new session, at most once per 24 hours. A newer version produces a notice with host-specific update commands. Failed checks stay silent; checks time out after three seconds. Updates are never installed automatically.
+- **Terminal:** from an updated repository checkout, run `npm run check:update`. This checks immediately and prints either update instructions or that no newer version is available. Network/metadata failures return a readable error and exit status 1. Normal audit/detect output stays unchanged.
+- **Cursor / copied skill files / older installs without hooks:** there is no automatic notice. Repeat your original installation process against the latest repository version; preserve any local customizations first. For a clean Git checkout, use `git pull --ff-only`, then `npm ci && npm run build`. For `npx` usage, run the original GitHub package command again; an already cached copy may need refreshing through your package manager.
+
+Set `NONGENERIC_UPDATE_CHECK=0` to disable checks, including the manual checker. The checker sends no project files or usage data; it fetches only the public version manifest. How the session notice is displayed depends on the host. Copied files cannot retroactively acquire an update hook.
+
 ### 1. Run the CLI Instantly or Install the Skill Pack
 ```bash
 # Run a static audit on any project without cloning (Node 20+)
