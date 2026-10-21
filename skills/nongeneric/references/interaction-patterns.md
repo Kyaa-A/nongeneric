@@ -120,6 +120,18 @@ Before implementation, record: **task → chosen pattern → reason → focus/ke
 
 **See it:** [GOV.UK confirmation page example](https://design-system.service.gov.uk/patterns/confirmation-pages/).
 
+## Motion and interaction state
+
+Animation must follow the chosen container's interaction contract, not define it.
+
+- **Closed means unavailable:** `opacity: 0`, offscreen transforms, `pointer-events: none`, and `aria-hidden` alone do not remove controls from keyboard focus. Use `hidden`, a closed native `<dialog>`/popover, or an inert subtree with visual hiding. Do not override native closed-state hiding. GSAP `autoAlpha: 0` also sets `visibility: hidden`, but it is not a focus-management or modality system; preserve the semantic closed state through cleanup and interrupted transitions.
+- **State before choreography:** On open, establish the appropriate modality, visibility, and focus immediately; do not put focus entry in an animation completion callback or leave the focused control transparent. On close, follow the container's focus-return contract and remove the closing content from interaction. If keeping a visual exit animation, it must not leave hidden controls focusable or an obsolete modal trap active. Prefer an immediate close when the component cannot safely separate visual exit from interaction state.
+- **Velocity defaults:** Use fast CSS transitions of `120–180ms` for tooltips, menus, and popovers. Use purposeful compositor transitions of `320–450ms` for drawers, sheets, and dialogs, keeping controls available without waiting for motion. These are product-tunable defaults, not accessibility thresholds; respect the host component's lifecycle and avoid animating layout properties.
+- **Reduced motion:** Under `prefers-reduced-motion: reduce`, apply open/closed state instantly with zero travel and no delayed focus entry or return. Handle a preference change during an active transition too: after `gsap.matchMedia()` reverts its context, reapply the current semantic open/closed state so restored inline styles cannot reveal a closed overlay or hide an open one.
+- **Cleanup and interruption:** Cancel stale tweens and callbacks on rapid reopen, navigation, or unmount. Apply the current semantic state before clearing GSAP-owned inline styles; `clearProps` must not reveal a closed overlay. Test close/reopen mid-transition, Tab after close, focus return, and both motion preferences.
+
+See [motion-choreography.md](motion-choreography.md) for the wider velocity hierarchy. Implementation references: [GSAP CSSPlugin (`autoAlpha` and `clearProps`)](https://gsap.com/docs/v3/GSAP/CorePlugins/CSS/) and [HTML inert behavior](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert).
+
 ## Using the references
 
 These are original selection guidelines informed by the linked public design systems, not copied component implementations. Consulted 2026-10-21. Live examples and APIs can change: check the installed library's current behavior before adopting code. Source repositories: [GOV.UK Design System](https://github.com/alphagov/govuk-design-system), [Primer design](https://github.com/primer/design), [Adobe React Spectrum / React Aria](https://github.com/adobe/react-spectrum), and [Carbon](https://github.com/carbon-design-system/carbon).
