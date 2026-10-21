@@ -10,3 +10,4 @@ scripts/jules/.pr-review.log
 scripts/jules/.autopilot.log
 *.log
 .DS_Store
+.gstack/

@@ -11,12 +11,12 @@
 | `side-tab` | `border-l-4` or `border-left: 4px solid` on a rounded card | Square the corners where the stripe sits (`border-radius: 0`) or use a top hairline / badge indicator |
 | `border-accent-on-rounded` | Thick `border-top` / `border-bottom` on a rounded box | Square off the accented edge or place the stripe inside an `overflow: hidden` header |
 | `gradient-text` | `background-clip: text` + gradient on headings | Use solid high-contrast ink; highlight keywords via italic serif contrast |
-| `animated-gradient-text` | Shimmering animated `background-size` on gradient text | Remove background shimmer; use one-shot `SplitText` masked line entrance |
+| `animated-gradient-text` | Shimmering animated `background-size` on gradient text | Remove background shimmer; leave text still unless a one-shot entrance serves the task |
 | `purple-blue-gradient` | `#8b5cf6` / `#6366f1` / `from-purple-* to-indigo-*` | Use a committed OKLCH world palette |
 | `cyan-on-dark` | Neon cyan (`#06b6d4` / `#22d3ee`) on dark slate (`#0f172a`) | Use warm charcoal/obsidian ground with purposeful signal accent |
 | `dark-glow` | Diffuse `box-shadow: 0 0 40px rgba(...)` neon glow | Use crisp 1px structural hairlines or subtle elevation shadows |
 | `radial-halo` | Blurred radial gradient spotlight blobs behind text | Delete decorative blur blobs; let grid structure or live proof anchor the hero |
-| `overused-font` | Reflexive `Inter`, `Roboto`, `Arial`, `Space Grotesk` | Pair a distinctive display face + readable UI face + tabular monospace |
+| `overused-font` | Reflexive `Inter`, `Roboto`, `Arial`, `Space Grotesk` | Use deliberate typography roles; preserve a justified host font with a documented contextual waiver rather than adding families |
 | `bounce-easing` | `animate-bounce`, `elastic`, or overshooting `cubic-bezier` | Use crisp deceleration curves (`power3.out`, `cubic-bezier(0.22, 1, 0.36, 1)`) |
 | `sparkle-icon-ai` | `✨` emoji or generic 4-point AI sparkles | Name the concrete engine/model capability directly |
 | `em-dash-overuse` | High density of `—` em-dashes in UI prose | Rewrite with direct declarative clauses and periods |

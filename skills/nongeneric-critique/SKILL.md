@@ -18,7 +18,7 @@ When asked to critique, review, or audit a UI:
    ```
    This is a static-check score, not a visual or usability grade.
 3. **Execute Unanchored Dual-Persona Evaluation**:
-   - **Persona 1 (Design & Motion Director)**: Grade Typography (20), OKLCH Color & Atmosphere (20), Spatial Rhythm & 320px Responsive (20), GSAP Motion Choreography (20), and Copy Authenticity & Task Fit (20).
+   - **Persona 1 (Design & Motion Director)**: Use `../nongeneric/references/restrained-design.md`; do not penalize intentional stillness or one-family typography. Grade Typography (20), OKLCH Color & Atmosphere (20), Spatial Rhythm & 320px Responsive (20), Motion Appropriateness & Interaction Feedback (20), and Copy Authenticity & Task Fit (20).
    - **Persona 2 (Skeptical Target Visitor)**: Evaluate according to Visitor Mode: offer and proof for persuade, task completion for operate, comprehension for read, participation and exit for experience. Execute the primary task and a relevant recovery path; report observed outcomes. This is expert review, not user research.
 4. **Output Prioritized P0–P3 Remediation Plan**:
    - Follow the impact-based severity rules in `../nongeneric/references/critique-and-finish.md`. Task blockers, lost work, and false completion take priority over visual polish; keep these review priorities separate from CLI rule severities.

@@ -1,5 +1,5 @@
 ---
-description: Design and build a high-craft, anti-generic UI surface with OKLCH tokens, tri-voice typography, and GSAP choreography.
+description: Design and build a high-craft, anti-generic UI surface with OKLCH tokens, consistent typography roles, and purposeful motion or stillness.
 argument-hint: "[feature or surface description]"
 ---
 

@@ -3,8 +3,9 @@
 import { randomBytes } from 'node:crypto';
 import { mkdir, open, readFile, rename, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-type Platform = 'claude' | 'codex';
+type Platform = 'claude' | 'codex' | 'cli';
 
 interface PlatformConfig {
   manifest: string;
@@ -24,6 +25,13 @@ interface CacheRecord {
 }
 
 const CONFIG: Record<Platform, PlatformConfig> = {
+  cli: {
+    manifest: 'package.json',
+    remote: 'https://raw.githubusercontent.com/Kyaa-A/nongeneric/main/package.json',
+    message(installed, latest) {
+      return `nongeneric ${installed} -> ${latest} update available\nUpdate using your original installation method:\nhttps://github.com/Kyaa-A/nongeneric#keeping-your-installation-current`;
+    },
+  },
   claude: {
     manifest: '.claude-plugin/plugin.json',
     remote: 'https://raw.githubusercontent.com/Kyaa-A/nongeneric/main/.claude-plugin/plugin.json',
@@ -105,32 +113,47 @@ async function writeCache(data: string, platform: Platform, installed: string): 
   }
 }
 
+const terminalCheck = process.argv[process.argv.indexOf('--platform') + 1] === 'cli';
+
 async function main(): Promise<void> {
-  if (process.env.NONGENERIC_UPDATE_CHECK === '0') return;
+  if (process.env.NONGENERIC_UPDATE_CHECK === '0') {
+    if (terminalCheck) process.stdout.write('Update checks disabled by NONGENERIC_UPDATE_CHECK=0.\n');
+    return;
+  }
   const args = argsToObject(process.argv.slice(2));
+  if (!args && terminalCheck) throw new Error('Invalid arguments');
   const platform = args?.platform;
-  if (!args || (platform !== 'claude' && platform !== 'codex') || !args.root || !args.data) return;
+  if (!args || (platform !== 'claude' && platform !== 'codex' && platform !== 'cli')) return;
+  if (platform !== 'cli' && (!args.root || !args.data)) return;
+  const root = args.root ?? fileURLToPath(new URL('..', import.meta.url));
   const config = CONFIG[platform];
 
-  const manifest = JSON.parse(await readFile(join(args.root, config.manifest), 'utf8')) as Manifest;
-  if (manifest.name !== 'nongeneric') return;
+  const manifest = JSON.parse(await readFile(join(root, config.manifest), 'utf8')) as Manifest;
+  if (manifest?.name !== 'nongeneric') throw new Error('Invalid installed manifest');
   const current = parseVersion(manifest.version);
-  if (!current) return;
+  if (!current) throw new Error('Invalid installed version');
 
   try {
-    if (await freshCache(args.data, platform, manifest.version as string, DEFAULT_TTL_MS)) return;
+    if (platform !== 'cli' && await freshCache(args.data!, platform, manifest.version as string, DEFAULT_TTL_MS)) return;
   } catch {}
 
   const response = await fetch(new URL(config.remote), { signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS) });
-  if (!response.ok) return;
+  if (!response.ok) throw new Error('Update request failed');
   const remote = (await response.json()) as Manifest;
-  if (remote?.name !== 'nongeneric') return;
+  if (remote?.name !== 'nongeneric') throw new Error('Invalid remote manifest');
   const latest = parseVersion(remote.version);
-  if (!latest) return;
+  if (!latest) throw new Error('Invalid remote version');
 
   try {
-    await writeCache(args.data, platform, manifest.version as string);
+    if (platform !== 'cli') await writeCache(args.data!, platform, manifest.version as string);
   } catch {}
+
+  if (platform === 'cli') {
+    process.stdout.write(isNewer(current, latest)
+      ? `${config.message(manifest.version as string, remote.version as string)}\n`
+      : `No newer version available (installed ${manifest.version}).\n`);
+    return;
+  }
 
   if (isNewer(current, latest)) {
     process.stdout.write(
@@ -142,4 +165,9 @@ async function main(): Promise<void> {
   }
 }
 
-await main().catch(() => {});
+await main().catch(() => {
+  if (terminalCheck) {
+    process.stderr.write('Could not check for updates. Check your installation, arguments, and connection.\n');
+    process.exitCode = 1;
+  }
+});

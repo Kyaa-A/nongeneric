@@ -1,6 +1,6 @@
 {
   "name": "nongeneric",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Anti-generic AI Designer & GSAP Motion Choreographer Agent, Skill Pack, Deterministic Slop Detector, and Aesthetic World Engine.",
   "type": "module",
@@ -16,6 +16,7 @@
     "motion-plan": "node scripts/nongeneric.js motion-plan",
     "audit": "node scripts/nongeneric.js audit",
     "check:generated": "node tooling/check-generated.mjs",
+    "check:update": "node scripts/check-update.js --platform cli",
     "check:json": "node tooling/check-json.mjs",
     "test": "node --test",
     "jules:dispatch": "node scripts/jules/dispatch.mjs",
