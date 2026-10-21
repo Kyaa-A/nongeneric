@@ -25,7 +25,8 @@ Left unguided, LLMs converge on the statistical average of their training corpus
 | Verification Fixture | Static Audit Result | What It Demonstrates |
 | :--- | :--- | :--- |
 | [`examples/broken-ai-slop.html`](examples/broken-ai-slop.html) | **Grade F** (`23` primary findings) | Purple/indigo gradients, `Inter`, sparkle copy, `100vw` overflow, layout-thrashing GSAP tweens, and missing reduced-motion handling |
-| [`examples/crafted-knightvision.html`](examples/crafted-knightvision.html) | **100/100 Grade S** (`0` findings) | Committed `knightvision-editorial-telemetry` world, OKLCH tokens, tri-voice typography, cleanup-safe GSAP choreography, and a working interactive proof |
+| [`examples/crafted-knightvision.html`](examples/crafted-knightvision.html) | **100/100 Grade S** (`0` findings) | Committed `knightvision-editorial-telemetry` world, OKLCH tokens, tri-voice typography, reduced-motion-safe CSS transitions, and candidate move readout controls |
+| [`examples/showcases/matchmedia-adaptive-choreography.html`](examples/showcases/matchmedia-adaptive-choreography.html) | **100/100 Grade S** (`0` findings) | Responsive `gsap.matchMedia()` choreography with reduced-motion parity |
 
 ---
 
