@@ -2,7 +2,7 @@
 
 This playbook governs greenfield builds, feature additions, and full redesigns.
 
-Before selecting a direction, follow [ux-workflow.md](ux-workflow.md): define the primary task, flow, information hierarchy, applicable states, and acceptance scenarios. Preserve existing product conventions when extending a surface.
+Before selecting a direction, follow [ux-workflow.md](ux-workflow.md): define the primary task, flow, information hierarchy, applicable states, and acceptance scenarios. Consult [interaction-patterns.md](interaction-patterns.md) for container selection, focus/dismissal contracts, mobile modality, and overlay motion. Specify form recovery using the UX workflow before styling. Preserve existing product conventions when extending a surface.
 
 ## 1. Product Authority (`PRODUCT.md`) vs. Visual Authority (`DESIGN.md`)
 

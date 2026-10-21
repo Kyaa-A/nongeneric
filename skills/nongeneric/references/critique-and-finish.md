@@ -28,9 +28,13 @@ Arrives with a real job to do in the surface's **Visitor Mode** (`persuade`, `op
 
 ## 2. Severity Triage (P0–P3)
 
-| Priority | Classification | Examples | Gate Rule |
+Human/agent review priority follows observed user impact. These priorities do not change CLI rule severities or its static score. A strong visual score cannot offset a task blocker. Report the affected user, action, observed failure, and recovery before cosmetic findings; elevate any finding whose actual impact is more severe than its default category. Confirmed security defects (such as an unsafe DOM sink or exposed secret) remain P0 even without a visible symptom. Accessibility failures remain completion blockers even if a reviewer can finish the task.
+
+| Priority | User impact | Examples | Gate rule |
 | :--- | :--- | :--- | :--- |
-| **P0** | Blocking Defect / Breakage | Horizontal overflow at 320px, WCAG contrast failure, `gsap-layout-thrash`, `gsap-nested-scrolltrigger`, broken image, `unsafe-dom-sink` | **Must fix before completion** |
-| **P1** | AI-Slop Fingerprint / Mode Violation | `gradient-text`, `purple-blue-gradient`, `side-tab`, `overused-font`, `marketing-buzzword`, `missing-reduced-motion` | **Must fix before completion** |
-| **P2** | Craft & Rhythm Deficit | `monotonous-spacing`, `wide-tracking`, `transition-all`, `legacy-viewport-height` | **Fix in polish pass** |
-| **P3** | Advisory Polish | Minor cadence refinements, secondary hover micro-interactions | **Address or waive with reason** |
+| **P0** | Security defect, task blocked, work lost, or false completion | Keyboard cannot reach submit; save fails but reports success; dismissal silently loses entered work | **Must fix before completion** |
+| **P1** | Accessibility failure, serious friction, or inaccessible recovery | Insufficient required contrast; clipped content on narrow screens or zoom; error cannot be located; dialog focus escapes; critical status disappears | **Must fix before completion** |
+| **P2** | Craft or convention deficit without a task/access blocker | Inconsistent spacing, gratuitous interruption, unexamined typography, stylistic anti-pattern | **Fix in polish pass** |
+| **P3** | Advisory refinement | Minor cadence, secondary hover treatment | **Address or waive with reason** |
+
+For unknown behavior, state the scenario still needed; do not turn missing evidence into an invented observed defect. Use [interaction-patterns.md](interaction-patterns.md) to assess container choice and dismissal behavior in context.

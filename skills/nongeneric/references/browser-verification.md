@@ -20,6 +20,8 @@ Use the browser tools available in the host environment and follow the project's
 
 Run the primary scenario and a relevant failure/recovery path from the UX checklist. Verify actual outcomes, not merely button clicks. Automated visibility assertions (for example Playwright `toBeVisible`) pass for elements at `opacity: 0`; assert computed opacity or inspect a screenshot where it matters. On touch viewports, confirm hover styles are scoped to `(hover: hover)` so a tapped control doesn't stay highlighted, and that sticky bars never cover the focused control. Test keyboard-only navigation, visible focus, accessible names, dialog focus return, and status feedback. Use available accessibility tooling and targeted assistive-technology checks; state the tested coverage rather than claiming full compliance.
 
+For the chosen [interaction pattern](interaction-patterns.md), test its stated contract: opening, focus, Escape/close, outside click where supported, and mobile adaptation. Verify both modal focus containment and nonmodal access to the surrounding page as applicable. For forms, test invalid submit, correction, retained values, and repeated submission while pending. Exercise Back/refresh and an unknown save outcome when those are part of the flow; verify against the declared persistence and retry behavior.
+
 ## 4. Verify motion and runtime behavior
 
 Test reduced motion and normal motion. Confirm essential content stays visible and tasks remain usable. Exercise resize, navigation, repeated interactions, and mount/unmount where relevant. Check console errors and observable cleanup failures. If claiming a frame-rate target, record a performance trace and the device/test conditions; source patterns cannot prove 60fps.

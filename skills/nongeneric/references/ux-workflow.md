@@ -8,7 +8,7 @@ Record the intended user, operating context, entry point, primary task, and obse
 
 ## 2. Map the flow and information hierarchy
 
-Describe entry → decision → action → feedback → next step. Put the information needed for each decision beside its control. Keep the primary action obvious, name actions by their outcome, and provide a clear way back. Check what happens when the user revisits, refreshes, or abandons the flow.
+Describe entry → decision → action → feedback → next step. Put the information needed for each decision beside its control. Keep the primary action obvious, name actions by their outcome, and provide a clear way back. Define Back, refresh, deep-link, and abandonment behavior. Preserve relevant filters, selection, and list position on return where supported. State what unsaved work survives and how loss is prevented; do not promise persistence the product does not provide. Keep sensitive form values out of URLs.
 
 Match the visitor mode:
 
@@ -36,30 +36,45 @@ Mark irrelevant states with a reason. Do not invent backend functionality or sho
 
 ## 4. Place feedback by its job
 
-Decide where each state appears, not only what it says. Do not default to inserting every message inline into the page.
+Choose placement using [interaction-patterns.md](interaction-patterns.md). Match the feedback to where the user can act, rather than treating every failure or final result as a modal.
 
-| Feedback | Placement | Why |
+| Feedback | Placement | Recovery |
 | --- | --- | --- |
-| Field validation | Inline, next to the field, linked with `aria-describedby` | The fix happens at the field. |
-| Interruption that blocks the task (slot just taken, conflict, session expired) | Focused overlay: native `<dialog>` with `showModal()`; bottom sheet under ~600px | An inline notice pushes the form around, can land outside the viewport, and competes with the controls. A modal dialog gives focus entry, focus trap, `Esc`, and an inert background. |
-| Final result of the flow (booking confirmed, order placed) | Overlay or dedicated result view that shows the actual outcome and the next action | Do not swap the page body for a bare summary card. Keep the context recoverable behind it. |
-| Passive status (saved, copied) | Polite live region or toast that does not take focus | It must not interrupt the next action. |
+| Field validation | Beside the field; use an error summary for a form with dispersed errors or when the product convention requires it | Link errors to controls; after failed submit, focus the summary or first invalid field. |
+| Recoverable conflict (for example, a taken slot) | In the affected region when the user can resolve it there | Keep entered data, explain the unavailable choice, and expose actual alternatives. |
+| Decision that must precede further work | Named modal dialog with a clear cancel/exit path | Explain consequences and provide the decision inside it. |
+| Service failure / offline | Persistent message in the affected form or region | Preserve work and distinguish a confirmed failure from an unknown save outcome before offering retry. |
+| Completed flow | Dedicated result view for a durable receipt; local confirmation for a small completed action | Confirm the actual result and make the next action available. |
+| Passive status (saved, copied) | Polite status region or nonblocking toast | Do not steal focus or make a transient message the only record of an important outcome. |
 
-Overlay rules:
+When a dialog is appropriate, follow the library's focus and dismissal rules. Do not stack dialogs or automatically close on backdrop click when doing so would lose work. A bottom sheet is a presentation choice, not a different accessibility model.
 
-- Move focus into the dialog (its heading or first useful control) and return it on close. Close on `Esc`, an explicit close button, and backdrop click; closing must leave a valid state.
-- Offer the recovery inside the overlay. For a taken slot, show the lost choice struck through and the nearest alternatives as large buttons. Preserve everything the user already entered.
-- Do not stack overlays. Respect `prefers-reduced-motion` for the entrance.
+For a sticky action bar, reserve real layout space as well as scroll padding for its height. Verify the last control can scroll fully above it, including with the mobile keyboard open and at zoom. Do not force the primary action into the initial viewport at the expense of decision-critical information.
 
-Sticky action bars:
+## 5. Make forms understandable and recoverable
 
-- On small screens, a sticky summary and primary-action bar keeps the action reachable through a long form. Measure that the primary action is in the viewport at load and mid-form.
-- Add `scroll-padding-bottom` of at least the bar's height so focused or scrolled-to controls are never hidden behind it.
+- Ask only for information needed for the task. Group related inputs and keep the reading and keyboard sequence predictable; reveal optional detail without hiding required information or consequences.
+- Keep visible labels, required/optional indicators, format hints, and errors associated with controls. Use appropriate input types and autocomplete; allow paste and password managers.
+- Validate on submit by default. If earlier feedback helps, wait until the user has finished the relevant input; avoid showing errors on untouched fields or announcing every keystroke. Recheck corrected fields and clear obsolete errors.
+- Explain what is wrong and how to correct it. Set `aria-invalid` on invalid fields and connect errors with `aria-describedby`, retaining any still-relevant hint references.
+- An unexplained disabled submit button is not validation feedback. Prevent duplicate pending submissions while making progress and failure visible. Restore a usable action after a confirmed failure; reconcile an unknown outcome before repeating an operation that could create duplicates.
 
-## 5. Check interaction access
+## 6. Check interaction access
 
 Use semantic controls and accessible names. Define keyboard order, visible focus, dialog focus entry/return, and status announcements. Provide an alternative to drag-only actions. Check long content, text zoom, and applicable locale/RTL requirements. Preserve existing accessible component behavior.
 
-## 6. Define acceptance evidence
+## 7. Define acceptance evidence
 
 Write a short task scenario with expected outcomes, including at least one relevant failure/recovery path. Execute it using the [browser verification protocol](browser-verification.md). A persona critique is an expert review, not observed user research.
+
+Use the applicable examples as scenario templates, replacing the domain and expected result with product facts:
+
+| Scenario | Expected outcome |
+| --- | --- |
+| Submit a form with an invalid field, then correct it | The error is discoverable by keyboard, links to the field, retains other values, and clears after correction. |
+| A selected booking slot becomes unavailable | No false confirmation; entered details remain; another available slot can be selected without restarting. |
+| A save request times out | The UI reports uncertainty, preserves input, and checks the outcome before allowing an unsafe retry. |
+| Open a record from a filtered list, then go Back | Relevant list context returns as specified; refresh and deep-link behavior match the declared contract. |
+| Open and dismiss a dialog by keyboard | Focus enters and stays within the modal, then returns logically; dismissal does not silently discard work. |
+
+Record observed behavior, not just a checklist tick. For a redesign, compare the same task before and after: successful completion, errors/recovery, and avoidable steps. Do not invent user-study results or universal completion-time targets.
