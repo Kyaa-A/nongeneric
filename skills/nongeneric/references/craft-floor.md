@@ -4,18 +4,29 @@ Every surface built or touched by `nongeneric` must satisfy these baseline craft
 
 ---
 
-## 1. Tri-Voice Typography & Hierarchy
+## 1. Typography Roles & Consistent Hierarchy
 
-1. **Three Distinct Voices, Each with a Job**:
-   - **Display Voice (`--ng-font-display`)**: Carries headlines, section openers, and major focal numbers. Choose a typeface with unmistakable silhouette—either an editorial high-contrast serif (`Newsreader`, `Cormorant Garamond`, `Playfair Display`, `Instrument Serif` when paired intentionally) or a structural grotesque/condensed display (`Bricolage Grotesque`, `Syne`, `Big Shoulders Display`, `Archivo`).
+1. **Three Roles, Not Three Required Font Families**:
+   - Preserve the host type system. A single family with appropriate weights may serve display and body; add another only when it improves the hierarchy. Familiar fonts are valid deliberate choices. Display/body/mono token names describe roles, not a requirement to load three families.
+   - **Display Voice (`--ng-font-display`)**: Carries headlines, section openers, and major focal numbers. When an expressive display face serves the direction, consider an editorial high-contrast serif (`Newsreader`, `Cormorant Garamond`, `Playfair Display`, `Instrument Serif` when paired intentionally) or a structural grotesque/condensed display (`Bricolage Grotesque`, `Syne`, `Big Shoulders Display`, `Archivo`).
    - **Body / UI Voice (`--ng-font-body`)**: Carries paragraphs, form labels, buttons, and navigation. Must have a generous x-height and open apertures (`IBM Plex Sans`, `Work Sans`, `DM Sans`, `Plus Jakarta Sans`).
-   - **Telemetry / Code Voice (`--ng-font-mono`)**: Carries metrics, timestamps, coordinates, keyboard shortcuts, and code (`JetBrains Mono`, `IBM Plex Mono`, `Space Mono`, `Fira Code`). Always enforce `font-variant-numeric: tabular-nums`.
-2. **Fluid Modular Scale (`clamp()`)**:
-   - Never hardcode desktop pixel sizes on headings that overflow 320px screens. Use fluid `clamp()` tokens:
-     - Display H1: `clamp(2.25rem, 1.7rem + 2.8vw, 4.25rem)`, `line-height: 1.06`, `letter-spacing: -0.025em`, `text-wrap: balance`.
-     - Section H2: `clamp(1.625rem, 1.3rem + 1.5vw, 2.5rem)`, `line-height: 1.12`, `letter-spacing: -0.02em`, `text-wrap: balance`.
-     - Body copy: `clamp(1rem, 0.96rem + 0.2vw, 1.0625rem)`, `line-height: 1.6`, `max-width: 65ch`.
-     - Kicker / Metadata: `0.75rem` (`12px` floor), `text-transform: uppercase`, `letter-spacing: 0.08em`, `font-weight: 600`.
+   - **Telemetry / Code Voice (`--ng-font-mono`)**: Carries metrics, timestamps, coordinates, keyboard shortcuts, and code (`JetBrains Mono`, `IBM Plex Mono`, `Space Mono`, `Fira Code`). Use `font-variant-numeric: tabular-nums` when comparing aligned numeric values; omit the mono role when there is no code or data job.
+2. **Shared Role Tokens**:
+   - The role names below are application-authored examples, not additional CLI output. Generated world tokens are a starting point: retain the host font family, map or override generated sizes to the chosen roles, and remove unused font imports instead of loading every suggested family.
+   - Reuse the host scale first. For a new clean product UI, this is a starting scale at a default 16px root, not a universal prescription:
+
+     | Role token | Size | Line-height | Weight | Tracking | Typical use |
+     | --- | --- | --- | --- | --- | --- |
+     | `--ng-text-meta` | `0.875rem` | `1.4` | `400` | `0` | Supporting metadata |
+     | `--ng-text-label` | `0.875rem` | `1.4` | `500` | `0` | Labels, navigation, buttons |
+     | `--ng-text-body` | `1rem` | `1.6` | `400` | `0` | Paragraphs, input text |
+     | `--ng-text-title` | `1.25rem` | `1.3` | `600` | `-0.01em` | Panel titles |
+     | `--ng-text-section` | `1.5rem` | `1.25` | `600` | `-0.01em` | Section headings |
+     | `--ng-text-display` | `clamp(2rem, 1.5rem + 2vw, 3.5rem)` | `1.15` | `600` | `-0.02em` | Optional launch/editorial headline |
+
+   - Bind components to roles, including their weight and tracking. Do not use slightly different arbitrary sizes for equivalent labels on different screens. Define responsive changes once per role rather than per component.
+   - Use the display role only where the hierarchy needs it; a settings page does not need a hero-sized title. Keep form inputs at least 16px and reading columns around `60–75ch`. Retain user text scaling; do not shrink the root size to squeeze content in.
+   - Test long labels, 320px layouts, and 200% zoom. Check computed styles for matching roles across screens and states. Consistency is shared roles, not making all text the same size.
 3. **Strict Tracking & Case Rules**:
    - Never apply positive tracking (`letter-spacing > 0.04em`) to lowercase body text (`wide-tracking`).
    - Never crush tracking tighter than `-0.05em` (`extreme-negative-tracking`).

@@ -2,6 +2,8 @@
 
 This playbook governs greenfield builds, feature additions, and full redesigns.
 
+For calm craft, consult [restrained-design.md](restrained-design.md); shared typography roles and intentional stillness are valid design decisions.
+
 Before selecting a direction, follow [ux-workflow.md](ux-workflow.md): define the primary task, flow, information hierarchy, applicable states, and acceptance scenarios. Consult [interaction-patterns.md](interaction-patterns.md) for container selection, focus/dismissal contracts, mobile modality, and overlay motion. Specify form recovery using the UX workflow before styling. Preserve existing product conventions when extending a surface.
 
 ## 1. Product Authority (`PRODUCT.md`) vs. Visual Authority (`DESIGN.md`)
@@ -13,10 +15,10 @@ Never conflate what the product **is** with how the surface **looks**:
   - Real evidence on hand (benchmarks, engine telemetry, actual workflows, pricing, legal/brand constraints).
   - **Strict Anti-Fabrication Law**: Never invent fake testimonials, fake star ratings, fake company logos, or placeholder names (`John Doe`, `Acme Corp`). When real social proof does not exist, prove value through a **live working demonstration** in the interface.
 - **`DESIGN.md`** records the committed visual and motion system:
-  - The chosen Aesthetic World, lineage, and signature move.
+  - The chosen Aesthetic World, lineage, and optional signature detail.
   - OKLCH color tokens (ground, elevated, glass, primary/secondary/muted ink, primary/secondary accent, hairline border, semantic states).
-  - Tri-voice typography (Display, Body, Tabular Monospace) and fluid `clamp()` scale.
-  - GSAP motion grammar (primary ease, entrance choreography, scroll behavior, interaction physics, reduced-motion contract).
+  - Shared typography roles, chosen families, and responsive size/line-height/weight tokens; use a fluid display scale only where needed.
+  - Motion decision (intentional stillness, CSS feedback, or justified choreography), shared timing/easing tokens when used, and the reduced-motion contract.
 
 ## 2. Breaking the LLM Ranking Rut with `nongeneric seed`
 
@@ -35,15 +37,15 @@ To defeat this:
 ### `persuade` (Landing Pages, Launches, Product Showcases)
 - The opening viewport must make the offer unmistakable, expose the primary conversion action, and **demonstrate a working slice of the product** right in the hero.
 - Material coverage is required: the world owns the background ground, surface borders, and headline voice.
-- Never ship a static "poster" with no working HTML controls, and never ship a neutral white/slate template with a single accent color sticker.
+- Keep real working HTML controls and clear product identity. Deliberate restrained neutrals are valid; do not substitute an unexamined template with an accent-color sticker for a direction.
 
 ### `operate` (Workbenches, Dashboards, Terminals, Tools)
 - Task velocity and scannability come first.
-- The world lends **only four things**:
+- The world lends **up to four things**:
   1. **Typography** (e.g., tabular monospace numbers + crisp grotesque headers)
   2. **Palette** (committed ground, rail, and semantic state colors)
   3. **Density** (tight, scannable row/cell spacing)
-  4. **One Signature Move** (e.g., inline depth histograms behind orderbook rows, or transit-map service health lines)
+  4. **At Most One Signature Detail** (e.g., inline depth histograms behind orderbook rows, or transit-map service health lines)
 - Controls and navigation remain standard, keyboard-accessible platform controls.
 
 ### `read` (Documentation, Technical Specifications, Essays)
@@ -52,4 +54,4 @@ To defeat this:
 
 ### `experience` (Interactive Narratives, Exhibitions, Portfolios)
 - The work itself leads from the first viewport.
-- Commit to one dominant choreographed interaction per section (e.g., pinned horizontal exhibition chamber or kinetic typography stage) while keeping surrounding chrome quiet.
+- Use at most one dominant expressive interaction per section (e.g., pinned horizontal exhibition chamber or kinetic typography stage) while keeping surrounding chrome quiet.

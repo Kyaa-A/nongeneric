@@ -93,6 +93,10 @@ node scripts/nongeneric.js worlds
 
 ---
 
+## Restrained Design and Typography
+
+Clean interfaces can be distinctive through composition, consistent text roles, and precise feedback. The [restrained-design guide](skills/nongeneric/references/restrained-design.md) selectively adapts [Emil Kowalski's skills](https://github.com/emilkowalski/skills), with pinned provenance and the upstream MIT notice. It makes intentional stillness and a single-family type system valid choices, while retaining GSAP for motion that serves the task. Awwwards references help study visual craft; they do not certify usability or promise awards.
+
 ## UX and Verification Workflow
 
 Start with the [Interaction Pattern Library](skills/nongeneric/references/interaction-patterns.md) when deciding between a modal, side panel, sidebar, popover, menu, tooltip, inline disclosure, toast, banner, or full page. It includes selection trade-offs, keyboard/focus and mobile behavior, acceptance checks, and links to live examples from open-source design systems.
@@ -108,9 +112,9 @@ The CLI audit score measures recognized source patterns only. Even an empty-body
 | Visitor Mode | Primary Intent | How the Aesthetic World Enters | First Viewport Mandate |
 | :--- | :--- | :--- | :--- |
 | **`persuade`** | Evaluate offer, feel desire, convert | World owns ground, surfaces, and display type; conversion lives inside the form | Must feature a **live working interactive proof** (e.g., `KnightVision` live evaluation board), never a static stock graphic |
-| **`operate`** | Execute tasks, inspect telemetry, act | World lends **only 4 things**: `type`, `palette`, `density`, and **one signature move** | Real working shell, standard platform controls, semantic status colors |
+| **`operate`** | Execute tasks, inspect telemetry, act | World lends **up to four things**: `type`, `palette`, `density`, and **at most one signature detail** | Real working shell, standard platform controls, semantic status colors |
 | **`read`** | Understand docs, specs, or essays | World owns the **frame** (masthead, rail, openers, marginalia); prose column stays calm | `60ch–75ch` reading measure, `>=16px` body, `>=7:1` contrast |
-| **`experience`** | Immerse in interactive/spatial work | The interactive or narrative work leads from the first pixel | One dominant choreographed move per viewport region |
+| **`experience`** | Immerse in interactive/spatial work | The interactive or narrative work leads from the first pixel | At most one dominant expressive treatment; stillness when appropriate |
 
 ---
 
@@ -136,13 +140,13 @@ The CLI audit score measures recognized source patterns only. Even an empty-body
 | :--- | :--- |
 | `/nongeneric:init` | Interview for durable product truth and write `PRODUCT.md` |
 | `/nongeneric:shape` | Classify Visitor Mode, roll Concept Seed, and confirm a surface brief |
-| `/nongeneric:craft` | Build a complete anti-generic surface with OKLCH tokens, working proof, and GSAP motion |
+| `/nongeneric:craft` | Build a complete anti-generic surface with OKLCH tokens, working proof, and task-appropriate motion |
 | `/nongeneric:animate` | Choreograph cleanup-safe, reduced-motion-safe 60fps GSAP animations |
 | `/nongeneric:overdrive` | Push a surface with a signature pinned stage, FLIP morph, or kinetic type |
 | `/nongeneric:critique` | Run an unanchored Dual-Persona Critique (`Design Director` + `Target Visitor`) |
 | `/nongeneric:audit` | Execute the 82-rule detector and 0–100 Static-Check Scorecard with P0–P3 plan |
 | `/nongeneric:polish` | Final alignment, contrast, focus-ring, and optical spacing pass |
-| `/nongeneric:typeset` | Upgrade to Tri-Voice typography, fluid `clamp()`, and `tabular-nums` |
+| `/nongeneric:typeset` | Unify typography roles, shared sizing, responsive hierarchy, and numeric alignment |
 | `/nongeneric:colorize` | Apply cohesive OKLCH tokens and eliminate AI gradients / gray-on-color |
 | `/nongeneric:layout` | Replace monotonous 3-card grids with asymmetric compositions |
 | `/nongeneric:bolder` | Re-roll in the `bolder` register and deepen world commitment |

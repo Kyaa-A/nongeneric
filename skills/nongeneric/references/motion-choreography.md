@@ -2,6 +2,8 @@
 
 Motion is never wallpaper. Every animation in `nongeneric` either **clarifies spatial causality** (where did this element come from, what changed when I clicked?) or **intensifies world atmosphere** without delaying user action.
 
+Before choosing a blueprint, apply [restrained-design.md](restrained-design.md): frequent tasks may need no animation. Static layouts and CSS-only feedback are valid; the following animation guidance applies when motion is justified.
+
 ---
 
 ## 1. Choreography Principles
@@ -15,10 +17,10 @@ Motion is never wallpaper. Every animation in `nongeneric` either **clarifies sp
    - Per-item stagger (`each`) must stay between `0.03s` and `0.08s`, or total stagger (`amount`) must stay `<= 0.35s`. Never make a user wait 2 seconds for a list of items to finish appearing.
 3. **Never Block Interaction**:
    - Interactive controls must be clickable immediately, even while entrance animations finish settling.
-4. **One Focal Motion per Viewport**:
-   - If the hero has a live interactive chessboard or telemetry oscilloscope, keep the surrounding background and navigation completely still. Competing motion in multiple regions creates visual chaos.
+4. **At Most One Focal Motion per Viewport**:
+   - If the hero has a live interactive chessboard or telemetry oscilloscope, keep the surrounding background and navigation completely still. Competing motion in multiple regions creates visual chaos. Zero decorative motion is valid.
 5. **Mandatory Reduced-Motion Parity (`missing-reduced-motion`)**:
-   - Every CSS stylesheet must include a `@media (prefers-reduced-motion: reduce)` block, and every GSAP timeline must use `gsap.matchMedia()` so users with vestibular sensitivity receive instant, zero-travel state changes.
+   - Stylesheets that introduce animation or motion transitions must provide a `@media (prefers-reduced-motion: reduce)` alternative, and GSAP motion must use `gsap.matchMedia()` so users with vestibular sensitivity receive instant, zero-travel state changes.
 6. **Binary UI State Belongs to CSS**:
    - Selected/unselected, open/closed, and similar class-driven states should animate with CSS transitions on the class. A GSAP tween writes inline styles that outlive the state: a `fromTo` on a selected item left its fill visible after the selection moved, and tweens restarted by React re-renders froze halfway. Use GSAP for entrances, choreography, and dialog or ticket reveals; if GSAP must touch a stateful element, clear only GSAP-owned styles after restoring the current semantic state. Never let `clearProps` reveal a closed overlay; follow the interaction-state contract linked above.
 7. **Content Is Visible at Rest**:

@@ -12,10 +12,10 @@ When a reviewer agent is handed the builder's direction contract ("We built a Ne
 
 ### Persona A: The Design & Motion Director
 Evaluates the surface cold across 5 pillars (20 points each = 100 total):
-1. **Typography & Hierarchy (20 pts)**: Does the display face have unmistakable character? Are line lengths (`60–75ch`), heading line-heights (`1.06–1.18`), and tabular numerals (`tabular-nums`) dialed in?
+1. **Typography & Hierarchy (20 pts)**: Are type roles consistent across screens and states, with clear hierarchy, readable measures, and appropriate numeric alignment? One well-chosen family can be sufficient.
 2. **OKLCH Color & Material Atmosphere (20 pts)**: Does the palette commit to a cohesive material world with tinted neutrals and high-contrast ink, free of purple/indigo AI gradients and gray-on-color muddiness?
 3. **Spatial Rhythm & 320px Responsive Integrity (20 pts)**: Does the topology avoid the 3-equal-card SaaS rut? Does it hold from `320px` to `1440px+` with zero horizontal overflow?
-4. **GSAP Motion Choreography (20 pts)**: Are entrances, scroll triggers, and interactive state changes smooth (60fps compositor properties), purposeful, and `prefers-reduced-motion` safe?
+4. **Motion Appropriateness & Interaction Feedback (20 pts)**: Does each animation earn its place through purpose and frequency, with immediate feedback, interruption safety, and reduced-motion support? Intentional stillness can earn full credit; do not require GSAP or decorative movement. Verify performance before claiming a frame-rate target.
 5. **Copy Authenticity & Task Fit (20 pts)**: Does the surface support its visitor mode with truthful content? Persuade surfaces demonstrate the product; operate surfaces enable the task; read surfaces support comprehension; experience surfaces make participation discoverable.
 
 ### Persona B: The Skeptical Target Visitor
