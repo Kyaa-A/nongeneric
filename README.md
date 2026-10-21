@@ -22,6 +22,11 @@ Left unguided, LLMs converge on the statistical average of their training corpus
 
 `nongeneric` replaces template slop with **committed Aesthetic Worlds**, **4 Visitor Modes**, **60fps GSAP Choreography**, and a **deterministic 82-rule static detector & source auditor**.
 
+| Verification Fixture | Static Audit Result | What It Demonstrates |
+| :--- | :--- | :--- |
+| [`examples/broken-ai-slop.html`](examples/broken-ai-slop.html) | **Grade F** (`23` primary findings) | Purple/indigo gradients, `Inter`, sparkle copy, `100vw` overflow, layout-thrashing GSAP tweens, and missing reduced-motion handling |
+| [`examples/crafted-knightvision.html`](examples/crafted-knightvision.html) | **100/100 Grade S** (`0` findings) | Committed `knightvision-editorial-telemetry` world, OKLCH tokens, tri-voice typography, cleanup-safe GSAP choreography, and a working interactive proof |
+
 ---
 
 ## Quickstart
@@ -34,13 +39,16 @@ Left unguided, LLMs converge on the statistical average of their training corpus
 
 The CLI has no runtime npm dependencies. Generated animation code requires GSAP and, for React examples, `@gsap/react` in the application where you use it.
 
-### 1. Install as an Agent Plugin / Skill
+### 1. Run the CLI Instantly or Install the Skill Pack
 ```bash
-# Claude Code
+# Run a static audit on any project without cloning (Node 20+)
+npx --yes github:Kyaa-A/nongeneric audit ./src
+
+# Claude Code plugin install
 /plugin marketplace add Kyaa-A/nongeneric
 /plugin install nongeneric@nongeneric
 
-# Universal / Codex / Cursor / Antigravity
+# Local checkout for Universal / Codex / Cursor / Antigravity
 git clone https://github.com/Kyaa-A/nongeneric.git
 cd nongeneric
 npm ci

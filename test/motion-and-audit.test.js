@@ -1,8 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { generateMotionBlueprint } from '../scripts/motion-planner.js';
 import { detectInText } from '../scripts/detector.js';
@@ -111,9 +111,22 @@ describe('NonGeneric GSAP Motion Planner, Auditor & CLI', () => {
     assert.ok(brokenAudit.remediationPlan.some((item) => item.priority === 'P0'));
   });
 
-  it('executes CLI commands cleanly via runCli', () => {
+  it('executes CLI commands cleanly via runCli and via symlinked bin (npm link / npx)', () => {
     assert.equal(runCli(['doctor']), 0);
     assert.equal(runCli(['detect', '--quiet', 'examples/crafted-knightvision.html']), 0);
     assert.equal(runCli(['detect', '--quiet', 'examples/broken-ai-slop.html']), 2);
+
+    const dir = mkdtempSync(join(tmpdir(), 'nongeneric-symlink-'));
+    try {
+      const linkPath = join(dir, 'nongeneric');
+      symlinkSync(resolve('scripts/nongeneric.js'), linkPath);
+      const result = spawnSync(process.execPath, [linkPath, 'doctor'], { encoding: 'utf8' });
+      assert.equal(result.status, 0, result.stderr);
+      const parsed = JSON.parse(result.stdout);
+      assert.equal(parsed.status, 'ok');
+      assert.equal(parsed.rulesCount, 82);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });

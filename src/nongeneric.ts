@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { writeFileSync } from 'node:fs';
+import { realpathSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { auditTargets, formatAuditReport } from './auditor.js';
 import { STRUCTURAL_COMPOSITIONS, WORLD_CONCEPTS } from './catalog.js';
@@ -278,8 +278,17 @@ export function runCli(argv: string[]): number {
   return 1;
 }
 
-const isMain =
-  process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href;
-if (isMain) {
+function isMainModule(): boolean {
+  const argv1 = process.argv[1];
+  if (!argv1) return false;
+  if (import.meta.url === pathToFileURL(argv1).href) return true;
+  try {
+    return import.meta.url === pathToFileURL(realpathSync(argv1)).href;
+  } catch {
+    return false;
+  }
+}
+
+if (isMainModule()) {
   process.exitCode = runCli(process.argv.slice(2));
 }

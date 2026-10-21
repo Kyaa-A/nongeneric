@@ -20,6 +20,7 @@ User-facing changes are recorded here. See [GitHub history](https://github.com/K
 
 ### Changed
 
+- CLI entrypoint resolves symlinked executables (`realpathSync`) and ships with executable permissions on `scripts/nongeneric.js` so `npm link` (`nongeneric`) and `npx github:Kyaa-A/nongeneric` execute properly.
 - Feedback placement follows the task and recovery location instead of requiring overlays for blocking interruptions and final results.
 - Human critique uses impact-based P0–P3 triage, with task, security, and accessibility blockers ahead of visual polish; CLI severities remain unchanged.
 - Audit scores now explicitly describe static source checks, not design quality.
