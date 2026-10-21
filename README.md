@@ -86,6 +86,8 @@ node scripts/nongeneric.js worlds
 
 ## UX and Verification Workflow
 
+Start with the [Interaction Pattern Library](skills/nongeneric/references/interaction-patterns.md) when deciding between a modal, side panel, sidebar, popover, menu, tooltip, inline disclosure, toast, banner, or full page. It includes selection trade-offs, keyboard/focus and mobile behavior, acceptance checks, and links to live examples from open-source design systems.
+
 Before styling, define the primary task, user flow, information hierarchy, and applicable loading, empty, success, error, and recovery states using the [UX workflow](skills/nongeneric/references/ux-workflow.md).
 
 Before claiming a surface is verified, follow the [browser verification protocol](skills/nongeneric/references/browser-verification.md): inspect rendered layouts, complete the task and a recovery path, and check keyboard access, reduced motion, and runtime behavior. Report tested scope and unavailable evidence explicitly.

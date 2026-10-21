@@ -30,7 +30,7 @@ Whenever you create, redesign, animate, or polish a surface, follow these 5 step
    - **`read`** (Documentation, technical guides, essays, changelogs): The world owns the **frame** (masthead, navigation rail, ground, section openers, marginalia, and code/table styling), while the **reading column stays calm** (`60ch–75ch`, `>=16px`, `>=7:1` contrast, zero noisy backgrounds behind prose).
    - **`experience`** (Interactive stories, scrollytelling, portfolios, exhibitions): The interactive or spatial work leads from the first pixel. Commit to one dominant choreographed move per viewport.
 
-3. Read [references/ux-workflow.md](references/ux-workflow.md). Define the primary task, flow, information hierarchy, applicable interaction states, and a failure/recovery scenario before choosing the visual direction. Decide where each state appears: field validation inline at the field; blocking interruptions and the flow's final result in a focused overlay (`<dialog>`, bottom sheet on small screens), not inserted inline into the page.
+3. Read [references/ux-workflow.md](references/ux-workflow.md). Define the primary task, flow, information hierarchy, applicable interaction states, and a failure/recovery scenario before choosing the visual direction. Use [references/interaction-patterns.md](references/interaction-patterns.md) to choose the interaction container by task, context, and interruption cost. Explain why a modal, side panel, popover, inline region, or dedicated page fits; a blocking error or successful result does not automatically require an overlay.
 
 ### Step 2: Roll the Concept Seed & Commit to an Aesthetic World
 When starting a new surface or redesigning an generic one, run the offline-first Concept Seed engine to break the LLM's #1 ranking rut:
@@ -80,6 +80,7 @@ node scripts/nongeneric.js audit <target-files-or-dir>
 
 ## 2. Reference Playbooks Index
 
+- [references/interaction-patterns.md](references/interaction-patterns.md) — Decision guide for dialogs, drawers, sidebars, popovers, menus, tooltips, disclosures, notifications, and result pages, with live examples.
 - [references/ux-workflow.md](references/ux-workflow.md) — Task flows, information hierarchy, interaction states, recovery, and acceptance scenarios.
 - [references/browser-verification.md](references/browser-verification.md) — Rendered inspection, task execution, accessibility and motion checks, and evidence reporting.
 
