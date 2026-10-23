@@ -5,7 +5,7 @@ type: software
 authors:
   - given-names: Asnari
     family-names: Pacalna
-    alias: Kyaa-A
-repository-code: "https://github.com/Kyaa-A/nongeneric"
+    alias: codewithasnari
+repository-code: "https://github.com/codewithasnari/nongeneric"
 license: MIT
 version: 1.1.0

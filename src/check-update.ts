@@ -27,21 +27,21 @@ interface CacheRecord {
 const CONFIG: Record<Platform, PlatformConfig> = {
   cli: {
     manifest: 'package.json',
-    remote: 'https://raw.githubusercontent.com/Kyaa-A/nongeneric/main/package.json',
+    remote: 'https://raw.githubusercontent.com/codewithasnari/nongeneric/main/package.json',
     message(installed, latest) {
-      return `nongeneric ${installed} -> ${latest} update available\nUpdate using your original installation method:\nhttps://github.com/Kyaa-A/nongeneric#keeping-your-installation-current`;
+      return `nongeneric ${installed} -> ${latest} update available\nUpdate using your original installation method:\nhttps://github.com/codewithasnari/nongeneric#keeping-your-installation-current`;
     },
   },
   claude: {
     manifest: '.claude-plugin/plugin.json',
-    remote: 'https://raw.githubusercontent.com/Kyaa-A/nongeneric/main/.claude-plugin/plugin.json',
+    remote: 'https://raw.githubusercontent.com/codewithasnari/nongeneric/main/.claude-plugin/plugin.json',
     message(installed, latest) {
       return `nongeneric ${installed} -> ${latest} update available\nRun:\n  claude plugin marketplace update nongeneric\n  claude plugin update nongeneric@nongeneric\nThen restart Claude Code or run /reload-plugins.`;
     },
   },
   codex: {
     manifest: '.codex-plugin/plugin.json',
-    remote: 'https://raw.githubusercontent.com/Kyaa-A/nongeneric/main/.codex-plugin/plugin.json',
+    remote: 'https://raw.githubusercontent.com/codewithasnari/nongeneric/main/.codex-plugin/plugin.json',
     message(installed, latest) {
       return `nongeneric ${installed} -> ${latest} update available\nRun:\n  codex plugin marketplace upgrade nongeneric\n  codex plugin remove nongeneric@nongeneric\n  codex plugin add nongeneric@nongeneric\nThen start a new Codex session.`;
     },

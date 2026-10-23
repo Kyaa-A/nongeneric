@@ -45,14 +45,14 @@
   ],
   "author": {
     "name": "Asnari Pacalna",
-    "url": "https://github.com/Kyaa-A"
+    "url": "https://github.com/codewithasnari"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kyaa-A/nongeneric.git"
+    "url": "https://github.com/codewithasnari/nongeneric.git"
   },
-  "homepage": "https://github.com/Kyaa-A/nongeneric",
+  "homepage": "https://github.com/codewithasnari/nongeneric",
   "devDependencies": {
     "@types/node": "24.2.1",
     "typescript": "5.9.2"

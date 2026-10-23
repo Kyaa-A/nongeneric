@@ -2,7 +2,7 @@
 /**
  * NonGeneric — Autonomous Jules PR Reviewer & Gatekeeper
  *
- * Inspects open PRs on Kyaa-A/nongeneric:
+ * Inspects open PRs on codewithasnari/nongeneric:
  * 1. Marks draft PRs as ready for review once files are committed.
  * 2. Verifies PRs do not contain merge conflicts, forbidden files (.env, node_modules),
  *    or unsafe DOM sinks (innerHTML, outerHTML, eval).

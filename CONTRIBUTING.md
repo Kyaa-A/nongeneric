@@ -6,7 +6,7 @@ UX guidance, accessibility improvements, documentation fixes, and reproducible b
 
 ## Before You Start
 
-- Search [existing issues](https://github.com/Kyaa-A/nongeneric/issues) before opening a new one.
+- Search [existing issues](https://github.com/codewithasnari/nongeneric/issues) before opening a new one.
 - For a large feature or new dependency, discuss the scope in an issue first.
 - Report vulnerabilities privately using the [security policy](SECURITY.md).
 - Use Node.js 20 or newer and npm. Fork the repository, clone your fork, and create a focused branch.

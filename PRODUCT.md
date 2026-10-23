@@ -13,7 +13,7 @@ AI-assisted software engineers, design engineers, creative technologists, and au
 Eliminate statistical-average AI design slop (`Inter` + purple/indigo gradients + `background-clip: text` + 3-column icon-in-circle card grids + layout-thrashing animations + 320px horizontal overflow) by equipping AI coding agents with a deterministic 82-rule static detector, an offline-first Aesthetic World & Concept Seed engine, an OKLCH token compiler, and a production-grade GreenSock (GSAP) motion choreography generator.
 
 ## Positioning
-The only multi-harness agent skill and CLI engine that unifies opinionated Art Direction & Visitor Mode laws (`pbakaus/impeccable`), 8-domain GreenSock motion mastery (`greensock/gsap-skills`), and 320px–1440px responsive layout hardening (`Kyaa-A/doesntbreak`) with an offline-first Concept Seed catalog and zero-dependency TypeScript detector.
+The only multi-harness agent skill and CLI engine that unifies opinionated Art Direction & Visitor Mode laws (`pbakaus/impeccable`), 8-domain GreenSock motion mastery (`greensock/gsap-skills`), and 320px–1440px responsive layout hardening (`codewithasnari/doesntbreak`) with an offline-first Concept Seed catalog and zero-dependency TypeScript detector.
 
 ## Operating Context
 Runs both inside agent prompt contexts (`skills/nongeneric/SKILL.md`, `commands/*.md`, `agents/*.md`) and as a deterministic CLI verification gate (`npx nongeneric detect`, `seed`, `tokens`, `motion-plan`, `audit`) in local development and GitHub Actions CI.

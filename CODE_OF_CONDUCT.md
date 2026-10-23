@@ -17,7 +17,7 @@ Harassment, threats, discriminatory remarks, sexualized conduct, personal attack
 
 ## Scope and Enforcement
 
-These expectations apply to repository issues, pull requests, code reviews, and other project-managed spaces. The maintainer, [Asnari Pacalna (Kyaa-A)](https://github.com/Kyaa-A), may edit or remove content and warn, restrict, or block participants based on the severity and repetition of a violation.
+These expectations apply to repository issues, pull requests, code reviews, and other project-managed spaces. The maintainer, [Asnari Pacalna (codewithasnari)](https://github.com/codewithasnari), may edit or remove content and warn, restrict, or block participants based on the severity and repetition of a violation.
 
 Report problematic GitHub content using GitHub's reporting tools. For a project moderation concern without sensitive details, open an issue requesting maintainer attention and link the relevant public interaction. Do not post private information in an issue; use GitHub's private reporting tools for abuse involving sensitive information.
 

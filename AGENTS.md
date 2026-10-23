@@ -1,4 +1,4 @@
-# AGENTS.md — Working in `Kyaa-A/nongeneric`
+# AGENTS.md — Working in `codewithasnari/nongeneric`
 
 This repository contains the **NonGeneric** Designer & GSAP Motion Choreographer Skill Pack, Sub-Agents, and TypeScript Detector/Seed/Token/Motion CLI Engine.
 

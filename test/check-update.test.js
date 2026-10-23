@@ -44,7 +44,7 @@ it('notifies old Claude and Codex installs with a nonblocking hook response', (t
     assert.match(notice.systemMessage, /1\.0\.0 -> 1\.1\.0 update available/);
     assert.match(notice.systemMessage, new RegExp(platform + ' plugin'));
   }
-  assert.ok(app.requests().every((r) => r.signal && r.url.startsWith('https://raw.githubusercontent.com/Kyaa-A/nongeneric/')));
+  assert.ok(app.requests().every((r) => r.signal && r.url.startsWith('https://raw.githubusercontent.com/codewithasnari/nongeneric/')));
 });
 
 it('caches successful checks and honors opt-out without a request', (t) => {

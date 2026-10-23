@@ -8,7 +8,7 @@ Build interfaces around real user tasks, deliberate visual direction, and purpos
 
 [MIT license](LICENSE) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md) · [Code of conduct](CODE_OF_CONDUCT.md)
 
-`nongeneric` is a multi-harness AI agent plugin (Claude Code, OpenAI Codex, Cursor, Universal Agents, GitHub Copilot) and zero-dependency TypeScript CLI engine reverse-engineered via [`morluto/rea`](https://github.com/morluto/rea) from [`pbakaus/impeccable`](https://github.com/pbakaus/impeccable) and [`greensock/gsap-skills`](https://github.com/greensock/gsap-skills), fused with [`Kyaa-A/StockFish`](https://github.com/Kyaa-A/StockFish) (`KnightVision`) editorial-interactive craft and [`Kyaa-A/doesntbreak`](https://github.com/Kyaa-A/doesntbreak) 320px–1440px responsive discipline.
+`nongeneric` is a multi-harness AI agent plugin (Claude Code, OpenAI Codex, Cursor, Universal Agents, GitHub Copilot) and zero-dependency TypeScript CLI engine reverse-engineered via [`morluto/rea`](https://github.com/morluto/rea) from [`pbakaus/impeccable`](https://github.com/pbakaus/impeccable) and [`greensock/gsap-skills`](https://github.com/greensock/gsap-skills), fused with [`codewithasnari/StockFish`](https://github.com/codewithasnari/StockFish) (`KnightVision`) editorial-interactive craft and [`codewithasnari/doesntbreak`](https://github.com/codewithasnari/doesntbreak) 320px–1440px responsive discipline.
 
 ---
 
@@ -57,14 +57,14 @@ Set `NONGENERIC_UPDATE_CHECK=0` to disable checks, including the manual checker.
 ### 1. Run the CLI Instantly or Install the Skill Pack
 ```bash
 # Run a static audit on any project without cloning (Node 20+)
-npx --yes github:Kyaa-A/nongeneric audit ./src
+npx --yes github:codewithasnari/nongeneric audit ./src
 
 # Claude Code plugin install
-/plugin marketplace add Kyaa-A/nongeneric
+/plugin marketplace add codewithasnari/nongeneric
 /plugin install nongeneric@nongeneric
 
 # Local checkout for Universal / Codex / Cursor / Antigravity
-git clone https://github.com/Kyaa-A/nongeneric.git
+git clone https://github.com/codewithasnari/nongeneric.git
 cd nongeneric
 npm ci
 npm run build
@@ -216,7 +216,7 @@ npm run check:json
 npm test
 ```
 
-Use [GitHub Issues](https://github.com/Kyaa-A/nongeneric/issues) for bugs, usage questions, and feature requests. Include the command or prompt, version/commit, and a small reproduction. Report vulnerabilities through [SECURITY.md](SECURITY.md).
+Use [GitHub Issues](https://github.com/codewithasnari/nongeneric/issues) for bugs, usage questions, and feature requests. Include the command or prompt, version/commit, and a small reproduction. Report vulnerabilities through [SECURITY.md](SECURITY.md).
 
 ### Troubleshooting
 
@@ -227,6 +227,6 @@ Use [GitHub Issues](https://github.com/Kyaa-A/nongeneric/issues) for bugs, usage
 
 ## License and Acknowledgments
 
-This repository is licensed under the [MIT License](LICENSE), copyright © 2026 [Asnari Pacalna (Kyaa-A)](https://github.com/Kyaa-A).
+This repository is licensed under the [MIT License](LICENSE), copyright © 2026 [Asnari Pacalna (codewithasnari)](https://github.com/codewithasnari).
 
 The project draws on the projects credited above; see the [evidence ledger](docs/rea-reverse-engineering-ledger.md) for provenance. External libraries, fonts, assets, and referenced projects retain their respective licenses. The repository's MIT license does not relicense those materials.

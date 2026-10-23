@@ -15,7 +15,7 @@
 
 ## Reporting a Vulnerability
 
-Please report security issues privately through [GitHub Security Advisories](https://github.com/Kyaa-A/nongeneric/security/advisories/new). Include affected versions, reproduction steps, impact, and a minimal example with secrets removed. Avoid publishing exploit details in public issues while a report is being assessed.
+Please report security issues privately through [GitHub Security Advisories](https://github.com/codewithasnari/nongeneric/security/advisories/new). Include affected versions, reproduction steps, impact, and a minimal example with secrets removed. Avoid publishing exploit details in public issues while a report is being assessed.
 
 If private reporting is unavailable, open an issue asking the maintainer to enable a private reporting channel without including vulnerability details. There is no guaranteed response time.
 

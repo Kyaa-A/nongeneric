@@ -80,7 +80,7 @@
 
 ---
 
-## 4. Aesthetic Benchmark: `Kyaa-A/StockFish` (`KnightVision`) & `Kyaa-A/doesntbreak`
+## 4. Aesthetic Benchmark: `codewithasnari/StockFish` (`KnightVision`) & `codewithasnari/doesntbreak`
 
 ### 4.1 `KnightVision` (`stockfish.asnari.tech`) Aesthetic Deconstruction
 From inspecting the user's flagship `KnightVision` interface:
